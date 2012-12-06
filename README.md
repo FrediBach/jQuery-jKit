@@ -34,7 +34,7 @@ And of course you can execute a command through JavaScript if needed:
     $('#myelement').jKit('scroll', { 'speed': 1000, 'dynamic': 'no' });
 
 
-Commands
+Currently Available Commands
 --------
 
 - background
