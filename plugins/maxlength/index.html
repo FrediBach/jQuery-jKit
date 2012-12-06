@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+	<title>Maxlength with jQuery by Anon</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="jquery-1.3.1.min.js"></script>
+	<script type="text/javascript" src="jquery.maxlength.js"></script>
+	<link type="text/css" href="style.css" rel="stylesheet" />
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#textarea_1_1').maxlength();
+			$('div.example2 textarea').maxlength();
+			$('div.example3 textarea').maxlength();
+			$('#textarea_3_2').maxlength( {status: false, showAlert: true} );
+			$('#textarea_4_1').maxlength( {events: ['blur']} );
+			$('div.example5 textarea, div.example5 input').maxlength( {slider: true} );
+		});
+	</script>
+</head>
+<body>
+	<h1>Maxlength with jQuery</h1>
+	<p>In this tutorial I will show you how to use <strong>jquery.maxlength.js</strong> on some common form fields</p>
+	<p>To start, you will need to download a copy of the jQuery library <a href="http://docs.jquery.com/Downloading_jQuery">http://docs.jquery.com/Downloading_jQuery</a>.
+	<br />You will also have to download the plugin jquery.maxlength.js</p>
+	<ul>
+		<li><a href="http://www.anon-design.se/demo/maxlength-jquery#changelog">Changelog</a></li>
+		<li><a href="http://www.anon-design.se">Anon-design.se</a></li>
+	</ul>
+	<p>When you have downloaded the copy you will need to include it in your file.</p>
+<pre>
+&lt;html&gt;
+  &lt;head&gt;
+    <b>&lt;script type="text/javascript" src="jquery.js"&gt;&lt;/script&gt;</b>
+  &lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- we will add our HTML content here --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+	
+	<p>Next step is to include jquery.maxlength.js</p>
+		
+<pre>
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;script type="text/javascript" src="jquery.js"&gt;&lt;/script&gt;
+    <b>&lt;script type="text/javascript" src="jquery.maxlength-min.js"&gt;&lt;/script&gt;</b>
+  &lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- we will add our HTML content here --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+	
+	<p>Now to the fun part, how to apply the functionality to your script.</p>
+	
+	<hr noshade="noshade" size="5"/>
+	
+	<form action="maxlength.html">
+		<h2>Textarea</h2>
+		<p>To use this on a simple textarea</p>
+		<textarea cols="50" rows="5" name="textarea_1_1" id="textarea_1_1"></textarea>
+	</form>
+		
+<pre>
+&lt;script type="text/javascript"&gt;
+  $(document).ready(function(){
+    $('#textarea_1_1').maxlength();
+  });
+&lt;/script&gt;
+</pre>
+
+	<hr noshade="noshade" size="5"/>
+
+	<div class="example2">
+		<form action="maxlength.html">
+			<h2>To use this on multiple textareas</h2>
+			<p>To use this on multiple textareas</p>
+			<textarea cols="50" rows="5" name="textarea_2_1" id="textarea_2_1"></textarea>
+			<textarea cols="50" rows="5" name="textarea_2_2" id="textarea_2_2"></textarea>
+			<textarea cols="50" rows="5" name="textarea_2_3" id="textarea_2_3"></textarea>
+		</form>
+	</div>
+
+<pre>
+&lt;script type="text/javascript"&gt;
+  $(document).ready(function(){
+    $('div.example2 textarea').maxlength();
+  });
+&lt;/script&gt;
+</pre>
+
+	<hr noshade="noshade" size="5"/>
+
+	<div class="example3">
+		<form action="maxlength.html">
+			<h2>Textareas</h2>
+			<p>To use this on multiple textareas, with diffrent settings</p>
+			<textarea cols="50" rows="5" name="textarea_3_1" id="textarea_3_1"></textarea>
+			<p>This textarea has no status indicator, but it has an alert notification</p>
+			<textarea cols="50" rows="5" name="textarea_3_2" id="textarea_3_2"></textarea>
+		</form>
+	</div>
+	
+<pre>
+&lt;script type="text/javascript"&gt;
+  $(document).ready(function(){
+	$('div.example3 textarea').maxlength();
+	$('#textarea_3_2').maxlength( {status: false, showAlert: true} );
+  });
+&lt;/script&gt;
+</pre>
+
+	<hr noshade="noshade" size="5"/>
+
+	<div class="example4">
+		<form action="maxlength.html">
+			<h2>Textareas with triggers</h2>
+			<p>To use trigger your own events <strong><em>(new in 1.0.2)</em></strong><br />
+			<small>('keyup' is default and cant be changed)</small>
+			</p>
+			<textarea cols="50" rows="5" name="textarea_4_1" id="textarea_4_1"></textarea>
+		</form>
+	</div>
+	
+<pre>
+&lt;script type="text/javascript"&gt;
+  $(document).ready(function(){
+	$('div.example4 textarea').maxlength();
+	$('#textarea_4_1').maxlength( {events: ['blur']} );
+  });
+&lt;/script&gt;
+</pre>
+
+	<hr noshade="noshade" size="5"/>
+
+	<div class="example5">
+		<form action="maxlength.html">
+			<h2>Textareas with slide counter</h2>
+			<p>To use slider counter on one ot many elements <strong><em>(new in 1.0.3)</em></strong>
+			</p>
+			<textarea cols="50" rows="5" name="textarea_5_1" id="textarea_5_1"></textarea>
+			<input type="text" name="input_5_1" id="input_5_1" />
+		</form>
+	</div>
+	
+<pre>
+&lt;script type="text/javascript"&gt;
+  $(document).ready(function(){
+	$('div.example5 textarea, div.example5 input').maxlength( {slider: true} );
+  });
+&lt;/script&gt;
+</pre>
+</body>
+</html>
