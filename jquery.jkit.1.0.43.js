@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.42 - 4. 12. 2012
+// Version 1.0.43 - 7. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -452,6 +452,10 @@
 							$that.parent().find('th').removeClass(s.prefix+'-'+type+'-down').removeClass(s.prefix+'-'+type+'-up');
 							$that.addClass(s.prefix+'-'+type+'-up');
 							rows.sort( function(a,b){
+								if (options.by == 'num'){
+									a.search = Number(a.search);
+									b.search = Number(b.search);
+								}
 								if (options.by == 'date'){
 									var a = new Date(a.search);
 									var b = new Date(b.search);
@@ -466,6 +470,10 @@
 							$that.parent().find('th').removeClass(s.prefix+'-'+type+'-down').removeClass(s.prefix+'-'+type+'-up');
 							$that.addClass(s.prefix+'-'+type+'-down');
 							rows.sort( function(a,b){
+								if (options.by == 'num'){
+									a.search = Number(a.search);
+									b.search = Number(b.search);
+								}
 								if (options.by == 'date'){
 									var a = new Date(a.search);
 									var b = new Date(b.search);

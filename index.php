@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="jquery.jkit.1.0.42.min.js"></script>
+<script type="text/javascript" src="jquery.jkit.1.0.43.min.js"></script>
 
 <script type="text/javascript">
 
@@ -81,8 +81,8 @@ function specialEncodeCommand(that, type, options){
 		<!-- Download Button -->
 		
 		<div id="download">
-			<a href="http://jquery-jkit.com/jkit.1.0.42.zip">
-				<strong><span>[</span> DOWNLOAD <span>]</span></strong> &nbsp; <small>Version 1.0.42, only 41.8k!</small>
+			<a href="http://jquery-jkit.com/jkit.1.0.43.zip">
+				<strong><span>[</span> DOWNLOAD <span>]</span></strong> &nbsp; <small>Version 1.0.43, only 41.8k!</small>
 			</a>
 		</div>
 		
@@ -101,7 +101,7 @@ function specialEncodeCommand(that, type, options){
 		<!-- basics -->
 		
 		<h2>Basics</h2>
-		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.0.42.min.js"&gt;&lt;/script&gt;</pre>
+		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.0.43.min.js"&gt;&lt;/script&gt;</pre>
 		<p class="info">Attach it to the whole body or any other element:</p>
 		<pre>&lt;script type="text/javascript"&gt;
 $(document).ready(function(){
@@ -1478,24 +1478,25 @@ $(document).ready(function(){
 					<th data-jkit="[sort:what=text]">Category</th>
 					<th data-jkit="[sort:what=text]">Status</th>
 					<th data-jkit="[sort:what=text;start=2]">Superior</th>
+					<th data-jkit="[sort:what=text;by=num]">Price (CHF)</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td><td>freelancer</td><td>active</td><td>#120</td></tr>
-				<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td><td>freelancer</td><td>active</td><td>#120</td></tr>
-				<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td><td>freelancer</td><td>active</td><td></td></tr>
-				<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td><td>freelancer</td><td>active</td><td>#1168</td></tr>
-				<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td><td>trainee</td><td>active</td><td>#120</td></tr>
-				<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td></tr>
-				<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td><td>employee</td><td>active</td><td>#1168</td></tr>
-				<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td><td>freelancer</td><td>active</td><td>#120</td></tr>
-				<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td><td>guest</td><td>active</td><td>#120</td></tr>
-				<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td><td>trainee</td><td>active</td><td>#120</td></tr>
-				<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td><td>freelancer</td><td>active</td><td></td></tr>
-				<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td><td>guest</td><td>active</td><td></td></tr>
-				<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td><td>freelancer</td><td>active</td><td>#463</td></tr>
-				<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td><td>employee</td><td>active</td><td>#120</td></tr>
-				<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td><td>employee</td><td>active</td><td>#120</td></tr>
+				<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td><td>freelancer</td><td>active</td><td>#120</td><td>1.00</td></tr>
+				<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td><td>freelancer</td><td>active</td><td>#120</td><td>25.25</td></tr>
+				<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td><td>freelancer</td><td>active</td><td></td><td>2.99</td></tr>
+				<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td><td>freelancer</td><td>active</td><td>#1168</td><td>48.95</td></tr>
+				<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td><td>trainee</td><td>active</td><td>#120</td><td>200.10</td></tr>
+				<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td><td>-5.05</td></tr>
+				<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td><td>employee</td><td>active</td><td>#1168</td><td>10</td></tr>
+				<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td><td>freelancer</td><td>active</td><td>#120</td><td>4721.45</td></tr>
+				<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td><td>guest</td><td>active</td><td>#120</td><td>12.55</td></tr>
+				<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td><td>trainee</td><td>active</td><td>#120</td><td>354.50</td></tr>
+				<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td><td>freelancer</td><td>active</td><td></td><td>42.85</td></tr>
+				<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td><td>guest</td><td>active</td><td></td><td>87.41</td></tr>
+				<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td><td>freelancer</td><td>active</td><td>#463</td><td>354.01</td></tr>
+				<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td><td>employee</td><td>active</td><td>#120</td><td>14.12</td></tr>
+				<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td><td>employee</td><td>active</td><td>#120</td><td>10.25</td></tr>
 			</tbody>
 		</table>
 		</pre>
@@ -1509,24 +1510,25 @@ $(document).ready(function(){
 						<th data-jkit="[sort:what=text]">Category</th>
 						<th data-jkit="[sort:what=text]">Status</th>
 						<th data-jkit="[sort:what=text;start=2]">Superior</th>
+						<th data-jkit="[sort:what=text;by=num]">Price (CHF)</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td><td>freelancer</td><td>active</td><td>#120</td></tr>
-					<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td><td>freelancer</td><td>active</td><td>#120</td></tr>
-					<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td><td>freelancer</td><td>active</td><td></td></tr>
-					<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td><td>freelancer</td><td>active</td><td>#1168</td></tr>
-					<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td><td>trainee</td><td>active</td><td>#120</td></tr>
-					<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td></tr>
-					<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td><td>employee</td><td>active</td><td>#1168</td></tr>
-					<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td><td>freelancer</td><td>active</td><td>#120</td></tr>
-					<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td><td>guest</td><td>active</td><td>#120</td></tr>
-					<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td><td>trainee</td><td>active</td><td>#120</td></tr>
-					<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td><td>freelancer</td><td>active</td><td></td></tr>
-					<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td><td>guest</td><td>active</td><td></td></tr>
-					<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td><td>freelancer</td><td>active</td><td>#463</td></tr>
-					<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td><td>employee</td><td>active</td><td>#120</td></tr>
-					<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td><td>employee</td><td>active</td><td>#120</td></tr>
+					<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td><td>freelancer</td><td>active</td><td>#120</td><td>1.00</td></tr>
+					<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td><td>freelancer</td><td>active</td><td>#120</td><td>25.25</td></tr>
+					<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td><td>freelancer</td><td>active</td><td></td><td>2.99</td></tr>
+					<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td><td>freelancer</td><td>active</td><td>#1168</td><td>48.95</td></tr>
+					<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td><td>trainee</td><td>active</td><td>#120</td><td>200.10</td></tr>
+					<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td><td>-5.05</td></tr>
+					<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td><td>employee</td><td>active</td><td>#1168</td><td>10</td></tr>
+					<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td><td>freelancer</td><td>active</td><td>#120</td><td>4721.45</td></tr>
+					<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td><td>guest</td><td>active</td><td>#120</td><td>12.55</td></tr>
+					<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td><td>trainee</td><td>active</td><td>#120</td><td>354.50</td></tr>
+					<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td><td>freelancer</td><td>active</td><td></td><td>42.85</td></tr>
+					<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td><td>guest</td><td>active</td><td></td><td>87.41</td></tr>
+					<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td><td>freelancer</td><td>active</td><td>#463</td><td>354.01</td></tr>
+					<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td><td>employee</td><td>active</td><td>#120</td><td>14.12</td></tr>
+					<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td><td>employee</td><td>active</td><td>#120</td><td>10.25</td></tr>
 				</tbody>
 			</table>
 		</div>
