@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.43 - 7. 12. 2012
+// Version 1.0.44 - 10. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -201,7 +201,8 @@
 				'ajax': {
 					'animation':		'slide',
 					'speed':			250,
-					'easing':			'linear'
+					'easing':			'linear',
+					'when': 			'click'
 				},
 				'replace': {
 					'modifier': 		'g',
@@ -601,10 +602,23 @@
 						var href = $that.attr('href');
 					}
 					
-					$that.on('click', function(){
-						plugin.loadAndReplace(href, options);
-						return false;
-					});
+					if (options.when == 'load' || options.when == 'viewport'){
+						if (options.when == 'load'){
+							$that.load(href);
+						} else {
+							var myInterval = setInterval(function(){
+								if ($that.jKit_inViewport() || !$that.jKit_inViewport() && s.ignoreViewport){
+									$that.load(href);
+									window.clearInterval(myInterval);
+								}
+							},100);
+						}
+					} else {
+						$that.on('click', function(){
+							plugin.loadAndReplace(href, options);
+							return false;
+						});
+					}
 					
 					break;
 				case 'key':
@@ -2533,36 +2547,26 @@
 
 	$.fn.jKit_belowTheFold = function(){
 		var fold = $(window).height() + $(window).scrollTop();
-		return this.each(function() {
-        	return fold <= $(this).offset().top;
-		});
+		return fold <= $(this).offset().top;
 	}
 	
 	$.fn.jKit_aboveTheTop = function(){
 		var top = $(window).scrollTop();
-		return this.each(function() {
-        	return top >= $(this).offset().top + $(this).height();
-		});
+		return top >= $(this).offset().top + $(this).height();
 	}
 	
 	$.fn.jKit_rightOfScreen = function(){
 		var fold = $(window).width() + $(window).scrollLeft();
-		return this.each(function() {
-        	return fold <= $(this).offset().left;
-		});
+		return fold <= $(this).offset().left;
 	}
 	
 	$.fn.jKit_leftOfScreen = function(){
 		var left = $(window).scrollLeft();
-		return this.each(function() {
-        	return left >= $(this).offset().left + $(this).width();
-		});
+		return left >= $(this).offset().left + $(this).width();
 	}
 	
 	$.fn.jKit_inViewport = function(){
-		return this.each(function() {
-        	return !$(this).jKit_belowTheFold() && !$(this).jKit_aboveTheTop() && !$(this).jKit_rightOfScreen() && !$(this).jKit_leftOfScreen();
-		});
+        return !$(this).jKit_belowTheFold() && !$(this).jKit_aboveTheTop() && !$(this).jKit_rightOfScreen() && !$(this).jKit_leftOfScreen();
 	}
 	
 

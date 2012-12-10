@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="jquery.jkit.1.0.43.min.js"></script>
+<script type="text/javascript" src="jquery.jkit.1.0.44.min.js"></script>
 
 <script type="text/javascript">
 
@@ -1283,6 +1283,16 @@ $(document).ready(function(){
 			<div id="ajaxdiv">
 				Initial text ...
 			</div>
+		</div>
+		<p class="info">Load content into a div on page load (after the DOM is ready):</p>
+		<pre rel="jKit[encode]"><div class="box" rel="jKit[ajax:when=load;href=ajaxcontent1.html]"></div></pre>
+		<div class="box" rel="jKit[ajax:when=load;href=ajaxcontent1.html]">
+			<!-- load this stuff after the dom has loaded -->
+		</div>
+		<p class="info">Lazy load content into a div as soon as the element comes into the viewport:</p>
+		<pre rel="jKit[encode]"><div class="box" rel="jKit[ajax:when=viewport;href=ajaxcontent2.html]"></div></pre>
+		<div class="box" rel="jKit[ajax:when=viewport;href=ajaxcontent2.html]">
+			<!-- load this stuff after the div is inside the viewport -->
 		</div>
 		
 		

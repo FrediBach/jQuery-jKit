@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//DE" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+Concept, Design, Programming & Applications by
+deep AG, Comercialstrasse 19, CH-7000 Chur
+http://www.deep.ch, info@deep.ch
+Copyright © 2012 deep AG. All Rights Reserved.
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso_8859_1" />
+<title>Andreas Caminada</title>
+<meta name="author" content="deep AG"/>
+<meta name="publisher" content="deep AG,"/>
+<meta name="company" content="andreascaminada.com"/>
+<meta name="copyright" content="Copyright © 2012 deep AG. All Rights Reserved."/>
+<meta name="titel" content="andreascaminada.com"/>
+<meta name="keywords" content="Magazin, Magazine, Luxury, Luxus, Gastronomy, Culinarik, Rezepte, Recepies, Schauenstein, Andreas Caminada, Food, Best food magazine, 3 michelin stars, Kochen, Hobby kochen, Gesamterlebnis, 19 Gault Millau punkte, Food Magazine, Kultur, Inspirationen, Graubünden, Fürstenau, Schweiz, Kulinarische Welt, Pulver, Powder"/>
+<meta name="description" content="Geheimnisse für Geniesser - willkommen in der Welt von Andreas Caminada"/>
+<meta name="robots" content="index,follow"/>
+<meta name="googlebot" content="index,follow"/>
+<meta name="content-language" content="de"/>
+<meta name="language" content="deutsch,deutsch-schweiz"/>
+
+<!-- favicon --> 
+<link rel="SHORTCUT ICON" href="favicon.ico" /> 
+<link rel="icon" href="favicon.ico" type="image/ico" /> 
+
+<link href="css/build.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/scrollable-buttons.css" rel="stylesheet" type="text/css" />
+<link href="css/scrollable-horizontal.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.jkit.1.0.42.js"></script>
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="//use.typekit.net/byy3rlg.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+<script type="text/javascript">
+
+$(function() {
+  // initialize scrollable
+  $(".scrollable").scrollable({"circular":true});
+
+});
+
+$(document).ready(function(){
+	$('body').jKit();
+	
+	$('#nav > ul > li > a').on( 'click', function(){
+		$('#nav > ul > li > a').removeClass('on');
+		$(this).addClass('on');
+	});
+	
+});
+
+function formSubmit(){
+  	var data = $('form').serialize();
+
+	jQuery('<div/>', {
+	    id: 'tempid'
+	}).appendTo('body');
+
+	$.ajax({
+		type: "POST", 
+		url: $('form').attr('action'), 
+		data: data, 
+		success: function(returndata){
+			
+			$('#tempid').html(returndata);
+			
+			$('#content').html($('#tempid > #content').html());
+			
+			$('#tempid').remove();
+		}
+	});
+	return false;
+}
+
+</script>
+</head>
+
+<body>
+<div id="nav"><a href="index.html"><img src="img/layout/logo2.png" title="Andreas Caminada" width="240" height="71" border="0"  alt="Andreas Caminada"/></a>
+<ul>
+<li><a rel="jKit[ajax:element=#content;animation=fade]" href="magazin.html">Das Magazin</a></li>
+<li><a rel="jKit[ajax:element=#content;animation=fade]" href="bestellung.html">Bestellung</a></li>
+<li><a rel="jKit[ajax:element=#content;animation=fade]" href="standorte.html">Standorte</a></li>
+</ul>
+</div>
+
+<div id="language"><a href="index.html" class="on">d</a> / <a href="index_en.html">e</a></div>
+
+<div id="main">
+<div id="content"></div>
+<div id="contentstart">
+<!-- root element for scrollable -->
+<div class="scrollable">   
+   
+   <!-- root element for the items -->
+   <div class="items">
+        <!-- 1-5 -->
+         <div><img src="img/content/Bild1.jpg" border="0" alt="Andreas Caminada" />
+
+      </div> 
+       <div><img src="img/content/Bild2.jpg" border="0" alt="Andreas Caminada" />
+
+      </div> 
+       <div><img src="img/content/Bild3.jpg" border="0" alt="Andreas Caminada" />
+
+      </div> 
+       <div><img src="img/content/Bild4.jpg" border="0" alt="Andreas Caminada" />
+
+      </div> 
+       <div><img src="img/content/Bild5.jpg" border="0" alt="Andreas Caminada" />
+
+      </div> 
+       <div><img src="img/content/Bild6.jpg" border="0" alt="Andreas Caminada" />
+
+      </div> 
+       <div><img src="img/content/Bild7.jpg" border="0" alt="Andreas Caminada" />
+
+      </div> 
+       <div><img src="img/content/Bild8.jpg" border="0" alt="Andreas Caminada" />
+
+      </div> 
+       <div><img src="img/content/Bild9.jpg" border="0" alt="Andreas Caminada" />
+
+      </div> 
+       <div><img src="img/content/Bild10.jpg" border="0" alt="Andreas Caminada" />
+
+      </div> 
+       <div><img src="img/content/Bild11.jpg" border="0" alt="Andreas Caminada" />
+
+      </div> 
+      
+
+      
+   </div>
+   
+</div>
+<div style="padding-left:100px;">
+<a class="prev browse left"></a>
+<!-- "next page" action -->
+<a class="next browse right"></a></div>
+</div>
+
+</div>
+<div id="footer"><a href="http://www.facebook.com/pages/Andreas-Caminada/163675590318317?fref=ts" target="_blank"><img src="img/layout/facebook.png" width="16" height="17" alt="facebook" border="0" /></a> <a href="http://www.andreascaminada.com">www.andreascaminada.com</a></div>
+
+</body>
+</html>
+
