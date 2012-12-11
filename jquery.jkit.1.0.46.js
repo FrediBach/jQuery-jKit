@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.45 - 11. 12. 2012
+// Version 1.0.46 - 11. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -233,6 +233,10 @@
 					'by': 				'',
 					'start':			0,
 					'end':				0
+				},
+				'zoom': {
+					'scale': 			2,
+					'speed': 			150
 				}
 			}
         }
@@ -413,6 +417,47 @@
 			});
 			
 			switch(type){
+				case 'zoom':
+					
+					$that.parent().css('position', 'relative');
+					
+					$that.on( 'mouseover', function(){
+						
+						var pos = $that.position();
+						var height = $that.height();
+						var width = $that.width();
+						
+						$zoom = $('<div/>', { 
+							'class': s.prefix+'-'+type+'-overlay' 
+						}).css( {
+							'position': 'absolute',
+							'height': height+'px',
+							'width': width+'px',
+							'left': pos.left + 'px',
+							'top': pos.top + 'px',
+							'overflow': 'hidden',
+							'background-image': 'url('+$that.attr('src')+')',
+							'background-repeat': 'no-repeat',
+							'background-color': '#000',
+							'opacity': 0
+						}).on( 'mouseout', function(){
+							$zoom.fadeTo(options.speed, 0, function(){
+								$zoom.remove();
+							});
+						}).mousemove(function(e){
+							
+							var offset = $(this).offset();
+							
+							var x = (e.pageX - offset.left) * (options.scale-1);
+							var y = (e.pageY - offset.top) * (options.scale-1);
+							
+							$zoom.css('background-position', '-'+x+'px -'+y+'px');
+							
+						}).fadeTo(options.speed, 1).insertAfter($that);
+						
+					});
+					
+					break;
 				case 'sort':
 					
 					var text = $that.text();

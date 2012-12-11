@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="jquery.jkit.1.0.45.js"></script>
+<script type="text/javascript" src="jquery.jkit.1.0.46.js"></script>
 
 <script type="text/javascript">
 
@@ -158,6 +158,7 @@ $(document).ready(function(){
 			<li><a href="#command_swap">swap</a></li>
 			<li><a href="#command_ticker">ticker</a></li>
 			<li><a href="#command_sort">sort</a></li>
+			<li><a href="#command_zoom">zoom</a></li>
 		</ul>
 		<p class="info" style="clear:both">More to come ...</p>
 		
@@ -1548,6 +1549,20 @@ $(document).ready(function(){
 			</table>
 		</div>
 		
+	
+		<h2 id="command_zoom">Zoom</h2>
+		<h4>Options:</h4>
+		<ul class="options">
+			<li><strong>scale:</strong> <span>Int</span> <span class="default">2</span></li>
+			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">150</span></li>
+		</ul>
+		<p class="info">Zoom an image four times (the image has to be 4 times bigger than the embedded size!):</p>
+		<pre rel="jKit[encode]"><img src="images/newyorkcity_1280x800.jpg" width="320" rel="jKit[zoom]"></pre>
+		<div class="box"> 
+			<img src="images/newyorkcity_1280x800.jpg" width="640" rel="jKit[zoom]">
+		</div>
+	
+	
 		
 		<div id="footer">
 			<div>jKit Facebook Page: <a href="http://www.facebook.com/jquery.jkit" target="_blank">www.facebook.com/jquery.jkit</a></div>
