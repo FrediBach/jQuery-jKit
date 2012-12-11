@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="jquery.jkit.1.0.44.min.js"></script>
+<script type="text/javascript" src="jquery.jkit.1.0.45.js"></script>
 
 <script type="text/javascript">
 
@@ -1293,6 +1293,11 @@ $(document).ready(function(){
 		<pre rel="jKit[encode]"><div class="box" rel="jKit[ajax:when=viewport;href=ajaxcontent2.html]"></div></pre>
 		<div class="box" rel="jKit[ajax:when=viewport;href=ajaxcontent2.html]">
 			<!-- load this stuff after the div is inside the viewport -->
+		</div>
+		<p class="info">Lazy load an image:</p>
+		<pre rel="jKit[encode]"><img src="images/fb_logo_min.jpg" rel="jKit[ajax:when=viewport;src=images/fb_logo_full.jpg]"></pre>
+		<div class="box">
+			<img src="images/fb_logo_min.jpg" rel="jKit[ajax:when=viewport;src=images/fb_logo_full.jpg]">
 		</div>
 		
 		

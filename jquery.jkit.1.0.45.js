@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.44 - 10. 12. 2012
+// Version 1.0.45 - 11. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -608,7 +608,11 @@
 						} else {
 							var myInterval = setInterval(function(){
 								if ($that.jKit_inViewport() || !$that.jKit_inViewport() && s.ignoreViewport){
-									$that.load(href);
+									if (options.src != undefined){
+										$that.attr('src', options.src);
+									} else {
+										$that.load(href);
+									}
 									window.clearInterval(myInterval);
 								}
 							},100);
