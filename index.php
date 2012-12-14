@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="jquery.jkit.1.0.46.js"></script>
+<script type="text/javascript" src="jquery.jkit.1.0.47.js"></script>
 
 <script type="text/javascript">
 
@@ -81,8 +81,8 @@ function specialEncodeCommand(that, type, options){
 		<!-- Download Button -->
 		
 		<div id="download">
-			<a href="http://jquery-jkit.com/jkit.1.0.43.zip">
-				<strong><span>[</span> DOWNLOAD <span>]</span></strong> &nbsp; <small>Version 1.0.43, only 41.8k!</small>
+			<a href="https://github.com/FrediBach/jQuery-jKit/archive/master.zip">
+				<strong><span>[</span> DOWNLOAD <span>]</span></strong> &nbsp; <small>Size? Less than half of jQuery!</small>
 			</a>
 		</div>
 		
@@ -101,7 +101,7 @@ function specialEncodeCommand(that, type, options){
 		<!-- basics -->
 		
 		<h2>Basics</h2>
-		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.0.43.min.js"&gt;&lt;/script&gt;</pre>
+		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.0.47.min.js"&gt;&lt;/script&gt;</pre>
 		<p class="info">Attach it to the whole body or any other element:</p>
 		<pre>&lt;script type="text/javascript"&gt;
 $(document).ready(function(){
@@ -159,6 +159,7 @@ $(document).ready(function(){
 			<li><a href="#command_ticker">ticker</a></li>
 			<li><a href="#command_sort">sort</a></li>
 			<li><a href="#command_zoom">zoom</a></li>
+			<li><a href="#command_api">api</a></li>
 		</ul>
 		<p class="info" style="clear:both">More to come ...</p>
 		
@@ -1562,7 +1563,31 @@ $(document).ready(function(){
 			<img src="images/newyorkcity_1280x800.jpg" width="640" rel="jKit[zoom]">
 		</div>
 	
-	
+		
+		
+		<h2 id="command_api">API</h2>
+		<h4>Options:</h4>
+		<ul class="options">
+			<li><strong>format:</strong> <span>String</span> <span class="default">json</span></li>
+			<li><strong>value:</strong> <span>String</span> <span class="default">""</span></li>
+			<li><strong>url:</strong> <span>String</span> <span class="default">""</span></li>
+		</ul>
+		<p class="info">Load the twitter and facebook count for the url: http://news.ycombinator.com</p>
+		<pre rel="jKit[encode]">
+			<ul>
+				<li>Twitter count: <span data-jkit="[api:format=json;value=count;url=http\://urls.api.twitter.com/1/urls/count.json?url\=http\://news.ycombinator.com]"></span></li>
+				<li>Facebook shares: <span data-jkit="[api:format=json;value=shares;url=http\://graph.facebook.com/http\://news.ycombinator.com]"></span></li>
+			</ul>
+		</pre>
+		<div class="box">
+			<ul>
+				<li>Twitter count: <span data-jkit="[api:format=json;value=count;url=http\://urls.api.twitter.com/1/urls/count.json?url\=http\://news.ycombinator.com]"></span></li>
+				<li>Facebook shares: <span data-jkit="[api:format=json;value=shares;url=http\://graph.facebook.com/http\://news.ycombinator.com]"></span></li>
+			</ul>
+		</div>
+		
+		
+		
 		
 		<div id="footer">
 			<div>jKit Facebook Page: <a href="http://www.facebook.com/jquery.jkit" target="_blank">www.facebook.com/jquery.jkit</a></div>

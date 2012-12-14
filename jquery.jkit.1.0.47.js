@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.46 - 11. 12. 2012
+// Version 1.0.47 - 14. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -237,6 +237,11 @@
 				'zoom': {
 					'scale': 			2,
 					'speed': 			150
+				},
+				'api': {
+					'format': 			'json',
+					'value': 			'',
+					'url': 				''
 				}
 			}
         }
@@ -301,13 +306,13 @@
 					$.each( relsplit, function(index, value){
 					
 						value = value
-									.replace('\\=','|jkit-eq|')
-									.replace('\\:','|jkit-dp|')
-									.replace('\\;','|jkit-sc|')
-									.replace('\\[','|jkit-sbo|')
-									.replace('\\]','|jkit-sbc|')
-									.replace('\\*','|jkit-st|')
-									.replace('\\ ','|jkit-sp|');
+									.replace(/\\=/g,'|jkit-eq|')
+									.replace(/\\:/g,'|jkit-dp|')
+									.replace(/\\;/g,'|jkit-sc|')
+									.replace(/\\\[/g,'|jkit-sbo|')
+									.replace(/\\\]/g,'|jkit-sbc|')
+									.replace(/\\\*/g,'|jkit-st|')
+									.replace(/\\ /g,'|jkit-sp|');
 						
 						value = $.trim(value);
 						
@@ -399,13 +404,13 @@
 				
 				if (typeof v == 'string'){
 					options[i] = v = v
-						.replace('|jkit-eq|','=')
-						.replace('|jkit-dp|',':')
-						.replace('|jkit-sc|',';')
-						.replace('|jkit-sbo|','[')
-						.replace('|jkit-sbc|',']')
-						.replace('|jkit-st|','*')
-						.replace('|jkit-sp|',' ');
+						.replace(/\|jkit\-eq\|/g,'=')
+						.replace(/\|jkit\-dp\|/g,':')
+						.replace(/\|jkit\-sc\|/g,';')
+						.replace(/\|jkit\-sbo\|/g,'[')
+						.replace(/\|jkit\-sbc\|/g,']')
+						.replace(/\|jkit\-st\|/g,'*')
+						.replace(/\|jkit\-sp\|/g,' ');
 				}
 				
 				if (typeof v == 'string' && v.slice(-1) == '*'){
@@ -417,6 +422,29 @@
 			});
 			
 			switch(type){
+				case 'api':
+					
+					if (options.url != ''){
+						if (options.format == 'json'){
+							
+							$.ajax({
+								type: "GET",
+								url: options.url,
+								contentType: "application/json; charset=utf-8",
+								dataType: "jsonp",
+								success: function(data) {
+									if (options.value != ''){
+										$that.text(data[options.value]);
+									} else {
+										$that.text(data);
+									}
+								}
+							});
+							
+						}
+					}
+					
+					break;
 				case 'zoom':
 					
 					$that.parent().css('position', 'relative');
