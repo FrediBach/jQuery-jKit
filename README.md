@@ -325,3 +325,5 @@ Currently Available Commands
 - swap
 - ticker
 - sort
+- zoom
+- api
