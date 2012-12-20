@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.47 - 14. 12. 2012
+// Version 1.0.48 - 20. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -103,7 +103,13 @@
 				},
 				'animation': {
 					'fps':				25,
-					'loop':				'no'
+					'loop':				'no',
+					'from': 			'',
+					'to': 				'',
+					'speed': 			'500',
+					'easing': 			'linear',
+					'delay':			0,
+					'on': 				''
 				},
 				'gallery': {
 					'active':			1,
@@ -1128,48 +1134,68 @@
 					break;
 				case 'animation':
 					
-					options.interval = 1000 / options.fps;
-					
-					var frames = [];
-					
-					var pos = 0;
-					var lastframe = 0;
-					
-					$that.children().each( function(){
-						var rel = $(this).attr('rel');
-						var data = $(this).attr(s.dataAttribute);
+					if (options.to != ''){
 						
-						if (data != undefined){
-							var start = data.indexOf('[');
-							var end = data.indexOf(']');
-							var optionstring = data.substring(start+1, end);
-						} else {
-							var start = rel.indexOf('[');
-							var end = rel.indexOf(']');
-							var optionstring = rel.substring(start+1, end);
+						if (options.from != ''){
+							$that.css( plugin.cssFromString(options.from) );
 						}
 						
-						var frame = plugin.parseOptions(optionstring);
+						setTimeout(function() {
+							if (options.on != ''){
+								$that.on( options.on, function(){
+									$that.animate( plugin.cssFromString(options.to), options.speed, options.easing );
+								});
+							} else {
+								$that.animate( plugin.cssFromString(options.to), options.speed, options.easing );
+							}
+						}, options.delay);
 						
-						frame.el = $(this);
-						if (frame.easing == undefined) frame.easing = 'linear';
-						
-						frame.start = pos;
-						pos += parseInt(frame.steps);
-						frame.end = pos;
-						lastframe = pos;
-						pos++;
-						
-						frames.push(frame);
-					});
+					} else {
 					
-					options.lastframe = lastframe;
+						options.interval = 1000 / options.fps;
 					
-					$that.css('overflow', 'hidden');
+						var frames = [];
+					
+						var pos = 0;
+						var lastframe = 0;
+					
+						$that.children().each( function(){
+							var rel = $(this).attr('rel');
+							var data = $(this).attr(s.dataAttribute);
+						
+							if (data != undefined){
+								var start = data.indexOf('[');
+								var end = data.indexOf(']');
+								var optionstring = data.substring(start+1, end);
+							} else {
+								var start = rel.indexOf('[');
+								var end = rel.indexOf(']');
+								var optionstring = rel.substring(start+1, end);
+							}
+						
+							var frame = plugin.parseOptions(optionstring);
+						
+							frame.el = $(this);
+							if (frame.easing == undefined) frame.easing = 'linear';
+						
+							frame.start = pos;
+							pos += parseInt(frame.steps);
+							frame.end = pos;
+							lastframe = pos;
+							pos++;
+						
+							frames.push(frame);
+						});
+					
+						options.lastframe = lastframe;
+					
+						$that.css('overflow', 'hidden');
 
-					$that.html(frames[0].el);
+						$that.html(frames[0].el);
 
-					window.setTimeout( function() { plugin.animation(frames, -1, $that, options); }, 0);
+						window.setTimeout( function() { plugin.animation(frames, -1, $that, options); }, 0);
+						
+					}
 
 					break;
 				case 'gallery':
@@ -1843,6 +1869,20 @@
 			
 			return $that;
 			
+		}
+		
+		plugin.cssFromString = function(css){
+			var partsplit = css.split(',');
+			var cssdata = {};
+			$.each( partsplit, function(i,v){
+				var innersplit = v.split('(');
+				if (innersplit.length == 2){
+					var property = innersplit[0];
+					var value = innersplit[1].slice(0,-1);
+					cssdata[property] = value;
+				}
+			});
+			return cssdata;
 		}
 		
 		plugin.preFix = function(str){

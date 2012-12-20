@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="jquery.jkit.1.0.47.js"></script>
+<script type="text/javascript" src="jquery.jkit.1.0.48.min.js"></script>
 
 <script type="text/javascript">
 
@@ -101,7 +101,7 @@ function specialEncodeCommand(that, type, options){
 		<!-- basics -->
 		
 		<h2>Basics</h2>
-		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.0.47.min.js"&gt;&lt;/script&gt;</pre>
+		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.0.48.min.js"&gt;&lt;/script&gt;</pre>
 		<p class="info">Attach it to the whole body or any other element:</p>
 		<pre>&lt;script type="text/javascript"&gt;
 $(document).ready(function(){
@@ -648,7 +648,40 @@ $(document).ready(function(){
 		<!-- animation command -->
 		
 		<h2 id="command_animation">Animation</h2>
-		<p class="info">Create an animation with frames of different content:</p>
+		<p class="info">Animation has two uses, the first if the jKit version of jQuery.animate, the other is an keyframe animation tool. Let's first have a look at the jQuery.animate part, it is used as soon as you set the "to" option:</p>
+		<pre rel="jKit[encode]">
+			<p style="width:300px;height:100px;background:#f30" data-jkit="[animation:delay=2000;speed=500;to=width(500px),height(50px)]">
+				After two seconds ...
+			</p>
+			<p style="width:300px;height:100px;background:#f30" data-jkit="[animation:on=click;speed=500;to=width(500px),height(50px)]">
+				On click ...
+			</p>
+			<p style="width:300px;height:100px;background:#f30" data-jkit="[animation:on=mouseenter;speed=250;to=width(500px),height(110px)][animation:on=mouseleave;speed=250;to=width(300px),height(100px)]">
+				On mouseenter and mouseleave ...
+			</p>
+		</pre>
+		<p class="info">Options:</p>
+		<ul class="options">
+			<li><strong>from:</strong> <span>jKit CSS String, example: "margin-top(20px),height(50px)"</span> <span class="default">""</span></li>
+			<li><strong>to:</strong> <span>jKit CSS String</span> <span class="default">""</span></li>
+			<li><strong>on:</strong> <span>jQuery event ("click", "mouseover", "mouseout" ...)</span> <span class="default">""</span></li>
+			<li><strong>delay:</strong> <span>Int (Milliseconds)</span> <span class="default">0</span></li>
+			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">500</span></li>
+			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
+		</ul>
+		<div class="box">
+			<p style="width:300px;height:100px;background:#f30" data-jkit="[animation:delay=2000;speed=500;to=width(500px),height(50px)]">
+				After two seconds ...
+			</p>
+			<p style="width:300px;height:100px;background:#f30" data-jkit="[animation:on=click;speed=500;to=width(500px),height(50px)]">
+				On click ...
+			</p>
+			<p style="width:300px;height:100px;background:#f30" data-jkit="[animation:on=mouseenter;speed=250;to=width(500px),height(110px)][animation:on=mouseleave;speed=250;to=width(300px),height(100px)]">
+				On mouseenter and mouseleave ...
+			</p>
+		</div>
+		
+		<p class="info">The second use of the animation command is a keyframe animation tool. Here we create an animation with frames of different content:</p>
 		<pre>&lt;div class="animation-container" rel="<span>jKit[animation:fps=30;loop=yes]</span>"&gt;
 	&lt;div class="animation" rel="<span>jKit[frame:steps=100;action=fadeout]</span>" style="font-size:90px;background:#000"&gt;&lt;img src="images/jkit_logo.png" alt="jKit" title="jKit" style="margin-top:110px">&lt;/div&gt;
 	&lt;div class="animation" rel="<span>jKit[frame:steps=7]</span>" style="font-size:90px;line-height:260%">animation&lt;/div&gt;
