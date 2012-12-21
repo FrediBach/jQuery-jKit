@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.49 - 21. 12. 2012
+// Version 1.0.50 - 21. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -347,7 +347,7 @@
 								if (targetsplit[1] == undefined){
 									targetsplit[1] = '*';
 								}
-							
+								
 								switch(targetsplit[0]){
 									case 'children':
 										$(that).children(targetsplit[1]).each( function(){
@@ -1017,19 +1017,19 @@
 					break;
 				case 'show':
 					
-					$that.jKit_effect(true, options.animation, options.speed, options.easing, options.delay);
+					$that.hide().jKit_effect(true, options.animation, options.speed, options.easing, options.delay);
 			
 					break;
 				case 'showandhide':
 					
-					$that.jKit_effect(true, options.animation, options.speed, options.easing, options.delay, function(){
+					$that.hide().jKit_effect(true, options.animation, options.speed, options.easing, options.delay, function(){
 						$that.jKit_effect(false, options.animation, options.speed, options.easing, options.duration);
 					});
 
 					break;
 				case 'loop':
 					
-					plugin.loop($that, options);
+					plugin.loop($that.hide(), options);
 
 					break;
 				case 'random':
@@ -2064,6 +2064,8 @@
 							
 							if (v == 'this'){
 								v = el;
+							} else if (v == 'parent'){
+								v = $(el).parent().get(0);
 							}
 							
 							$(v).each( function(){

@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="jquery.jkit.1.0.49.min.js"></script>
+<script type="text/javascript" src="jquery.jkit.1.0.50.min.js"></script>
 
 <script type="text/javascript">
 
@@ -101,7 +101,7 @@ function specialEncodeCommand(that, type, options){
 		<!-- basics -->
 		
 		<h2>Basics</h2>
-		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.0.48.min.js"&gt;&lt;/script&gt;</pre>
+		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.0.50.min.js"&gt;&lt;/script&gt;</pre>
 		<p class="info">Attach it to the whole body or any other element:</p>
 		<pre>&lt;script type="text/javascript"&gt;
 $(document).ready(function(){
@@ -1096,6 +1096,14 @@ $(document).ready(function(){
 				<li style="background:#f30">Test the test test</li>
 				<li style="background:#f60">Two testtest</li>
 				<li style="background:#f90">Only one test</li>
+			</ul>
+		</div>
+		<p class="info">Searching for the string test inside an input and apply the number times 100 to the width of the input:</p>
+		<div class="box">
+			<ul data-jkit="[binding:target=each.input;selector=this;source=has.val;search=test;mode=css.width;math=value*100]" class="test">
+				<li style="background:#f30"><input value="Test the test test"></li>
+				<li style="background:#f60"><input value="Two testtest"></li>
+				<li style="background:#f90"><input value="Only one test"></li>
 			</ul>
 		</div>
 		
