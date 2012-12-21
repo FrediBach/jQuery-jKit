@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.48 - 20. 12. 2012
+// Version 1.0.49 - 21. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -174,7 +174,8 @@
 					'if':				'',
 					'else':				'',
 					'speed':			0,
-					'easing':			'linear'
+					'easing':			'linear',
+					'search': 			''
 				},
 				'limit': {
 					'elements':			'children',
@@ -2142,6 +2143,30 @@
 										}
 								
 										break;
+									case 'has':
+										
+										switch(sourcesplit[1]){
+											case 'class':
+												var temp = $(this).hasClass(options.search);
+												break;
+											case 'text':
+												var temp = $.fn.jKit_stringOccurrences($(this).text().toLowerCase(), options.search.toLowerCase());
+												break;
+											case 'attribute':
+												var temp = ($(this).attr(options.search) !== undefined);
+												break;
+											case 'val':
+												var temp = $.fn.jKit_stringOccurrences($(this).val().toLowerCase(), options.search.toLowerCase());
+												break;
+											case 'element':
+												var temp = $(this).find(options.search).length;
+												break;
+											case 'children':
+												var temp = $(this).children(options.search).length;
+												break;
+										}
+										
+										break;
 									case 'val':
 									default:
 										var temp = $(this).val();
@@ -2583,6 +2608,25 @@
 			arr[rand] = tmp;
 		}
 		return arr;
+	}
+	
+	$.fn.jKit_stringOccurrences = function(string, substring){
+		
+		var n = 0;
+		var pos = 0;
+		
+		while (true){
+			pos = string.indexOf(substring, pos);
+			if (pos != -1) {
+				n++;
+				pos += substring.length;
+			} else {
+				break;
+			}
+		}
+		
+		return (n);
+		
 	}
 	
 	$.fn.jKit_emailCheck = function(string){
