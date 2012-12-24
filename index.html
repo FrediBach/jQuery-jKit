@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="jquery.jkit.1.0.50.min.js"></script>
+<script type="text/javascript" src="jquery.jkit.1.0.51.min.js"></script>
 
 <script type="text/javascript">
 
@@ -101,7 +101,7 @@ function specialEncodeCommand(that, type, options){
 		<!-- basics -->
 		
 		<h2>Basics</h2>
-		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.0.50.min.js"&gt;&lt;/script&gt;</pre>
+		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.0.51.min.js"&gt;&lt;/script&gt;</pre>
 		<p class="info">Attach it to the whole body or any other element:</p>
 		<pre>&lt;script type="text/javascript"&gt;
 $(document).ready(function(){
@@ -1090,7 +1090,7 @@ $(document).ready(function(){
 			<h3>Paragraph without content</h3>
 			<p style="border:1px #f30 dotted" rel="jKit[binding:selector=this;source=text;mode=css.display]"></p>
 		</div>
-		<p class="info">Searching for the string test and apply the number times 100 to the width:</p>
+		
 		<div class="box">
 			<ul data-jkit="[binding:target=children;selector=this;source=has.text;search=test;mode=css.width;math=value*100]" class="test">
 				<li style="background:#f30">Test the test test</li>
@@ -1098,7 +1098,7 @@ $(document).ready(function(){
 				<li style="background:#f90">Only one test</li>
 			</ul>
 		</div>
-		<p class="info">Searching for the string test inside an input and apply the number times 100 to the width of the input:</p>
+		
 		<div class="box">
 			<ul data-jkit="[binding:target=each.input;selector=this;source=has.val;search=test;mode=css.width;math=value*100]" class="test">
 				<li style="background:#f30"><input value="Test the test test"></li>
@@ -1632,6 +1632,17 @@ $(document).ready(function(){
 			<ul>
 				<li>Twitter count: <span data-jkit="[api:format=json;value=count;url=http\://urls.api.twitter.com/1/urls/count.json?url\=http\://news.ycombinator.com]"></span></li>
 				<li>Facebook shares: <span data-jkit="[api:format=json;value=shares;url=http\://graph.facebook.com/http\://news.ycombinator.com]"></span></li>
+			</ul>
+		</div>
+		<p class="info">Get the latest commit message from the jKit repo:</p>
+		<pre rel="jKit[encode]">
+			<ul>
+				<li>Latest jKit commit: <span data-jkit="[api:format=json;value=data[0].commit.message;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits]"></span></li>
+			</ul>
+		</pre>
+		<div class="box">
+			<ul>
+				<li>Latest jKit commit: <span data-jkit="[api:format=json;value=data[0].commit.message;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits]"></span></li>
 			</ul>
 		</div>
 		

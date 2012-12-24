@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.50 - 21. 12. 2012
+// Version 1.0.51 - 24. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -441,7 +441,7 @@
 								dataType: "jsonp",
 								success: function(data) {
 									if (options.value != ''){
-										$that.text(data[options.value]);
+										$that.text(eval('data.'+options.value.replace(/[^a-zA-Z0-9\.\[\]\_]+/g, '')));
 									} else {
 										$that.text(data);
 									}
