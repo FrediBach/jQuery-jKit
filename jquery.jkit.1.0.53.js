@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.52 - 27. 12. 2012
+// Version 1.0.53 - 27. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -280,6 +280,23 @@
 			}).blur(function() {
 			    windowhasfocus = false;
 			});
+		}
+		
+		plugin.applyMacro = function($el, macro){
+			
+			var s = plugin.settings;
+			
+			if (s.macros[macro] != undefined){
+				var value = s.macros[macro];
+				var options = plugin.parseOptions(value);
+				
+				if (s.replacements[options.type] != undefined && typeof(s.replacements[options.type]) === "function"){
+					s.replacements[options.type].call(plugin, $el, options.type, options);
+				} else {
+					plugin.executeCommand($el, options.type, options);
+				}
+			}
+			
 		}
 		
         plugin.init = function($el) {
@@ -705,6 +722,7 @@
 									window.location.href = $that.attr('href');
 								}
 							}
+							if (options.macro != undefined) plugin.applyMacro($that, options.macro);
 						});
 						
 					}
@@ -1129,10 +1147,14 @@
 						setTimeout(function() {
 							if (options.on != ''){
 								$that.on( options.on, function(){
-									$that.animate( plugin.cssFromString(options.to), options.speed, options.easing );
+									$that.animate( plugin.cssFromString(options.to), options.speed, options.easing, function(){
+										if (options.macro != undefined) plugin.applyMacro($that, options.macro);
+									});
 								});
 							} else {
-								$that.animate( plugin.cssFromString(options.to), options.speed, options.easing );
+								$that.animate( plugin.cssFromString(options.to), options.speed, options.easing, function(){
+									if (options.macro != undefined) plugin.applyMacro($el, options.macro);
+								});
 							}
 						}, options.delay);
 						
@@ -1636,6 +1658,7 @@
 										} else {
 											$that.html('<p class="'+s.successClass+'">'+options.success+'</p>');
 										}
+										if (options.macro != undefined) plugin.applyMacro($that, options.macro);
 									} else {
 										for (x in data.error){
 											var field = data.error[x];
@@ -1874,6 +1897,8 @@
 							$el.text(data);
 						}
 						
+						if (options.macro != undefined) plugin.applyMacro($el, options.macro);
+						
 						if (options.interval > -1){
 							setTimeout( function(){
 								plugin.readAPI($el, options);
@@ -1975,6 +2000,8 @@
 					
 					$(options.element).html( $('#'+tempid+' '+options.element).html() );
 					$(options.element).jKit_effect(true, options.animation, options.speed, options.easing);
+					
+					if (options.macro != undefined) plugin.applyMacro($(options.element), options.macro);
 					
 					$('#'+tempid).remove();
 					
@@ -2089,6 +2116,7 @@
 										$(this).on( sourcesplit[1], function(e){
 											options.value = 1;
 											plugin.binding(el, options);
+											if (options.macro != undefined) plugin.applyMacro($(el), options.macro);
 										});
 										break;
 									case 'html':
@@ -2465,7 +2493,7 @@
 					
 					}
 				})
-			
+				
 				current++;
 				var nextloop = false;
 				if (current > options.lastframe){
@@ -2475,6 +2503,10 @@
 			
 				if ((nextloop && options.loop == "yes") || !nextloop){
 					window.setTimeout( function() { plugin.animation(frames, current, el, options); }, options.interval);
+				}
+				
+				if (options.loop == "no"){
+					if (options.macro != undefined) plugin.applyMacro(el, options.macro);
 				}
 				
 			} else {
