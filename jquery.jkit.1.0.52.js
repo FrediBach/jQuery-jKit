@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.51 - 24. 12. 2012
+// Version 1.0.52 - 27. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -248,7 +248,8 @@
 				'api': {
 					'format': 			'json',
 					'value': 			'',
-					'url': 				''
+					'url': 				'',
+					'interval': 		-1
 				}
 			}
         }
@@ -432,23 +433,7 @@
 				case 'api':
 					
 					if (options.url != ''){
-						if (options.format == 'json'){
-							
-							$.ajax({
-								type: "GET",
-								url: options.url,
-								contentType: "application/json; charset=utf-8",
-								dataType: "jsonp",
-								success: function(data) {
-									if (options.value != ''){
-										$that.text(eval('data.'+options.value.replace(/[^a-zA-Z0-9\.\[\]\_]+/g, '')));
-									} else {
-										$that.text(data);
-									}
-								}
-							});
-							
-						}
+						plugin.readAPI($that, options);
 					}
 					
 					break;
@@ -593,7 +578,7 @@
 					});
 					
 					if (messages.length > 0){
-						$newThat = $('<div/>');
+						var $newThat = $('<div/>');
 						$that.replaceWith($newThat);
 						window.setTimeout( function() { plugin.ticker($newThat, options, messages, 0, 0); }, 0);
 					}
@@ -1869,6 +1854,35 @@
 			}
 			
 			return $that;
+			
+		}
+		
+		plugin.readAPI = function($el, options){
+			
+			if (options.format == 'json'){
+				
+				$.ajax({
+					type: "GET",
+					url: options.url,
+					contentType: "application/json; charset=utf-8",
+					dataType: "jsonp",
+					success: function(data) {
+						
+						if (options.value != ''){
+							$el.text(eval('data.'+options.value.replace(/[^a-zA-Z0-9\.\[\]\_]+/g, '')));
+						} else {
+							$el.text(data);
+						}
+						
+						if (options.interval > -1){
+							setTimeout( function(){
+								plugin.readAPI($el, options);
+							}, options.interval*1000);
+						}
+						
+					}
+				});	
+			}
 			
 		}
 		
