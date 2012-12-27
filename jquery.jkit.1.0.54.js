@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.53 - 27. 12. 2012
+// Version 1.0.54 - 27. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -99,7 +99,8 @@
 					'interval':			3000,
 					'speed':			250,
 					'animation':		'fade',
-					'easing':			'linear'
+					'easing':			'linear',
+					'on': 				'' 
 				},
 				'animation': {
 					'fps':				25,
@@ -1103,9 +1104,37 @@
 					$that.css( { 'position': 'relative' } );
 					
 					$that.html(slides[0]);
+					$.data($that, 'animating', false);
 					
-					window.setTimeout( function() { plugin.slideshow(slides, 0, $that, options); }, options.interval);
-				
+					if (options.on != ''){
+						
+						if (options.on == 'mouseover'){
+							$that.on( 'mouseleave', function(){
+								$.data($that, 'anim', false);
+							});
+						}
+						
+						$that.on( options.on, function(){
+							if (options.on == 'click'){
+								if ($.data($that, 'anim')){
+									$.data($that, 'anim', false);
+								} else {
+									$.data($that, 'anim', true);
+									window.setTimeout( function() { plugin.slideshow(slides, 0, $that, options); }, 0);
+								}
+							} else if (options.on == 'mouseover'){
+								if (!$.data($that, 'anim')){
+									$.data($that, 'anim', true);
+									window.setTimeout( function() { plugin.slideshow(slides, 0, $that, options); }, 0);
+								}
+							}
+						});
+						
+					} else {
+						$.data($that, 'anim', true);
+						window.setTimeout( function() { plugin.slideshow(slides, 0, $that, options); }, options.interval);
+					}
+					
 					break;
 				case 'carousel':	
 					
@@ -2439,23 +2468,25 @@
 
 		plugin.slideshow = function(slides, current, el, options){
 			
-			if ((windowhasfocus || !windowhasfocus && plugin.settings.ignoreFocus) && (el.jKit_inViewport() || !el.jKit_inViewport() && plugin.settings.ignoreViewport)){
+			if ($.data(el, 'anim')){
+				if ((windowhasfocus || !windowhasfocus && plugin.settings.ignoreFocus) && (el.jKit_inViewport() || !el.jKit_inViewport() && plugin.settings.ignoreViewport)){
 			
-				if (current < (slides.length-1)){
-					current++;
-				} else {
-					current = 0;
-				}
+					if (current < (slides.length-1)){
+						current++;
+					} else {
+						current = 0;
+					}
 				
-				el.jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
-					el.html(slides[current]);
-					el.jKit_effect(true, options.animation, options.speed, options.easing, 0, function(){
-						window.setTimeout( function() { plugin.slideshow(slides, current, el, options); }, options.interval);
+					el.jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
+						el.html(slides[current]);
+						el.jKit_effect(true, options.animation, options.speed, options.easing, 0, function(){
+							window.setTimeout( function() { plugin.slideshow(slides, current, el, options); }, options.interval);
+						});
 					});
-				});
 				
-			} else {
-				window.setTimeout( function() { plugin.slideshow(slides, current, el, options); }, options.interval);
+				} else {
+					window.setTimeout( function() { plugin.slideshow(slides, current, el, options); }, options.interval);
+				}
 			}
 			
 		}
