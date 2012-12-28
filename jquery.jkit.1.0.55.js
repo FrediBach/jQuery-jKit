@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
-// A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.54 - 27. 12. 2012
+// A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
+// Version 1.0.55 - 28. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -250,7 +250,8 @@
 					'format': 			'json',
 					'value': 			'',
 					'url': 				'',
-					'interval': 		-1
+					'interval': 		-1,
+					'template': 		''
 				}
 			}
         }
@@ -1920,10 +1921,36 @@
 					dataType: "jsonp",
 					success: function(data) {
 						
-						if (options.value != ''){
-							$el.text(eval('data.'+options.value.replace(/[^a-zA-Z0-9\.\[\]\_]+/g, '')));
+						if (options.template != ''){
+							
+							$el.html(templates[options.template].template.clone().show());
+							$el.find('[data-jkit-api]').each(function(){
+								var value = $(this).attr('data-jkit-api');
+								try {
+									$(this).text(eval('data.'+value.replace(/[^a-zA-Z0-9\.\[\]\_]+/g, '')));
+								} catch(err) { }
+							});
+							$el.find('[data-jkit-api-if]').each(function(){
+								var value = $(this).attr('data-jkit-api-if');
+								var test = undefined;
+								try {
+									eval('test = data.'+value.replace(/[^a-zA-Z0-9\.\[\]\_]+/g, ''));
+								} catch(err) { }
+								if (test == undefined){
+									$(this).remove();
+								}
+							});
+							
 						} else {
-							$el.text(data);
+						
+							if (options.value != ''){
+								try {
+									$el.text(eval('data.'+options.value.replace(/[^a-zA-Z0-9\.\[\]\_]+/g, '')));
+								} catch(err) { }
+							} else {
+								$el.text(data);
+							}
+							
 						}
 						
 						if (options.macro != undefined) plugin.applyMacro($el, options.macro);
