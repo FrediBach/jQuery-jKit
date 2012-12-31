@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.56 - 28. 12. 2012
+// Version 1.0.57 - 31. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -716,7 +716,7 @@
 					
 					if (options.code != undefined){
 						
-						plugin.addKeypressEvents($that);
+						plugin.addKeypressEvents($that, options.code);
 						$that.on( options.code, function(){
 							if ($that.attr('onclick') !== undefined){
 								$that.click();
@@ -901,8 +901,8 @@
 							    id: s.prefix+'-'+type+'-nav-prev'
 							}).prependTo($nav);
 							
-							plugin.addKeypressEvents($next);
-							plugin.addKeypressEvents($prev);
+							plugin.addKeypressEvents($next, 'right');
+							plugin.addKeypressEvents($prev, 'left');
 							
 							if (lightboxes[options.group][lightboxes[options.group].length-1] != that){
 								$next.html(options.next).on( 'click right', function(){
@@ -1075,7 +1075,7 @@
 					
 					var $morediv = $('<div/>').addClass(s.prefix+'-morediv').appendTo(that).html(options.text).css( { width: $that.outerWidth()+'px', opacity: 0.9 });
 					
-					plugin.addKeypressEvents($that);
+					plugin.addKeypressEvents($that, 'down');
 					
 					$that.css({ 'height': options.height+'px', 'overflow': 'hidden' }).on( 'mouseenter down', function() {
 						$morediv.fadeTo(options.speed, 0);
@@ -1163,8 +1163,8 @@
 						plugin.carousel($that, options, 'next');
 					}).insertAfter(that);
 					
-					plugin.addKeypressEvents($prevdiv);
-					plugin.addKeypressEvents($nextdiv);
+					plugin.addKeypressEvents($prevdiv, 'left');
+					plugin.addKeypressEvents($nextdiv, 'right');
 					
 					window.setTimeout( function() { plugin.carousel($that, options); }, options.interval);
 					
@@ -2588,7 +2588,7 @@
 			});
 		}
 		
-		plugin.addKeypressEvents = function($el){
+		plugin.addKeypressEvents = function($el, code){
 			if (plugin.settings.keyNavigation){
 				$(document).keydown(function(e){
 					
@@ -2660,9 +2660,12 @@
 						if (e.metaKey) special += 'meta+';
 						if (e.shiftKey) special += 'shift+';
 						
-						$el.trigger(special+keys[e.which]);
+						var keycode = special+keys[e.which];
 						
-						e.preventDefault();
+						if (keycode == code){
+							$el.trigger(special+keys[e.which]);
+							e.preventDefault();
+						}
 						
 					}
 					
