@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.55 - 28. 12. 2012
+// Version 1.0.56 - 28. 12. 2012
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -115,7 +115,10 @@
 				'gallery': {
 					'active':			1,
 					'event':			'click',
-					'showcaptions':		'yes'
+					'showcaptions':		'yes',
+					'animation':		'none',
+					'speed':			500,
+					'easing':			'linear'
 				},
 				'tabs': {
 					'active':			1,
@@ -1259,22 +1262,28 @@
 						$(value)
 							.mouseover(function() {
 								if (options.event == 'mouseover'){
-									$that.find('img').attr('src', $(value).attr('src'));
-									$thumbdiv.find('img').removeClass(s.activeClass);
-									$(value).addClass(s.activeClass);
-									if (options.showcaptions == 'yes'){
-										$captiondiv.text($(value).attr('title'));
-									}
+									$that.jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
+										$that.find('img').attr('src', $(value).attr('src'));
+										$that.jKit_effect(true, options.animation, options.speed, options.easing, 0);
+										$thumbdiv.find('img').removeClass(s.activeClass);
+										$(value).addClass(s.activeClass);
+										if (options.showcaptions == 'yes'){
+											$captiondiv.text($(value).attr('title'));
+										}
+									});
 								}
 							})
 							.click(function() {
 								if (options.event == 'click'){
-									$that.find('img').attr('src', $(value).attr('src'));
-									$thumbdiv.find('img').removeClass(s.activeClass);
-									$(value).addClass(s.activeClass);
-									if (options.showcaptions == 'yes'){
-										$captiondiv.text($(value).attr('title'));
-									}
+									$that.jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
+										$that.find('img').attr('src', $(value).attr('src'));
+										$that.jKit_effect(true, options.animation, options.speed, options.easing, 0);
+										$thumbdiv.find('img').removeClass(s.activeClass);
+										$(value).addClass(s.activeClass);
+										if (options.showcaptions == 'yes'){
+											$captiondiv.text($(value).attr('title'));
+										}
+									});
 								}
 							})
 							.css({ 'cursor': 'pointer' })
