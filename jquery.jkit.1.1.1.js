@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.0 - 1. 1. 2013
+// Version 1.1.1 - 1. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -1829,11 +1829,16 @@
 							$tip.html(options.text).removeClass().css({ 'background': options.background, 'color': options.color });
 						}
 						
-						$tip.hide().css('top', (e.pageY+15-$(window).scrollTop())).css('left', e.pageX).fadeIn(50);
+						$tip.css('top', (e.pageY+15-$(window).scrollTop())).css('left', e.pageX).stop(true, true).fadeIn(200);
 						
 					}).on('mouseleave click', function(e){
 						
-						$tip.fadeOut(200);
+						var speed = 200;
+						if ($tip.is(':animated')){
+							speed = 0;
+						}
+						
+						$tip.stop(true, true).fadeOut(speed);
 
 					});
 					
