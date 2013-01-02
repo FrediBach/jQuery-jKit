@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.0.57 - 31. 12. 2012
+// Version 1.1.0 - 1. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -255,9 +255,23 @@
 					'url': 				'',
 					'interval': 		-1,
 					'template': 		''
+				},
+				'filter': {
+					'by': 				'class',
+					'affected': 		'',
+					'animation':		'slide',
+					'speed':			250,
+					'easing':			'linear',
+					'logic': 			'and'
+				},
+				'summary': {
+					'what': 			'',
+					'linked': 			'yes',
+					'from': 			'',
+					'scope': 			'children'
 				}
 			}
-        }
+        };
 		
         var plugin = this;
 		
@@ -276,6 +290,7 @@
 		
 		var startX, startY;
 		var windowhasfocus = true;
+		var uid = 0;
 		var lightboxes = {};
 		var templates = {};
 		
@@ -302,7 +317,7 @@
 				}
 			}
 			
-		}
+		};
 		
         plugin.init = function($el) {
 	
@@ -405,7 +420,7 @@
 				
 			}
 			
-        }
+        };
 
 		plugin.addDefaults = function(command, options){
 			
@@ -419,7 +434,7 @@
 			}
 			
 			return options;
-		}
+		};
 		
 		plugin.executeCommand = function(that, type, options){
 			
@@ -452,6 +467,49 @@
 			});
 			
 			switch(type){
+				case 'filter':
+					
+					plugin.filterElements($that, options);
+					
+					$that.find('.jkit-filter').on( 'change click', function(){
+						plugin.filterElements($that, options);
+					});
+					
+					break;
+				case 'summary':
+					
+					var output = '';
+					
+					var pre = ''
+					if (options.scope == 'children'){
+						pre = '> ';
+					}
+					
+					$(options.from).find(pre+options.what).each( function(){
+						
+						var $current = $(this);
+						
+						if (options.linked == 'yes'){
+							
+							if ($current.attr('id') !== undefined){
+								var id = $current.attr('id');
+							} else {
+								var id = s.prefix+'-uid-'+(++uid);
+								$current.attr('id', id);
+							}
+							
+							output += '<li><a href="#'+id+'">'+$(this).text()+'</a></li>';
+							
+						} else {
+							output += '<li>'+$(this).text()+'</li>';
+						}
+					});
+					
+					if (output != ''){
+						$that.html('<ul>'+output+'</ul>');
+					}
+
+					break;
 				case 'api':
 					
 					if (options.url != ''){
@@ -1917,7 +1975,55 @@
 			
 			return $that;
 			
-		}
+		};
+		
+		plugin.filterElements = function($el, options){
+			
+			var selections = []; 
+			
+			$el.find('.jkit-filter').each( function(){
+				var vals = [];
+				var valsplit = $(this).val().split(' ');
+				$.each( valsplit, function(i,v){
+					v = $.trim(v);
+					if (v != '') vals.push(v);
+				});
+				selections = selections.concat(vals);
+			});
+			
+			$el.find(options.affected).each( function(){
+				
+				var $current = $(this);
+				
+				if (selections.length > 0){
+				
+					var found = [];
+										
+					$.each( selections, function(i,v){
+						if (options.by == 'class'){
+							if ($current.hasClass(v)){
+								found.push(v);
+							}
+						} else if (options.by == 'text'){
+							if ($current.text().toLowerCase().indexOf(v.toLowerCase()) > -1){
+								found.push(v);
+							}
+						}
+					});
+				
+					if ( found.length == selections.length || (found.length > 0 && options.logic == 'or') ){
+						$current.jKit_effect(true, options.animation, options.speed, options.easing, 0);
+					} else {
+						$current.jKit_effect(false, options.animation, options.speed, options.easing, 0);
+					}
+					
+				} else {
+					$current.jKit_effect(true, options.animation, options.speed, options.easing, 0);
+				}
+				
+			});
+			
+		};
 		
 		plugin.readAPI = function($el, options){
 			
@@ -1974,7 +2080,7 @@
 				});	
 			}
 			
-		}
+		};
 		
 		plugin.cssFromString = function(css){
 			var partsplit = css.split(',');
@@ -1988,7 +2094,7 @@
 				}
 			});
 			return cssdata;
-		}
+		};
 		
 		plugin.preFix = function(str){
 			
@@ -2017,7 +2123,7 @@
 			});
 			
 			return lines.join("\n");
-		}
+		};
 		
 		plugin.ticker = function($el, options, messages, currentmessage, currentchar){
 			
@@ -2047,7 +2153,7 @@
 			
 			window.setTimeout( function() { plugin.ticker($el, options, messages, currentmessage, currentchar); }, timer);
 			
-		}
+		};
 		
 		plugin.loadAndReplace = function(href, options){
 			
@@ -2074,7 +2180,7 @@
 				
 			});
 			
-		}
+		};
 		
 		plugin.updateSrc = function($el, options){
 			
@@ -2086,7 +2192,7 @@
 				
 			}
 			
-		}
+		};
 		
 		plugin.applyTemplate = function($el, options, cnt, entries){
 			
@@ -2127,7 +2233,7 @@
 				
 			});
 			
-		}
+		};
 		
 		plugin.renameDynamicAttributes = function($el, cnt){
 			$el.find('[class^="dynamic-"]').each( function(){
@@ -2377,7 +2483,7 @@
 				window.setTimeout( function() { plugin.binding(el, options); }, options.interval);
 			}
 			
-		}
+		};
 
 		plugin.fixSpeed = function(speed){
 			
@@ -2386,7 +2492,7 @@
 			}
 			
 			return speed;
-		}
+		};
 
 		plugin.loop = function($that, options){
 			
@@ -2400,7 +2506,7 @@
 				window.setTimeout( function() { plugin.loop($that, options); }, 100);
 			}
 			
-		}
+		};
 
 		plugin.scaleFit = function(bg, element, originalWidth, originalHeight, distort){
 			
@@ -2438,7 +2544,7 @@
 				'height': h+'px'
 			});
 			
-		}
+		};
 		
 		plugin.parseOptions = function(string){
 			
@@ -2456,7 +2562,7 @@
 			
 			return options;
 			
-		}
+		};
 		
 		plugin.carousel = function($el, options, dir){
 			
@@ -2500,7 +2606,7 @@
 				window.setTimeout( function() { plugin.carousel($el, options); }, options.interval);
 			}
 			
-		}
+		};
 
 		plugin.slideshow = function(slides, current, el, options){
 			
@@ -2525,7 +2631,7 @@
 				}
 			}
 			
-		}
+		};
 		
 		plugin.animation = function(frames, current, el, options){
 			
@@ -2580,13 +2686,13 @@
 				window.setTimeout( function() { plugin.animation(frames, current, el, options); }, options.interval);
 			}
 			
-		}
+		};
 	
 		plugin.closeLightbox = function(){
 			$('.'+plugin.settings.prefix+'-lightbox-el').fadeTo('fast', 0, function(){
 				$(this).remove();
 			});
-		}
+		};
 		
 		plugin.addKeypressEvents = function($el, code){
 			if (plugin.settings.keyNavigation){
@@ -2675,7 +2781,7 @@
 		
         plugin.init();
 		
-    }
+    };
 
 	$.fn.jKit_effect = function(show, type, speed, easing, delay, fn){
 		return this.each(function() {
@@ -2709,13 +2815,13 @@
 				}
 			}
 		});
-	}
+	};
 
 	$.fn.jKit_getUnixtime = function(){
 		var now = new Date;
 		var unixtime_ms = now.getTime();
 		return parseInt(unixtime_ms / 1000);
-	}
+	};
 	
 	$.fn.jKit_arrayShuffle = function(arr){
 		var tmp, rand;
@@ -2726,7 +2832,7 @@
 			arr[rand] = tmp;
 		}
 		return arr;
-	}
+	};
 	
 	$.fn.jKit_stringOccurrences = function(string, substring){
 		
@@ -2745,32 +2851,32 @@
 		
 		return (n);
 		
-	}
+	};
 	
 	$.fn.jKit_emailCheck = function(string){
 		var filter = /^[a-z0-9\._-]+@([a-z0-9_-]+\.)+[a-z]{2,6}$/i;
 		return filter.test(string);
-	}
+	};
 	
 	$.fn.jKit_urlCheck = function(string){
 		var filter = /^(?:(ftp|http|https):\/\/)?(?:[\w\-]+\.)+[a-z]{2,6}$/i;
 		return filter.test(string);
-	}
+	};
 	
 	$.fn.jKit_dateCheck = function(string){
 		var filter = /^[0-9]{2}\.[0-9]{2}\.[0-9]{2}$/i;
 		return filter.test(string);
-	}
+	};
 	
 	$.fn.jKit_timeCheck = function(string){
 		var filter = /^[0-9]{1,2}\:[0-9]{2}$/i;
 		return filter.test(string);
-	}
+	};
 	
 	$.fn.jKit_phoneCheck = function(string){
 		var filter = /^(\+|0)[\d ]+(-\d*)?\d$/;
 		return filter.test(string);
-	}
+	};
 
 	$.fn.jKit_passwordStrength = function(passwd){
 		var intScore = 0
@@ -2794,7 +2900,7 @@
 		if (passwd.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/)) intScore = intScore + 5;
 		
 		return intScore;
-	}
+	};
 	
 	$.fn.jKit_getAttributes = function(){
 		return this.each(function() {
@@ -2808,7 +2914,7 @@
 			
             return map;
 		});
-	}
+	};
 	
 	$.fn.jKit_setAttributes = function(attr){
 		return this.each(function() {
@@ -2818,35 +2924,35 @@
 				} catch(err) {}
 			});
 		});
-	}
+	};
 	
 	$.fn.jKit_iOS = function(){
 		return navigator.userAgent.match(/(iPod|iPhone|iPad)/i);
-	}
+	};
 
 	$.fn.jKit_belowTheFold = function(){
 		var fold = $(window).height() + $(window).scrollTop();
 		return fold <= $(this).offset().top;
-	}
+	};
 	
 	$.fn.jKit_aboveTheTop = function(){
 		var top = $(window).scrollTop();
 		return top >= $(this).offset().top + $(this).height();
-	}
+	};
 	
 	$.fn.jKit_rightOfScreen = function(){
 		var fold = $(window).width() + $(window).scrollLeft();
 		return fold <= $(this).offset().left;
-	}
+	};
 	
 	$.fn.jKit_leftOfScreen = function(){
 		var left = $(window).scrollLeft();
 		return left >= $(this).offset().left + $(this).width();
-	}
+	};
 	
 	$.fn.jKit_inViewport = function(){
         return !$(this).jKit_belowTheFold() && !$(this).jKit_aboveTheTop() && !$(this).jKit_rightOfScreen() && !$(this).jKit_leftOfScreen();
-	}
+	};
 	
 
     $.fn.jKit = function(options, moreoptions) {
@@ -2856,6 +2962,6 @@
 			$(this).data('jKit', plugin);
         });
 
-    }
+    };
 
 })(jQuery);

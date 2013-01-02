@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="jquery.jkit.1.0.57.min.js"></script>
+<script type="text/javascript" src="jquery.jkit.1.1.0.min.js"></script>
 
 <script type="text/javascript">
 
@@ -101,7 +101,7 @@ function specialEncodeCommand(that, type, options){
 		<!-- basics -->
 		
 		<h2>Basics</h2>
-		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.0.57.min.js"&gt;&lt;/script&gt;</pre>
+		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.1.0.min.js"&gt;&lt;/script&gt;</pre>
 		<p class="info">Attach it to the whole body or any other element:</p>
 		<pre>&lt;script type="text/javascript"&gt;
 $(document).ready(function(){
@@ -160,6 +160,8 @@ $(document).ready(function(){
 			<li><a href="#command_sort">sort</a></li>
 			<li><a href="#command_zoom">zoom</a></li>
 			<li><a href="#command_api">api</a></li>
+			<li><a href="#command_filter">filter</a></li>
+			<li><a href="#command_summary">summary</a></li>
 		</ul>
 		<p class="info" style="clear:both">More to come ...</p>
 		
@@ -414,6 +416,26 @@ $(document).ready(function(){
 			</div>
 		</div>
 		
+		<div class="box">
+			<div id="mydiv9" rel="jKit[slideshow:interval=2000;speed=250;animation=fade;on=click]">
+				<img src="slides/p1.jpg">
+				<img src="slides/p2.jpg">
+				<img src="slides/p3.jpg">
+				<img src="slides/p4.jpg">
+				<img src="slides/p5.jpg">
+			</div>
+		</div>
+		
+		<div class="box">
+			<div id="mydiv10" rel="jKit[slideshow:interval=2000;speed=250;animation=fade;on=mouseover]">
+				<img src="slides/p1.jpg">
+				<img src="slides/p2.jpg">
+				<img src="slides/p3.jpg">
+				<img src="slides/p4.jpg">
+				<img src="slides/p5.jpg">
+			</div>
+		</div>
+		
 		
 		<!-- gallery command -->
 		
@@ -433,7 +455,7 @@ $(document).ready(function(){
 			<li><strong>showcaptions:</strong> <span>"yes" or "no"</span> <span class="default">yes</span></li>
 		</ul>
 		<div class="box">
-			<div id="mydiv9" rel="jKit[gallery:event=click;active=4]">
+			<div id="mydiv9" rel="jKit[gallery:event=click;active=4;animation=fade;speed=250]">
 				<img src="slides/p1.jpg" title="Image caption one">
 				<img src="slides/p2.jpg" title="Image caption two">
 				<img src="slides/p3.jpg" title="Image caption three">
@@ -1193,6 +1215,38 @@ $(document).ready(function(){
 		</div>
 		
 		
+		<div class="box" rel="jKit[template:action=set;name=commits]" style="display:none">
+			<ul>
+				<li data-jkit-api-if="data[0]">
+					<div data-jkit-api="data[0].commit.message"></div>
+					<div data-jkit-api="data[0].commit.url"></div>
+					<div data-jkit-api="data[0].commit.committer.date"></div>
+					<div data-jkit-api="data[0].commit.committer.name"></div>
+				</li>
+				<li data-jkit-api-if="data[1]">
+					<div data-jkit-api="data[1].commit.message"></div>
+					<div data-jkit-api="data[1].commit.url"></div>
+					<div data-jkit-api="data[1].commit.committer.date"></div>
+					<div data-jkit-api="data[1].commit.committer.name"></div>
+				</li>
+				<li data-jkit-api-if="data[2]">
+					<div data-jkit-api="data[2].commit.message"></div>
+					<div data-jkit-api="data[2].commit.url"></div>
+					<div data-jkit-api="data[2].commit.committer.date"></div>
+					<div data-jkit-api="data[2].commit.committer.name"></div>
+				</li>
+				<li data-jkit-api-if="data[112]">
+					<div data-jkit-api="data[112].commit.message"></div>
+					<div data-jkit-api="data[112].commit.url"></div>
+					<div data-jkit-api="data[112].commit.committer.date"></div>
+					<div data-jkit-api="data[112].commit.committer.name"></div>
+				</li>
+			</ul>
+		</div>
+		
+		<div data-jkit="[api:format=json;template=commits;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits]">loading ...</div>
+		
+		
 		<h2 id="command_chart">Chart</h2>
 		<p class="info">Create a table with your data like this:</p>
 		<pre rel="jKit[encode]"><table rel="jKit[chart:style=bar;units=USD;align=vertical;max=1000]">
@@ -1523,6 +1577,14 @@ $(document).ready(function(){
 				<li>Even more text for the ticker</li>
 			</ul>
 		</div>
+		<div class="box">
+			<ul rel="jKit[ticker]">
+				<li>Ticker Text 1</li>
+				<li>Another one</li>
+				<li>The third ticker text</li>
+				<li>Even more text for the ticker</li>
+			</ul>
+		</div>
 		
 		
 		<h2 id="command_sort">Sort</h2>
@@ -1642,10 +1704,129 @@ $(document).ready(function(){
 		</pre>
 		<div class="box">
 			<ul>
-				<li>Latest jKit commit: <span data-jkit="[api:format=json;value=data[0].commit.message;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits]"></span></li>
+				<li>Latest jKit commit: <span data-jkit="[limit:elements=chars;count=50][macro:name=commitlimit][api:format=json;value=data[0].commit.message;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits;macro=commitlimit]">loading ...</span></li>
 			</ul>
 		</div>
 		
+		<div class="box">
+			<ul>
+				<li>Live updating: <span data-jkit="[api:format=json;value=count;interval=10;url=http\://www.aletscharena.ch/testapi.php]"></span></li>
+			</ul>
+		</div>
+		
+		
+		
+		<h2 id="command_filter">Filter</h2>
+		<h4>Options:</h4>
+		<ul class="options">
+			<li><strong>by:</strong> <span>"class" or "text"</span> <span class="default">class</span></li>
+			<li><strong>affected:</strong> <span>jQuery Selector</span> <span class="default">""</span></li>
+			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">250</span></li>
+			<li><strong>animation:</strong> <span>"fade", "slide" or "none"</span> <span class="default">slide</span></li>
+			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
+			<li><strong>logic:</strong> <span>"and" or "or"</span> <span class="default">and</span></li>
+		</ul>
+		<p class="info">Load the twitter and facebook count for the url: http://news.ycombinator.com</p>
+		<pre rel="jKit[encode]">
+		<div class="box" data-jkit="[filter:by=text;affected=ul > li]">
+			<select class="jkit-filter">
+				<option value="">All</option>
+				<option value="test1">test1</option>
+				<option value="test2" selected>test2</option>
+				<option value="test3">test3</option>
+				<option value="test1 test2">test1 & test2</option>
+			</select>
+			<select class="jkit-filter">
+				<option value="">All</option>
+				<option value="long" selected>long</option>
+			</select>
+			<input type="text" class="jkit-filter" value="">
+			<ul>
+				<li class="test1">Entry 1 ... (test1)</li>
+				<li class="test2">Entry 2 ... (test2)</li>
+				<li class="test3">Entry 3 ... (test3)</li>
+				<li class="test2 long">Entry 4 ... (test2 long)</li>
+				<li class="test1 long">Entry 5 ... (test1 long)</li>
+				<li class="test3">Entry 6 ... (test3)</li>
+				<li class="test2">Entry 7 ... (test2)</li>
+				<li class="test1 test3">Entry 8 ... (test1 test3)</li>
+			</ul>
+		</div></pre>
+		<div class="box" data-jkit="[filter:by=text;affected=ul > li]">
+			<select class="jkit-filter">
+				<option value="">All</option>
+				<option value="test1">test1</option>
+				<option value="test2" selected>test2</option>
+				<option value="test3">test3</option>
+				<option value="test1 test2">test1 & test2</option>
+			</select>
+			<select class="jkit-filter">
+				<option value="">All</option>
+				<option value="long" selected>long</option>
+			</select>
+			<input type="text" class="jkit-filter" value="">
+			<ul>
+				<li class="test1">Entry 1 ... (test1)</li>
+				<li class="test2">Entry 2 ... (test2)</li>
+				<li class="test3">Entry 3 ... (test3)</li>
+				<li class="test2 long">Entry 4 ... (test2 long)</li>
+				<li class="test1 long">Entry 5 ... (test1 long)</li>
+				<li class="test3">Entry 6 ... (test3)</li>
+				<li class="test2">Entry 7 ... (test2)</li>
+				<li class="test1 test3">Entry 8 ... (test1 test3)</li>
+			</ul>
+		</div>
+		
+		
+		
+		<h2 id="command_summary">Summary</h2>
+		<h4>Options:</h4>
+		<ul class="options">
+			<li><strong>what:</strong> <span>Element</span> <span class="default">""</span></li>
+			<li><strong>linked:</strong> <span>"yes" or "no"</span> <span class="default">yes</span></li>
+			<li><strong>from:</strong> <span>String</span> <span class="default">""</span></li>
+			<li><strong>scope:</strong> <span>"children" or "all"</span> <span class="default">children</span></li>
+		</ul>
+		<p class="info">Load the twitter and facebook count for the url: http://news.ycombinator.com</p>
+		<pre rel="jKit[encode]">
+		<div data-jkit="[summary:what=h4;linked=yes;from=#testcontent]"></div>
+		<div id="testcontent">
+			<h4>Test 1</h4>
+			<p data-jkit="[lorem:paragraphs=4]"></p>
+
+			<h4>Test 2</h4>
+			<p data-jkit="[lorem:paragraphs=2]"></p>
+			<div>
+				<h4>Test 2 Sub</h4>
+				<p data-jkit="[lorem:paragraphs=4]"></p>
+			</div>
+
+			<h4>Test 3</h4>
+			<p data-jkit="[lorem:paragraphs=4]"></p>
+
+			<h4>Test 4</h4>
+			<p data-jkit="[lorem:paragraphs=4]"></p>
+		</div></pre>
+		<div class="box">
+			<div data-jkit="[summary:what=h4;linked=yes;from=#testcontent]"></div>
+			<div id="testcontent">
+				<h4>Test 1</h4>
+				<p data-jkit="[lorem:paragraphs=4]"></p>
+
+				<h4>Test 2</h4>
+				<p data-jkit="[lorem:paragraphs=2]"></p>
+				<div>
+					<h4>Test 2 Sub</h4>
+					<p data-jkit="[lorem:paragraphs=4]"></p>
+				</div>
+
+				<h4>Test 3</h4>
+				<p data-jkit="[lorem:paragraphs=4]"></p>
+
+				<h4>Test 4</h4>
+				<p data-jkit="[lorem:paragraphs=4]"></p>
+			</div>
+		</div>
 		
 		
 		
