@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.1 - 1. 1. 2013
+// Version 1.1.2 - 2. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -914,8 +914,6 @@
 							    id: s.prefix+'-'+type+'-bg',
 								'class': s.prefix+'-'+type+'-closer '+s.prefix+'-'+type+'-el'
 							}).fadeTo(options.speed, options.opacity).appendTo('body');
-							
-							if ($.fn.jKit_iOS()) $overlay.css('top', $(window).scrollTop()+'px');
 						}
 						
 						var $content = $('<div/>', {
