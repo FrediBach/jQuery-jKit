@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.2 - 2. 1. 2013
+// Version 1.1.3 - 7. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -1770,7 +1770,7 @@
 							}
 							
 						} else {
-							$that.addClass('error');
+							$that.addClass(s.errorClass);
 							if (options.formerror != undefined){
 								$that.append('<span class="'+s.errorClass+'">'+options.formerror+'</span>');
 							}
