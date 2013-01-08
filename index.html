@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="jquery.jkit.1.1.3.min.js"></script>
+<script type="text/javascript" src="jquery.jkit.1.1.4.min.js"></script>
 
 <script type="text/javascript">
 
@@ -930,6 +930,11 @@ $(document).ready(function(){
 			<li><strong>checkfunction:</strong> <span>Function name</span></li>
 			<li><strong>name:</strong> <span>Group name</span></li>
 		</ul>
+		
+		<form class="box" method="post" action="?" data-jkit="[form:validateonly=true]">
+			<input name="custom" id="custom" title="127-785-145" data-jkit="[validate:type=custom;checkfunction=checkCustom;error=Bitte gib deinen Custom Code ein]"> 
+			<input name="send" type="submit" value="Senden" />
+		</form>
 		
 		<form method="post" action="ajaxmailer.php" rel="jKit[form:success=Vielen Dank;error=Bitte überprüfen sie nochmals alle Felder]">
 		
@@ -1834,6 +1839,37 @@ $(document).ready(function(){
 		</div>
 		
 		
+		<h2>Event Test</h2>
+		<div class="box" style="display:none" data-jkit="[api.latestcommit:format=json;value=data[0].commit.message;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits][show:speed=2500;onevent=latestcommit.finished]">
+			
+		</div>
+		
+		<div class="box">
+			<div id="mydiv7" rel="jKit[slideshow.header:interval=4000;speed=250;animation=fade]">
+				<a href="http://fredibach.ch" target="_blank"><img src="slides/p1.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="slides/p2.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="slides/p3.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="slides/p4.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="slides/p5.jpg"></a>
+			</div>
+			<div style="display:none" data-jkit="[show:animation=grow;onevent=header.showslide3][hide:animation=grow;onevent=header.showslide4]">
+				This text is only shown on slide 3!
+			</div>
+			<div style="display:none" data-jkit="[show:animation=grow;onevent=header.showslide2;execute=2][hide:animation=grow;onevent=header.showslide5;execute=2]">
+				This text is shown from slide two till the end of slide four!
+			</div>
+		</div>
+		
+		<div class="box" data-jkit="[showandhide.repeatme:delay=0;speed=500;duration=1000][repeat:onevent=header.showslide3]">
+			show and hide ... and repeat on slide 3
+		</div>
+		
+		<div class="box"> 
+			<img src="images/newyorkcity_1280x800.jpg" width="640" rel="jKit[zoom.newyork]">
+			<div style="display:none" data-jkit="[show:speed=250;animation=grow;onevent=newyork.zoomin;execute=once][hide:speed=250;animation=grow;onevent=newyork.zoomout;execute=once]">
+				Now these are some details!
+			</div>
+		</div>
 		
 		<div id="footer">
 			<div>jKit Facebook Page: <a href="http://www.facebook.com/jquery.jkit" target="_blank">www.facebook.com/jquery.jkit</a></div>

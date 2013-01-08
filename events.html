@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="imagetoolbar" content="no" />
+
+<meta name="viewport" content="width=960, initial-scale=1, maximum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+<title>jKit - jQuery Plugin - UI Library</title>
+
+<meta property="og:title" content="jKit - jQuery Plugin - UI Library"/>
+<meta property="og:description" content="A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way."/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="http://jquery-jkit.com/jkit-facebook-logo.gif"/>
+<meta property="og:site_name" content="jKit - jQuery Plugin - UI Library"/>
+<meta property="og:url" content="http://jquery-jkit.com/"/>
+<meta property="fb:app_id" content="108151702665072"/>
+
+<meta itemprop="name" content="jKit - jQuery Plugin - UI Library">
+<meta itemprop="description" content="A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.">
+<meta itemprop="image" content="http://jquery-jkit.com/jkit-facebook-logo.gif">
+
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+<link rel="stylesheet" type="text/css" href="css/jkit.css" />
+
+<script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="jquery.jkit.1.1.4.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	$('body').jKit({ 
+		'plugins': {
+			date: { 'path': "plugins/datepicker/js/datepicker.js", 'fn': 'DatePicker' },
+			hint: { 'path': "plugins/jquery.ztinputhint-1.2.js", 'fn': 'ztInputHint' },
+			maxlength: { 'path': "plugins/maxlength/jquery.maxlength-min.js", 'fn': 'maxlength' },
+			grow: { 'path': "plugins/jquery.jgrow-0.4.js", 'fn': 'jGrow' },
+			confirm: { 'path': "plugins/jquery.confirm-1.3.js", 'fn': 'confirm' },
+			time: { 'path': "plugins/timePicker/jquery.timePicker.min.js", 'fn': 'timePicker' },
+			mask: { 'path': "plugins/jquery.maskedinput-1.2.2.min.js", 'fn': 'mask', 'option': 'mask' }
+		},
+		'replacements': {
+			'encode': specialEncodeCommand
+		}
+	});
+	
+	$('ul#navigation > li > a').each( function(){
+		$('body').data('jKit').executeCommand(this, 'scroll', { 'speed': 1000, 'dynamic': 'no' });
+	});
+	
+	$('body').on('mytabs.showentry2', function(){
+		//alert('test');
+	});
+
+});
+
+function specialEncodeCommand(that, type, options){
+	
+	var s = this.settings; // we don't need this one, but I'll leave it here so you know how to get the plugin settings in case you need them
+	var $that = $(that);
+	
+	this.executeCommand(that, type, options); // execute the original command
+	
+	// now add some additional functionality:
+	
+	if (options.format == 'uppercase'){
+		$that.html($that.html().toUpperCase());
+	}
+	
+}
+
+</script>
+
+</head>
+<body>
+	
+	<img data-jkit="[background:distort=no]" id="bg" src="images/jkit_bg.png" width="1920" height="1080">
+	
+	<div id="container">
+		
+		<!-- Download Button -->
+		
+		<div id="download">
+			<a href="https://github.com/FrediBach/jQuery-jKit/archive/master.zip">
+				<strong><span>[</span> DOWNLOAD <span>]</span></strong> &nbsp; <small>Size? Less than half of jQuery!</small>
+			</a>
+		</div>
+		
+		
+		<h1><img src="images/jkit_logo.png" alt="jKit" title="jKit"></h1>
+		
+		
+		<!-- slogan -->
+		
+		<p class="note">
+			A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
+		</p>
+		<p class="info">Tested browsers: Chrome, Firefox, Safari, IE7+, Opera and Safari Mobile</p>
+		
+		
+		<h2>Event Test</h2>
+		
+		<div class="box">
+			<ul rel="jKit[ticker.news]">
+				<li>Ticker Text 1</li>
+				<li>Another one</li>
+				<li>The third ticker text</li>
+				<li>Even more text for the ticker</li>
+			</ul>
+		</div>
+		<h3 style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=news.showentry2]">
+			Is this another one?
+		</h3>
+		
+		<div class="box">
+			<ul rel="jKit[limit.limits:count=3]">
+				<li>Entry 1</li>
+				<li>Entry 2</li>
+				<li>Entry 3</li>
+				<li>Entry 4</li>
+			</ul>
+		</div>
+		<h3 style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=limits.complete]">
+			Limited!
+		</h3>
+		
+		<ul class="box">
+			<li><a href="#" rel="jKit[tooltip.mytip:color=#fff;background=#999;text=Test Tooltip Text]">Test Link</a></li> 
+		</ul>
+		<h3 style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=mytip.open]">
+			Open
+		</h3>
+		<h3 style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=mytip.closed]">
+			Closed
+		</h3>
+		
+		<div class="box">
+			<input name="hint" id="hint" title="My Hint Text" rel="jKit[plugin:script=hint;hintClass=hint]">
+		</div>
+		<h3 style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=hint.complete]">
+			Hint plugin loaded
+		</h3>
+		
+		<div class="box">
+			<div id="mytabs" style="width:100%" data-jkit="[tabs.mytabs:animation=none]">
+				<div>
+					<h3>Tab 1</h3>
+					<div>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</div>
+				</div>
+				<div>
+					<h3>Tab 2</h3>
+					<div>At vero eos et accusam et justo duo dolores et ea rebum.</div>
+				</div>
+				<div>
+					<h3>Tab 3</h3>
+					<div>Duo dolores et ea rebum.</div>
+				</div>
+			</div>
+		</div>
+		<h3 style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=mytabs.showentry2]">
+			Entry 2
+		</h3>
+		
+		
+		<div class="box">
+			<div id="mydiv9" rel="jKit[gallery:event=click;active=4;animation=fade;speed=250]">
+				<img src="slides/p1.jpg" title="Image caption one">
+				<img src="slides/p2.jpg" title="Image caption two">
+				<img src="slides/p3.jpg" title="Image caption three">
+				<img src="slides/p4.jpg" title="Image caption four">
+				<img src="slides/p5.jpg" title="Image caption five">
+			</div>
+		</div>
+		<h3 style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=mydiv9.showentry3]">
+			Image 3!
+		</h3>
+		
+		<div class="box">
+			<div class="animation-container" rel="jKit[animation.jkitanim:fps=30;loop=yes]">
+				<div class="animation" rel="jKit[frame:steps=100;action=fadeout]" style="font-size:90px;background:#000"><img src="images/jkit_logo.png" alt="jKit" title="jKit" style="margin-top:110px"></div>
+				<div class="animation" rel="jKit[frame:steps=7]" style="font-size:90px;line-height:260%">animation</div>
+				<div class="animation" rel="jKit[frame:steps=10]" style="font-size:90px;line-height:260%">made</div>
+				<div class="animation" rel="jKit[frame:steps=50;action=tween;easing=easeOutBounce]" style="font-size:200px;padding-top:110px">easy</div>
+				<div class="animation" rel="jKit[frame:steps=1]" style="font-size:20px;opacity:0;padding-top:110px">easy</div>
+				<div class="animation" rel="jKit[frame:steps=25]"></div>
+				<div class="animation" rel="jKit[frame:steps=75;action=fadeinout]" style="font-size:50px;line-height:500%;color:#E01B49;background:#fff">really easy!</div>
+				<div class="animation" rel="jKit[frame:steps=50]"></div>
+				<div class="animation" rel="jKit[frame:steps=50;action=fadein]" style="background:#000"></div>
+			</div>
+		</div>
+		<h3 style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=jkitanim.showframe167]">
+			Frame 3!
+		</h3>
+		
+		
+		<div class="box" id="mydiv5" style="width:400px;padding:6px;background:#ffd;border:1px #eeb solid" rel="jKit[partially:height=50;speed=500;easing=easeOutBounce]">
+			Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+		</div>
+		<h3 style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=mydiv5.open]">
+			Yeah, even more!
+		</h3>
+		
+		
+		<div class="box">
+			<a id="top" href="" rel="jKit[scroll:speed=5000]">To the top!</a>
+			
+			<h3 style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=top.complete]">
+				At the top again!
+			</h3>
+		</div>
+		
+		
+		<div class="box" style="display:none" data-jkit="[api.latestcommit:format=json;value=data[0].commit.message;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits][show:speed=2500;onevent=latestcommit.complete]">
+			
+		</div>
+		
+		
+		<div class="box">
+			<a href="images/sky.jpg" data-jkit="[lightbox.sky]" title="Paragliders in the sky">Open image</a>
+			
+			<h3 style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=sky.clicked]">
+				Blue skies!
+			</h3>
+		</div>
+		
+		
+		<div class="box">
+		
+			<table id="years" rel="jKit[chart:style=bar;units=USD;align=vertical;max=1000;speed=1000;delaysteps=1000]">
+				<thead>
+					<tr>
+						<th class="label">Year</th>
+						<th>Jan.</th><th>Feb.</th><th>Mar.</th><th>Apr.</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th class="label">2011</th>
+						<th>500</th><th>124</th><th>254</th><th>124</th>
+					</tr>
+					<tr>
+						<th class="label">2012</th>
+						<th>214</th><th>124</th><th>127</th><th>452</th>
+					</tr>
+				</tbody>
+			</table>
+			
+			<h3 style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=years.complete]">
+				New content loaded
+			</h3>
+			
+		</div>
+		
+		
+		
+		<div class="box">
+			<div id="mydiv7" rel="jKit[slideshow.header:interval=4000;speed=250;animation=fade]">
+				<a href="http://fredibach.ch" target="_blank"><img src="slides/p1.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="slides/p2.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="slides/p3.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="slides/p4.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="slides/p5.jpg"></a>
+			</div>
+			<div style="display:none" data-jkit="[show:animation=grow;onevent=header.showentry3][hide:animation=grow;onevent=header.showentry4]">
+				This text is only shown on slide 3!
+			</div>
+			<div style="display:none" data-jkit="[show:animation=grow;onevent=header.showentry2;execute=2][hide:animation=grow;onevent=header.showentry5;execute=2]">
+				This text is shown from slide two till the end of slide four!
+			</div>
+		</div>
+		
+		<div class="box" data-jkit="[showandhide.repeatme:delay=0;speed=500;duration=1000][repeat:onevent=header.showentry3]">
+			show and hide ... and repeat on slide 3
+		</div>
+		
+		<div class="box" data-jkit="[filter:by=text;affected=table > tbody > tr][filter:onevent=tablesort.complete;by=text;affected=table > tbody > tr]">
+			Search: <input type="text" class="jkit-filter" value=""> (try searching for "Gerber")
+			<table width="100%">
+				<thead>
+					<tr>
+						<th data-jkit="[sort.tablesort:what=text;start=4]">Name</th>
+						<th data-jkit="[sort.tablesort:what=text]">Location</th>
+						<th data-jkit="[sort.tablesort:what=text;by=date]">Birthday</th>
+						<th data-jkit="[sort.tablesort:what=text]">Category</th>
+						<th data-jkit="[sort.tablesort:what=text]">Status</th>
+						<th data-jkit="[sort.tablesort:what=text;start=2]">Superior</th>
+						<th data-jkit="[sort.tablesort:what=text;by=num]">Price (CHF)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td><td>freelancer</td><td>active</td><td>#120</td><td>1.00</td></tr>
+					<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td><td>freelancer</td><td>active</td><td>#120</td><td>25.25</td></tr>
+					<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td><td>freelancer</td><td>active</td><td></td><td>2.99</td></tr>
+					<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td><td>freelancer</td><td>active</td><td>#1168</td><td>48.95</td></tr>
+					<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td><td>trainee</td><td>active</td><td>#120</td><td>200.10</td></tr>
+					<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td><td>-5.05</td></tr>
+					<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td><td>employee</td><td>active</td><td>#1168</td><td>10</td></tr>
+					<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td><td>freelancer</td><td>active</td><td>#120</td><td>4721.45</td></tr>
+					<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td><td>guest</td><td>active</td><td>#120</td><td>12.55</td></tr>
+					<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td><td>trainee</td><td>active</td><td>#120</td><td>354.50</td></tr>
+					<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td><td>freelancer</td><td>active</td><td></td><td>42.85</td></tr>
+					<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td><td>guest</td><td>active</td><td></td><td>87.41</td></tr>
+					<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td><td>freelancer</td><td>active</td><td>#463</td><td>354.01</td></tr>
+					<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td><td>employee</td><td>active</td><td>#120</td><td>14.12</td></tr>
+					<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td><td>employee</td><td>active</td><td>#120</td><td>10.25</td></tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="box"> 
+			<img src="images/newyorkcity_1280x800.jpg" width="640" rel="jKit[zoom.newyork]">
+			<div style="display:none" data-jkit="[show:speed=250;animation=grow;onevent=newyork.zoomin;execute=once][hide:speed=250;animation=grow;onevent=newyork.zoomout;execute=once]">
+				Now these are some details!
+			</div>
+		</div>
+		
+		<div class="box" data-jkit="[cycle:what=css.background;where=table > tbody > tr;scope=all;sequence=#ddd,#fff][cycle:onevent=tablesort.complete;what=css.background;where=table > tbody > tr;scope=all;sequence=#ddd,#fff]">
+			<table width="100%">
+				<thead>
+					<tr>
+						<th data-jkit="[sort.tablesort:what=text;start=4]">Name</th>
+						<th data-jkit="[sort.tablesort:what=text]">Location</th>
+						<th data-jkit="[sort.tablesort:what=text;by=date]">Birthday</th>
+						<th data-jkit="[sort.tablesort:what=text]">Category</th>
+						<th data-jkit="[sort.tablesort:what=text]">Status</th>
+						<th data-jkit="[sort.tablesort:what=text;start=2]">Superior</th>
+						<th data-jkit="[sort.tablesort:what=text;by=num]">Price (CHF)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td><td>freelancer</td><td>active</td><td>#120</td><td>1.00</td></tr>
+					<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td><td>freelancer</td><td>active</td><td>#120</td><td>25.25</td></tr>
+					<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td><td>freelancer</td><td>active</td><td></td><td>2.99</td></tr>
+					<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td><td>freelancer</td><td>active</td><td>#1168</td><td>48.95</td></tr>
+					<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td><td>trainee</td><td>active</td><td>#120</td><td>200.10</td></tr>
+					<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td><td>-5.05</td></tr>
+					<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td><td>employee</td><td>active</td><td>#1168</td><td>10</td></tr>
+					<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td><td>freelancer</td><td>active</td><td>#120</td><td>4721.45</td></tr>
+					<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td><td>guest</td><td>active</td><td>#120</td><td>12.55</td></tr>
+					<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td><td>trainee</td><td>active</td><td>#120</td><td>354.50</td></tr>
+					<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td><td>freelancer</td><td>active</td><td></td><td>42.85</td></tr>
+					<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td><td>guest</td><td>active</td><td></td><td>87.41</td></tr>
+					<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td><td>freelancer</td><td>active</td><td>#463</td><td>354.01</td></tr>
+					<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td><td>employee</td><td>active</td><td>#120</td><td>14.12</td></tr>
+					<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td><td>employee</td><td>active</td><td>#120</td><td>10.25</td></tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="box">
+			<img src="images/sample_button_off.png" rel="jKit[swap.leaf]">
+			<div style="display:none" data-jkit="[show:speed=250;animation=grow;onevent=leaf.active][hide:speed=250;animation=grow;onevent=leaf.inactive]">
+				Nice colors!
+			</div>
+		</div>
+		
+		<div class="box">
+			<input type="button" value="bigger" rel="jKit[fontsize.size:steps=2;affected=#fs-example p]">
+			<input type="button" value="smaller" rel="jKit[fontsize.size:steps=-2;affected=#fs-example p]">
+			<div id="fs-example">
+				<h3>Some heading</h3>
+				<p>Some text ...<p>
+				<p>Some more text ...</p>
+			</div>
+			<div style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=size.changed]">
+				Fontsize changed.
+			</div>
+		</div>
+		
+		<div class="box">
+			<a href="ajax_sample_content_1.html" rel="jKit[ajax.exthtml:element=#ajaxdiv]">Link 1</a>, <a href="ajax_sample_content_2.html" rel="jKit[ajax.exthtml:element=#ajaxdiv]">Link 2</a>
+			<div id="ajaxdiv">
+				Initial text ...
+			</div>
+			<div style="display:none" data-jkit="[showandhide:animation=grow;speed=500;duration=1000;onevent=exthtml.complete]">
+				New content loaded
+			</div>
+		</div>
+		
+	</div>
+</body>
+</html>
