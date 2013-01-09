@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.5 - 9. 1. 2013
+// Version 1.1.6 - 9. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -435,9 +435,14 @@
 									};
 								}
 								
-								if (options.onevent !== undefined){
+								if (options.onevent !== undefined || options.andonevent !== undefined){
 									
-									$el.on( options.onevent, function(){
+									var events = [];
+									if (options.onevent !== undefined) events.push(options.onevent);
+									if (options.andonevent !== undefined) events.push(options.andonevent);
+									var e = events.join(' ');
+									
+									$el.on( e, function(){
 										if (s.replacements[options.type] != undefined && typeof(s.replacements[options.type]) === "function"){
 											s.replacements[options.type].call(plugin, v, options.type, options);
 										} else {
@@ -445,7 +450,9 @@
 										}
 									});
 									
-								} else {
+								}
+								
+								if (options.onevent === undefined){
 								
 									if (s.replacements[options.type] != undefined && typeof(s.replacements[options.type]) === "function"){
 										s.replacements[options.type].call(plugin, v, options.type, options);
