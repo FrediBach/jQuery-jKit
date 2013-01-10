@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.6 - 9. 1. 2013
+// Version 1.1.7 - 10. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -2784,7 +2784,7 @@
 							$el.append($el.children(':nth-child(1)'));
 						});
 					
-						$el.children(':nth-child('+(options.limit+1)+')').jKit_effect(true, options.animation, options.speed, options.easing, 0);
+						$el.children(':nth-child('+(Number(options.limit)+1)+')').jKit_effect(true, options.animation, options.speed, options.easing, 0);
 					
 					} else if (dir == 'prev'){
 						
@@ -2793,7 +2793,7 @@
 						$el.prepend( $el.children(':last-child') );
 					
 						$el.children(':first-child').jKit_effect(true, options.animation, options.speed, options.easing, 0);
-						$el.children(':nth-child('+(options.limit+1)+')').jKit_effect(false, options.animation, options.speed, options.easing, 0);
+						$el.children(':nth-child('+(Number(options.limit)+1)+')').jKit_effect(false, options.animation, options.speed, options.easing, 0);
 					
 					}
 				}
