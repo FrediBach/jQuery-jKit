@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.9 - 11. 1. 2013
+// Version 1.1.10 - 11. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -418,46 +418,48 @@
 							
 							$.each( targets, function(i,v){
 								
-								if (options.commandkey == undefined){
+								var thisoptions = plugin.parseDynamicOptions(options);
+								
+								if (thisoptions.commandkey == undefined){
 									var id = $(v).attr("id");
 									if (id != undefined){
-										options.commandkey = id;
+										thisoptions.commandkey = id;
 									} else {
-										options.commandkey = s.prefix+'-uid-'+(++uid);
+										thisoptions.commandkey = s.prefix+'-uid-'+(++uid);
 									}
 								}
 								
-								if (options.commandkey != undefined){
-									commandkeys[options.commandkey] = {
+								if (thisoptions.commandkey != undefined){
+									commandkeys[thisoptions.commandkey] = {
 										'el': v,
-										'options': options,
+										'options': thisoptions,
 										'execs': 0
 									};
 								}
 								
-								if (options.onevent !== undefined || options.andonevent !== undefined){
+								if (thisoptions.onevent !== undefined || thisoptions.andonevent !== undefined){
 									
 									var events = [];
-									if (options.onevent !== undefined) events.push(options.onevent);
-									if (options.andonevent !== undefined) events.push(options.andonevent);
+									if (thisoptions.onevent !== undefined) events.push(thisoptions.onevent);
+									if (thisoptions.andonevent !== undefined) events.push(thisoptions.andonevent);
 									var e = events.join(' ');
 									
 									$el.on( e, function(){
-										if (s.replacements[options.type] != undefined && typeof(s.replacements[options.type]) === "function"){
-											s.replacements[options.type].call(plugin, v, options.type, options);
+										if (s.replacements[thisoptions.type] != undefined && typeof(s.replacements[thisoptions.type]) === "function"){
+											s.replacements[thisoptions.type].call(plugin, v, thisoptions.type, thisoptions);
 										} else {
-											plugin.executeCommand(v, options.type, options);
+											plugin.executeCommand(v, thisoptions.type, thisoptions);
 										}
 									});
 								
 								}
 								
-								if (options.onevent === undefined){
+								if (thisoptions.onevent === undefined){
 									
-									if (s.replacements[options.type] != undefined && typeof(s.replacements[options.type]) === "function"){
-										s.replacements[options.type].call(plugin, v, options.type, options);
+									if (s.replacements[thisoptions.type] != undefined && typeof(s.replacements[thisoptions.type]) === "function"){
+										s.replacements[thisoptions.type].call(plugin, v, thisoptions.type, thisoptions);
 									} else {
-										plugin.executeCommand(v, options.type, options);
+										plugin.executeCommand(v, thisoptions.type, thisoptions);
 									}
 								
 								}
@@ -501,6 +503,77 @@
 			return options;
 		
 		};
+		
+		plugin.parseDynamicOptions = function(options){
+			
+			var parsedoptions = {};
+			
+			$.each( options, function(index,v){
+				if (v !== undefined && v.indexOf("{") > -1 && v.indexOf("|") > 0 && v.indexOf("}") > 1){
+					
+					var option = '';
+					var dyn = false;
+					var dynstr = '';
+					var parse = false;
+					
+					for (var i=0; i<=(v.length-1);i++){
+						
+						if (!dyn && v.charAt(i) == '{'){
+							dyn = true;
+						} else if (dyn && v.charAt(i) == '}'){
+							dyn = false;
+							parse = true;
+						}
+						
+						if (dyn || parse){
+							dynstr += v.charAt(i);
+							if (parse){
+								dynstr = dynstr.slice(1, -1);
+								var dynsplit = dynstr.split('|');
+								
+								if (dynsplit[0] == 'rand'){
+									var valsplit = dynsplit[1].split('-');
+									option += plugin.getRandom(Number(valsplit[0]), Number(valsplit[1]));
+								}
+								
+								parse = false;
+								dynstr = '';
+							}
+						} else {
+							option += v.charAt(i);
+						}
+						
+					}
+					
+					parsedoptions[index] = option;
+					
+				} else {
+					parsedoptions[index] = v;
+				}
+			});
+			
+			return parsedoptions;
+		}
+		
+		plugin.getRandom = function(min, max) {
+			if(min > max) {
+				return -1;
+			}
+
+			if(min == max) {
+				return min;
+			}
+
+			var r;
+
+			do {
+				r = Math.random();
+			}
+			
+			while(r == 1.0);
+
+			return min + parseInt(r * (max-min+1));
+		}
 		
 		plugin.addDefaults = function(command, options){
 			
