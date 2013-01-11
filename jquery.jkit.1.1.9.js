@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.8 - 10. 1. 2013
+// Version 1.1.9 - 11. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -1392,7 +1392,9 @@
 					plugin.addKeypressEvents($prevdiv, 'left');
 					plugin.addKeypressEvents($nextdiv, 'right');
 					
-					window.setTimeout( function() { plugin.carousel($that, options); }, options.interval);
+					if (options.autoplay == 'yes'){
+						window.setTimeout( function() { plugin.carousel($that, options); }, options.interval);
+					}
 					
 					break;
 					
