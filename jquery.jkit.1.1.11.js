@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.10 - 11. 1. 2013
+// Version 1.1.11 - 14. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -1362,29 +1362,33 @@
 					
 					var originalHeight = $that.height();
 					
-					$that.css('position', 'relative');
+					if (originalHeight > options.height){
 					
-					var $morediv = $('<div/>').addClass(s.prefix+'-morediv').appendTo(that).html(options.text).css( { width: $that.outerWidth()+'px', opacity: 0.9 });
+						$that.css('position', 'relative');
 					
-					plugin.addKeypressEvents($that, 'down');
+						var $morediv = $('<div/>').addClass(s.prefix+'-morediv').appendTo(that).html(options.text).css( { width: $that.outerWidth()+'px', opacity: 0.9 });
 					
-					$that.css({ 'height': options.height+'px', 'overflow': 'hidden' }).on( 'mouseenter down', function() {
-						$morediv.fadeTo(options.speed, 0);
-						$that.animate({ 'height': originalHeight+'px' }, options.speed, options.easing, function(){
-							plugin.triggerEvent('open', $that, options);
+						plugin.addKeypressEvents($that, 'down');
+					
+						$that.css({ 'height': options.height+'px', 'overflow': 'hidden' }).on( 'mouseenter down', function() {
+							$morediv.fadeTo(options.speed, 0);
+							$that.animate({ 'height': originalHeight+'px' }, options.speed, options.easing, function(){
+								plugin.triggerEvent('open', $that, options);
+							});
+						}).on( 'mouseleave up',  function(){
+							$morediv.fadeTo(options.speed, 0.9);
+							$that.animate({ 'height': options.height+'px' }, options.speed, options.easing, function(){
+								plugin.triggerEvent('closed', $that, options);
+							});
 						});
-					}).on( 'mouseleave up',  function(){
-						$morediv.fadeTo(options.speed, 0.9);
-						$that.animate({ 'height': options.height+'px' }, options.speed, options.easing, function(){
-							plugin.triggerEvent('closed', $that, options);
-						});
-					});
 					
-					$morediv.on('click', function(){
-						$that.animate({ 'height': originalHeight+'px' }, options.speed, options.easing, function(){
-							plugin.triggerEvent('closed', $that, options);
+						$morediv.on('click', function(){
+							$that.animate({ 'height': originalHeight+'px' }, options.speed, options.easing, function(){
+								plugin.triggerEvent('closed', $that, options);
+							});
 						});
-					});
+						
+					}
 					
 					break;
 					
@@ -2906,27 +2910,30 @@
 					}
 				});
 				
-				if (!isAnimated){
-					if (dir == 'next' || dir == undefined){
-						
+				if (!isAnimated) {
+
+					var pos = Math.min(options.limit, $el.children().length);
+
+					if (dir == 'next' || dir == undefined) {
+
 						plugin.triggerEvent('shownext', $el, options);
-						
-						$el.children(':nth-child(1)').jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
+
+						$el.children(':first-child').jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
 							$el.append($el.children(':nth-child(1)'));
+							$el.children(':nth-child('+pos+')').jKit_effect(true, options.animation, options.speed, options.easing, 0);
 						});
 						
-						$el.children(':nth-child('+(Number(options.limit)+1)+')').jKit_effect(true, options.animation, options.speed, options.easing, 0);
-					
-					} else if (dir == 'prev'){
-						
+					} else if (dir == 'prev') {
+
 						plugin.triggerEvent('showprev', $el, options);
-						
-						$el.prepend( $el.children(':last-child') );
-						
-						$el.children(':first-child').jKit_effect(true, options.animation, options.speed, options.easing, 0);
-						$el.children(':nth-child('+(Number(options.limit)+1)+')').jKit_effect(false, options.animation, options.speed, options.easing, 0);
-					
+
+						$el.children(':nth-child('+pos+')').jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
+							$el.prepend( $el.children(':last-child') );
+							$el.children(':first-child').jKit_effect(true, options.animation, options.speed, options.easing, 0);
+						});
+						     
 					}
+					
 				}
 				
 				if (options.autoplay == 'yes'){
