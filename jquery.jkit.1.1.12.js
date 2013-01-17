@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.11 - 14. 1. 2013
+// Version 1.1.12 - 17. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -508,7 +508,9 @@
 			
 			var parsedoptions = {};
 			
-			$.each( options, function(index,v){
+			for (index in options){
+				var v = options[index];
+				
 				if (v !== undefined && v.indexOf("{") > -1 && v.indexOf("|") > 0 && v.indexOf("}") > 1){
 					
 					var option = '';
@@ -550,7 +552,7 @@
 				} else {
 					parsedoptions[index] = v;
 				}
-			});
+			}
 			
 			return parsedoptions;
 		}
