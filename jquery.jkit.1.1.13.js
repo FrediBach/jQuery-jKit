@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.12 - 17. 1. 2013
+// Version 1.1.13 - 17. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -2162,6 +2162,8 @@
 					
 				case 'lorem':
 					
+					console.log(options);
+					
 					var lorem = [
 						'Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 						'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
@@ -2180,12 +2182,21 @@
 					
 					if (options.paragraphs > 0){
 						for ( var i=1; i<=options.paragraphs; i++ ) {
-							text += '<p>'+lorem[(i%7)-1]+'</p>';
+							text += '<p>'+lorem[(i-1)%7]+'</p>';
 						}
 					} else {
-						text = lorem[0];
-						if (options.length != ''){
-							text = text.substring(0, options.length-1);
+						if (options.length != undefined && options.length != ''){
+							
+							var i=1;
+							
+							while(text.length < options.length-1){
+								text += lorem[(i-1)%7]+' ';
+								text = text.substring(0, options.length-1);
+								i++;
+							}
+						
+						} else {
+							text = lorem[0];
 						}
 					}
 					
