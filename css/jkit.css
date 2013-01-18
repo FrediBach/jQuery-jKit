@@ -858,3 +858,26 @@ th.jkit-sort-up, th.jkit-sort-up:hover {
 th.jkit-sort-down, th.jkit-sort-down:hover {
 	background: #858F4C;
 }
+
+ul.jkit-pagination, ul.jkit-pagination li {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+ul.jkit-pagination {
+	margin-top: 10px;
+}
+ul.jkit-pagination li {
+	display: inline;
+	background: #333;
+	color: #fff;
+	padding: 6px;
+	padding-top: 3px;
+	padding-bottom: 2px;
+	cursor: pointer;
+	cursor: hand;
+	margin-right: 5px;
+}
+ul.jkit-pagination li.active {
+	background: #f30;
+}

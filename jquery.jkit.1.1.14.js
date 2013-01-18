@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.13 - 17. 1. 2013
+// Version 1.1.14 - 18. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -269,6 +269,15 @@
 					'linked': 			'yes',
 					'from': 			'',
 					'scope': 			'children'
+				},
+				'paginate': {
+					'limit': 			'25',
+					'by': 				'node',
+					'container': 		'',
+					'animation':		'none',
+					'speed':			250,
+					'easing':			'linear',
+					'pos': 				'after'
 				}
 			}
 		};
@@ -629,6 +638,111 @@
 			});
 			
 			switch(type){
+				case 'paginate':
+					
+					if (options.container != ''){
+						var $container = $that.find(options.container);
+					} else {
+						var $container = $that;
+					}
+					
+					if ($that.attr('id') !== undefined){
+						var paginateid = s.prefix+'-'+type+'-'+$that.attr('id');
+					} else {
+						var paginateid = s.prefix+'-'+type+'-uid-'+(++uid);
+					}
+					
+					var pages = [];
+					var page = [];
+					
+					if (options.by == 'node'){
+						
+						var cnt = 1;
+						
+						$container.children().each( function(){
+							
+							cnt++;
+							page.push($(this).detach());
+							
+							if (cnt > Number(options.limit)){
+								cnt = 1;
+								pages.push(page);
+								page = [];
+							}
+							
+						});
+						
+					} else {
+						
+						var height = 0;
+						
+						$container.children().each( function(){
+							
+							height += $(this).outerHeight();
+							
+							if (height > Number(options.limit)){
+								height = $(this).outerHeight();
+								if (page.length > 0){
+									pages.push(page);
+								}
+								page = [];
+							}
+							
+							page.push($(this).detach());
+							
+						});
+						
+					}
+					
+					if (page.length > 0){
+						pages.push(page);
+					}
+					
+					if (pages.length > 1){
+						
+						var $pagination = $('<ul/>', { 'id': paginateid, 'class': s.prefix+'-pagination' });
+						
+						$.each( pages, function(i,v){
+							
+							var $pnav = $('<li/>').html(i+1).on( 'click', function(){
+								
+								plugin.triggerEvent('showpage showpage'+(i+1), $that, options);
+								
+								$pagination.find('li').removeClass(s.activeClass);
+								$(this).addClass(s.activeClass);
+								
+								$container.jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
+									$container.html('');
+									$.each(v, function(index, value){
+										value.clone().appendTo($container);
+									});
+									$container.jKit_effect(true, options.animation, options.speed, options.easing, 0);
+								});
+								
+							});
+							
+							if (i == 0){
+								$pnav.addClass(s.activeClass);
+							}
+							$pnav.appendTo($pagination);
+							
+						});
+						
+						if (options.pos == 'after'){
+							$pagination.insertAfter($that);
+						} else {
+							$pagination.insertBefore($that);
+						}
+						
+						$container.html('');
+						$.each(pages[0], function(index, value){
+							value.clone().appendTo($container);
+						});
+						
+					}
+					
+					break;
+					
 				case 'filter':
 					
 					plugin.filterElements($that, options);
@@ -2161,8 +2275,6 @@
 					break;
 					
 				case 'lorem':
-					
-					console.log(options);
 					
 					var lorem = [
 						'Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
