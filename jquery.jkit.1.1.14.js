@@ -1,4 +1,3 @@
-
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
 // Version 1.1.14 - 18. 1. 2013
@@ -1735,7 +1734,7 @@
 					
 					var tabs = [];
 					$that.children('div').each( function(){
-						tabs.push({ 'title': $(this).children('h3').html(), 'content': $(this).children('div').detach() });
+						tabs.push({ 'title': $(this).children(':first-child').html(), 'content': $(this).children(':last-child').detach() });
 					});
 					
 					$that.html('');
