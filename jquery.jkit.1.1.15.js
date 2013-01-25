@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.14 - 18. 1. 2013
+// Version 1.1.15 - 25. 1. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -2897,6 +2897,18 @@
 					eval('if ('+options.condition.replace(/[^a-zA-Z 0-9\<\>\=\.\!]+/g, '')+') doit = true;');
 				} else {
 					var doit = true;
+				}
+				
+				if (commandkeys[options.commandkey]['condition'] == undefined || commandkeys[options.commandkey]['condition'] != doit){
+					
+					if (doit){
+						plugin.triggerEvent('true', $(el), options);
+					} else {
+						plugin.triggerEvent('false', $(el), options);
+					}
+					
+					commandkeys[options.commandkey]['condition'] = doit;
+					
 				}
 				
 				if (!doit && options['else'] != ''){
