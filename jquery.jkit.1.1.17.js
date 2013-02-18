@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.16 - 15. 2. 2013
+// Version 1.1.17 - 18. 2. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -572,21 +572,61 @@
 			if(min > max) {
 				return -1;
 			}
-
+			
 			if(min == max) {
 				return min;
 			}
-
+			
 			var r;
-
 			do {
 				r = Math.random();
 			}
-			
 			while(r == 1.0);
-
+			
 			return min + parseInt(r * (max-min+1));
 		}
+		
+		plugin.findElementTag = function($container, selector, pos, defaultval){
+			
+			var output = '';
+			
+			if ( pos !== undefined && !isNaN(pos) && parseInt(pos) == pos ){
+				if ($container.find(selector).length > pos){
+					output = $($container.find(selector).get(pos)).prop('tagName');
+				}
+			} else { 
+				
+				var tags = {};
+				
+				$container.find(selector).each( function(){
+					var tag = $(this).prop('tagName');
+					if (tag[0] != ''){
+						if (tags[tag] !== undefined){
+							tags[tag]++;
+						} else {
+							tags[tag] = 1;
+						}
+					}
+				});
+				
+				var max = 0;
+				var maxkey = '';
+				for (var key in tags){
+					if (tags[key] > max){
+						max = tags[key];
+						maxkey = key;
+					}
+				}
+				output = maxkey;
+			}
+			
+			if (output !== undefined && output != ''){
+				return output;
+			} else {
+				return defaultval;
+			}
+			
+		};
 		
 		plugin.addDefaults = function(command, options){
 			
@@ -944,7 +984,9 @@
 					
 					var messages = [];
 					
-					$that.find('li').each( function(){
+					var containerTag = plugin.findElementTag($that, '>', 'max', 'li');
+					
+					$that.find(containerTag).each( function(){
 						messages.push({
 							'href': $(this).find('a').attr('href'),
 							'target': $(this).find('a').attr('target'),
@@ -1758,10 +1800,14 @@
 					break;
 					
 				case 'tabs':
+				
+					var containerTag = plugin.findElementTag($that, '>', 'max', 'div');
+					var titleTag = plugin.findElementTag($that, '> '+containerTag+' >', 0, 'h3');
+					var contentTag = plugin.findElementTag($that, '> '+containerTag+' >', 1, 'div');
 					
 					var tabs = [];
-					$that.children('div').each( function(){
-						tabs.push({ 'title': $(this).children('h3').html(), 'content': $(this).children('div').detach() });
+					$that.children(containerTag).each( function(){
+						tabs.push({ 'title': $(this).children(titleTag).html(), 'content': $(this).children(contentTag).detach() });
 					});
 					
 					$that.html('');
@@ -1775,6 +1821,7 @@
 							$litemp.addClass(s.activeClass);
 						}
 						$litemp.on( 'click', function(){
+							$tabcontent.remove();
 							plugin.triggerEvent('showentry showentry'+(index+1), $that, options);
 							if (options.animation == 'fade'){
 								$tabcontent.fadeTo(options.speed, 0, options.easing, function(){
@@ -1807,12 +1854,16 @@
 					break;
 					
 				case 'accordion':
+				
+					var containerTag = plugin.findElementTag($that, '>', 'max', 'div');
+					var titleTag = plugin.findElementTag($that, '> '+containerTag+' >', 0, 'h3');
+					var contentTag = plugin.findElementTag($that, '> '+containerTag+' >', 1, 'div');
 					
 					var tabs = [];
-					$that.children('div').each( function(){
+					$that.children(containerTag).each( function(){
 						tabs.push({
-							'title': $(this).children('h3').detach(),
-							'content': $(this).children('div').detach()
+							'title': $(this).children(titleTag).detach(),
+							'content': $(this).children(contentTag).detach()
 						});
 					});
 					
@@ -1828,23 +1879,23 @@
 						var $litemp = $('<li/>', { }).append(value.title).css('cursor', 'pointer').appendTo($tabnav);
 						
 						if (options.active-1 == index){
-							$litemp.append(value.content).children('h3').addClass(s.activeClass);
+							$litemp.append(value.content).children(titleTag).addClass(s.activeClass);
 							current = index;
 						} else {
 							$litemp.append(value.content.hide());
 						}
 						
-						$litemp.find('> h3').on( 'click', function(e){
+						$litemp.find('> '+titleTag).on( 'click', function(e){
 							if (index != current){
 								plugin.triggerEvent('showentry showentry'+(index+1), $that, options);
-								$tabnav.find('> li > h3').removeClass(s.activeClass);
+								$tabnav.find('> li > '+titleTag).removeClass(s.activeClass);
 								$(this).addClass(s.activeClass);
 								if (options.animation == 'slide'){
-									$tabnav.find('> li:nth-child('+(current+1)+') > div').slideUp(options.speed, options.easing);
-									$tabnav.find('> li:nth-child('+(index+1)+') > div').slideDown(options.speed, options.easing);
+									$tabnav.find('> li:nth-child('+(current+1)+') > '+contentTag).slideUp(options.speed, options.easing);
+									$tabnav.find('> li:nth-child('+(index+1)+') > '+contentTag).slideDown(options.speed, options.easing);
 								} else {
-									$tabnav.find('> li:nth-child('+(current+1)+') > div').hide();
-									$tabnav.find('> li:nth-child('+(index+1)+') > div').show();
+									$tabnav.find('> li:nth-child('+(current+1)+') > '+contentTag).hide();
+									$tabnav.find('> li:nth-child('+(index+1)+') > '+contentTag).show();
 								}
 								current = index;
 							} else {
