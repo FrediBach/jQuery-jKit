@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.19 - 19. 2. 2013
+// Version 1.1.20 - 19. 2. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -306,7 +306,7 @@
 		var templates = {};
 		var commandkeys = {};
 		
-		if (!$.browser.msie || ($.browser.msie && $.browser.version >= 9)){
+		if ($.support.htmlSerialize || $.support.opacity){
 			$(window).focus(function() {
 				windowhasfocus = true;
 			}).blur(function() {
