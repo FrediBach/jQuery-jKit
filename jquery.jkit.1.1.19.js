@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.18 - 19. 2. 2013
+// Version 1.1.19 - 19. 2. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -1737,6 +1737,10 @@
 					
 					$that.html($that.children(':nth-child('+options.active+')').clone());
 					
+					if (options.lightbox == 'yes'){
+						plugin.executeCommand($that.find('img'), 'lightbox', {});
+					}
+					
 					var $thumbdiv = $('<div/>', {
 						id: s.prefix+'-'+$that.attr('id')+'-'+type+'-thumbs'
 					}).addClass(s.prefix+'-'+type+'-thumbs').insertAfter(that);
@@ -1756,6 +1760,7 @@
 						if (options.active-1 == index){
 							$(value).addClass(s.activeClass);
 						}
+						
 						$(value)
 							.on( options.event, function() {
 								
@@ -1763,6 +1768,10 @@
 								
 								$that.jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
 									$that.find('img').attr('src', $(value).attr('src'));
+									
+									if (options.lightbox == 'yes'){
+										plugin.executeCommand($that.find('img').unbind('click'), 'lightbox', {});
+									}
 									
 									plugin.triggerEvent('showentry showentry'+(index+1), $that, options);
 									
