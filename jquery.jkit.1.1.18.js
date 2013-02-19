@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.17 - 18. 2. 2013
+// Version 1.1.18 - 19. 2. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -598,14 +598,18 @@
 				
 				var tags = {};
 				
-				$container.find(selector).each( function(){
-					var tag = $(this).prop('tagName');
-					if (tag[0] != ''){
-						if (tags[tag] !== undefined){
-							tags[tag]++;
-						} else {
-							tags[tag] = 1;
+				$container.find(selector).each( function(i){
+					if (i < 25){
+						var tag = $(this).prop('tagName');
+						if (tag[0] != ''){
+							if (tags[tag] !== undefined){
+								tags[tag]++;
+							} else {
+								tags[tag] = 1;
+							}
 						}
+					} else {
+						return false;
 					}
 				});
 				
@@ -1745,7 +1749,7 @@
 					
 					$.each( images, function(index, value){
 						
-						if (options.lightbox == 'yes'){
+						if (options.event != 'click' && options.lightbox == 'yes'){
 							plugin.executeCommand($(value), 'lightbox', { 'group': s.prefix+'-'+$that.attr('id')+'-'+type });
 						}
 						
@@ -1753,45 +1757,24 @@
 							$(value).addClass(s.activeClass);
 						}
 						$(value)
-							.mouseover(function() {
-								if (options.event == 'mouseover'){
+							.on( options.event, function() {
+								
+								plugin.triggerEvent('hideentry', $that, options);
+								
+								$that.jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
+									$that.find('img').attr('src', $(value).attr('src'));
 									
-									plugin.triggerEvent('hideentry', $that, options);
+									plugin.triggerEvent('showentry showentry'+(index+1), $that, options);
 									
-									$that.jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
-										$that.find('img').attr('src', $(value).attr('src'));
-										
-										plugin.triggerEvent('showentry showentry'+(index+1), $that, options);
-										
-										$that.jKit_effect(true, options.animation, options.speed, options.easing, 0);
-										$thumbdiv.find('img').removeClass(s.activeClass);
-										$(value).addClass(s.activeClass);
-										
-										if (options.showcaptions == 'yes'){
-											$captiondiv.text($(value).attr('title'));
-										}
-									});
-								}
-							})
-							.click(function() {
-								if (options.event == 'click'){
+									$that.jKit_effect(true, options.animation, options.speed, options.easing, 0);
+									$thumbdiv.find('img').removeClass(s.activeClass);
+									$(value).addClass(s.activeClass);
 									
-									plugin.triggerEvent('hideentry', $that, options);
+									if (options.showcaptions == 'yes'){
+										$captiondiv.text($(value).attr('title'));
+									}
+								});
 									
-									$that.jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
-										$that.find('img').attr('src', $(value).attr('src'));
-										
-										plugin.triggerEvent('showentry showentry'+(index+1), $that, options);
-										
-										$that.jKit_effect(true, options.animation, options.speed, options.easing, 0);
-										$thumbdiv.find('img').removeClass(s.activeClass);
-										$(value).addClass(s.activeClass);
-										
-										if (options.showcaptions == 'yes'){
-											$captiondiv.text($(value).attr('title'));
-										}
-									});
-								}
 							})
 							.css({ 'cursor': 'pointer' })
 							.appendTo($thumbdiv);
@@ -1821,27 +1804,14 @@
 							$litemp.addClass(s.activeClass);
 						}
 						$litemp.on( 'click', function(){
-							$tabcontent.remove();
 							plugin.triggerEvent('showentry showentry'+(index+1), $that, options);
-							if (options.animation == 'fade'){
-								$tabcontent.fadeTo(options.speed, 0, options.easing, function(){
-									$(this).remove();
-									$tabcontent = tabs[index].content.appendTo($that).hide().fadeTo(options.speed, 1);
-								});
-							} else if (options.animation == 'slide'){
-								$tabcontent.slideUp(options.speed, options.easing, function(){
-									$(this).remove();
-									$tabcontent = tabs[index].content.appendTo($that).hide().slideDown(options.speed);
-								});
-							} else if (options.animation == 'grow'){
-								$tabcontent.hide(options.speed, options.easing, function(){
-									$(this).remove();
-									$tabcontent = tabs[index].content.appendTo($that).hide().show(options.speed);
-								});
-							} else {
-								$tabcontent.remove();
-								$tabcontent = tabs[index].content.appendTo($that);
-							}
+							
+							$tabcontent.jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
+								$(this).remove();
+								$tabcontent = tabs[index].content.appendTo($that).hide();
+								$tabcontent.jKit_effect(true, options.animation, options.speed, options.easing);
+							});
+							
 							$tabnav.find('li').removeClass(s.activeClass);
 							$tabnav.find('li:nth-child('+(index+1)+')').addClass(s.activeClass);
 						});
