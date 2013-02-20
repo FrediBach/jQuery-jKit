@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.20 - 19. 2. 2013
+// Version 1.1.21 - 20. 2. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -2680,6 +2680,7 @@
 					plugin.triggerEvent('complete', $el, options);
 					
 					$(options.element).html( $('#'+tempid+' '+options.element).html() );
+					plugin.init($(options.element));
 					$(options.element).jKit_effect(true, options.animation, options.speed, options.easing);
 					
 					if (options.macro != undefined) plugin.applyMacro($(options.element), options.macro);
