@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.21 - 20. 2. 2013
+// Version 1.1.22 - 21. 2. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -2906,10 +2906,19 @@
 											case 'children':
 												var temp = $(this).children(options.search).length;
 												break;
+											case 'hash':
+												var temp = (window.location.hash == options.search);
+												break;
 										}
 										
 										break;
+									
+									case 'location':
 										
+										var temp = window.location[sourcesplit[1]];
+										
+										break;
+									
 									case 'val':
 									default:
 										var temp = $(this).val();
@@ -2951,7 +2960,7 @@
 				
 				if (options.condition != ''){
 					var doit = false;
-					eval('if ('+options.condition.replace(/[^a-zA-Z 0-9\<\>\=\.\!]+/g, '')+') doit = true;');
+					eval('if ('+options.condition.replace(/[^a-zA-Z 0-9#\<\>\=\.\!\']+/g, '')+') doit = true;');
 				} else {
 					var doit = true;
 				}
@@ -2996,8 +3005,14 @@
 							el.attr(modesplit[1], value);
 							break;
 						case 'css':
-							if (modesplit[1] == 'display' && ($.trim(value) == '' || $.trim(value) == 0)){
-								value = 'none';
+							if (modesplit[1] == 'display'){
+								if ($.trim(value) == '' || $.trim(value) == 0 || !value){
+									value = 'none';
+								} else {
+									if (modesplit[2] !== undefined){
+										value = modesplit[2];
+									}
+								}
 							}
 							if (options.speed > 0){
 								var style = {};
