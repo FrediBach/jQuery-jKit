@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.23 - 22. 2. 2013
+// Version 1.1.24 - 22. 2. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -180,7 +180,11 @@
 					'else':				'',
 					'speed':			0,
 					'easing':			'linear',
-					'search': 			''
+					'search': 			'',
+					'trigger': 			'no',
+					'accuracy': 		'',
+					'min': 				'',
+					'max': 				'' 
 				},
 				'limit': {
 					'elements':			'children',
@@ -2958,6 +2962,22 @@
 					value = options.value;
 				}
 				
+				if (!isNaN(value) && parseInt(value) == value){
+					
+					if (options.accuracy != ''){
+						value = Math.round(value / options.accuracy) * options.accuracy;
+					}
+			
+					if (options.min != '' && value < options.min){
+						value = options.min;
+					}
+					
+					if (options.max != '' && value > options.max){
+						value = options.max;
+					}
+					
+				}
+				
 				var doit;
 				var rev = false;
 				
@@ -3002,6 +3022,16 @@
 						eval('value = '+options.math.replace(/[^a-zA-Z 0-9\+\-\*\/\.]+/g, '')+';');
 					}
 					
+					if (options.trigger == 'yes'){
+						if (commandkeys[options.commandkey]['triggervalue'] == undefined || commandkeys[options.commandkey]['triggervalue'] != value){
+							if (commandkeys[options.commandkey]['triggervalue'] !== undefined){
+								plugin.triggerEvent('notvalue'+commandkeys[options.commandkey]['triggervalue'], $(el), options);
+							}
+							plugin.triggerEvent('value'+value, $(el), options);
+							commandkeys[options.commandkey]['triggervalue'] = value;
+						}
+					}
+					
 					var modesplit = options.mode.split('.');
 					switch(modesplit[0]){
 						case 'text':
@@ -3033,6 +3063,8 @@
 							} else {
 								el.css(modesplit[1], value);
 							}
+							break;
+						case 'none':
 							break;
 						default:
 							if (modesplit[0] != undefined){
