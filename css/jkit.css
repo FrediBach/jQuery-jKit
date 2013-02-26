@@ -805,6 +805,11 @@ ul.dropdown a:visited	{ color: #000; text-decoration: none; }
 ul.dropdown a:hover		{ color: #000; }
 ul.dropdown a:active	{ color: #ffa500; }
 
+ul.dropdown a.active:link,
+ul.dropdown a.active:visited	{ color: #f33; text-decoration: none; }
+ul.dropdown a.active:hover		{ color: #f00; }
+ul.dropdown a.active:active	{ color: #ffa500; }
+
 /* -- level mark -- */
 
 ul.dropdown ul {
