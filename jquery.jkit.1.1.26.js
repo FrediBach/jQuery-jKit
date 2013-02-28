@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.25 - 26. 2. 2013
+// Version 1.1.26 - 28. 2. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -146,7 +146,8 @@
 				'parallax': {
 					'strength':			5,
 					'axis':				'x',
-					'scope':			'global'
+					'scope':			'global',
+					'detect': 			'mousemove'
 				},
 				'form': {
 					'validateonly':		'no'
@@ -338,7 +339,7 @@
 		
 		};
 		
-		plugin.init = function($el) {
+		plugin.init = function($el){
 			
 			if ($el == undefined) $el = $element;
 			
@@ -1815,11 +1816,14 @@
 					var $tabcontent = $;
 					
 					$.each( tabs, function(index, value){
+						
 						var $litemp = $('<li/>', { }).html(value.title).css('cursor', 'pointer').appendTo($tabnav);
+						
 						if (options.active-1 == index){
 							$litemp.addClass(s.activeClass);
 						}
-						$litemp.on( 'click', function(){
+						
+						var callback = function(){
 							plugin.triggerEvent('showentry showentry'+(index+1), $that, options);
 							
 							$tabcontent.jKit_effect(false, options.animation, options.speed, options.easing, 0, function(){
@@ -1830,7 +1834,12 @@
 							
 							$tabnav.find('li').removeClass(s.activeClass);
 							$tabnav.find('li:nth-child('+(index+1)+')').addClass(s.activeClass);
+						};
+						
+						$litemp.on( 'click ', function(){
+							callback();
 						});
+						
 					});
 					
 					if (tabs[options.active-1] != undefined){
@@ -1899,27 +1908,37 @@
 					
 					var strength = options.strength / 10;
 					
-					if (options.scope == 'global'){
+					if (options.detect == 'scroll'){
+						var $capture = $(window);
+					} else if (options.scope == 'global'){
 						var $capture = $(document);
 					} else {
 						var $capture = $that;
 					}
 					
-					$capture.mousemove( function(event) {
+					$capture.on( options.detect, function(event) {
 						
 						if ((windowhasfocus || !windowhasfocus && s.ignoreFocus) && ($that.jKit_inViewport() || !$that.jKit_inViewport() && s.ignoreViewport)){
 							var cnt = 1;
+							
+							if (options.detect == 'scroll'){
+								var xaxis = $(window).scrollLeft() + $(window).width() / 2;
+								var yaxis = $(window).scrollTop() + $(window).height() / 2;
+							} else {
+								var xaxis = event.pageX;
+								var yaxis = event.pageY;
+							}
 							
 							$that.children().each( function(){
 								
 								var box = $that.offset();
 								
 								if (options.axis == 'x' || options.axis == 'both'){
-									var offsetx = (event.pageX-box.left-($that.width()/2))*strength*cnt*-1 - $(this).width()/2 + $that.width()/2;
+									var offsetx = (xaxis-box.left-($that.width()/2))*strength*cnt*-1 - $(this).width()/2 + $that.width()/2;
 									$(this).css({ 'left': offsetx+'px' });
 								}
 								if (options.axis == 'y' || options.axis == 'both'){
-									var offsety = (event.pageY-box.top-($that.height()/2))*strength*cnt*-1 - $(this).height()/2 + $that.height()/2;
+									var offsety = (yaxis-box.top-($that.height()/2))*strength*cnt*-1 - $(this).height()/2 + $that.height()/2;
 									$(this).css({ 'top': offsety+'px' });
 								}
 								
