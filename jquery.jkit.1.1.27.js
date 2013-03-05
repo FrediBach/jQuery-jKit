@@ -1,7 +1,7 @@
 
 // jQuery Plugin: jKit
 // A very easy to use, cross platform jQuery UI toolkit that's still small in size, has the features you need and doesn't get in your way.
-// Version 1.1.26 - 28. 2. 2013
+// Version 1.1.27 - 5. 3. 2013
 // http://jquery-jkit.com/
 //
 // by Fredi Bach
@@ -243,7 +243,8 @@
 				},
 				'ticker': {
 					'speed': 			100,
-					'delay': 			2000
+					'delay': 			2000,
+					'loop': 			'yes'
 				},
 				'sort': {
 					'what': 			'text',
@@ -2667,6 +2668,8 @@
 		
 		plugin.ticker = function($el, options, messages, currentmessage, currentchar){
 			
+			var stopped = false;
+			
 			if ((windowhasfocus || !windowhasfocus && plugin.settings.ignoreFocus) && ($el.jKit_inViewport() || !$el.jKit_inViewport() && plugin.settings.ignoreViewport)){
 				var timer =  options.speed;
 				
@@ -2677,14 +2680,20 @@
 					
 					currentmessage++;
 					if (currentmessage >= messages.length){
-						currentmessage = 0;
+						if (options.loop == 'yes'){
+							currentmessage = 0;
+						} else {
+							stopped = true;
+						}
 					}
 					
-					setTimeout( function(){
-						plugin.triggerEvent('showentry showentry'+(currentmessage+1), $el, options);
-					}, timer);
+					if (!stopped){
+						setTimeout( function(){
+							plugin.triggerEvent('showentry showentry'+(currentmessage+1), $el, options);
+						}, timer);
 					
-					currentchar = 0;
+						currentchar = 0;
+					}
 				
 				} else {
 					if (messages[currentmessage].href != undefined){
@@ -2695,7 +2704,9 @@
 				}
 			}
 			
-			window.setTimeout( function() { plugin.ticker($el, options, messages, currentmessage, currentchar); }, timer);
+			if (!stopped){
+				window.setTimeout( function() { plugin.ticker($el, options, messages, currentmessage, currentchar); }, timer);
+			}
 		
 		};
 		
