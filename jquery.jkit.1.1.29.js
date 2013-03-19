@@ -13,8 +13,8 @@
 // And even if jKit doesn't have that one feature you need right now, jKit is fully extendable
 // with plugins and command replacements, all that and your API always stays the same.
 //
-// - Version: `1.1.28`
-// - Release date: `17. 3. 2013`
+// - Version: `1.1.29`
+// - Release date: `19. 3. 2013`
 // - [API Documentation & Demos](http://jquery-jkit.com/)
 // - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.1.28.js) (made 
 //	 with [sourceMakeup](http://jquery-jkit.com/sourcemakeup))
@@ -35,7 +35,7 @@
 //
 //     <script src="js/jquery-1.9.1.min.js"></script>
 //     <script src="js/jquery.easing.1.3.js"></script>
-//     <script src="js/jquery.jkit.1.1.28.min.js"></script>
+//     <script src="js/jquery.jkit.1.1.29.min.js"></script>
 //
 //     <script type="text/javascript">
 //         $(document).ready(function(){
@@ -191,7 +191,8 @@
 					'height':			200,
 					'text':				'more ...',
 					'speed':			250,
-					'easing':			'linear'
+					'easing':			'linear',
+					'on': 				'mouseover'
 				},
 				
 				// {!} codeblock: /command.partially, command.slideshow
@@ -2397,28 +2398,33 @@
 								.html(options.text)
 								.css( { width: $that.outerWidth()+'px', opacity: 0.9 });
 						
-						// Add the evnet handlers and animations:
+						// Add the event handlers and animations:
 						
 						plugin.addKeypressEvents($that, 'down');
+						plugin.addKeypressEvents($that, 'up');
 						
-						$that.css({ 'height': options.height+'px', 'overflow': 'hidden' }).on( 'mouseenter down', function() {
-							$morediv.fadeTo(options.speed, 0);
-							$that.animate({ 'height': originalHeight+'px' }, options.speed, options.easing, function(){
-								plugin.triggerEvent('open', $that, options);
-							});
-						}).on( 'mouseleave up',  function(){
-							$morediv.fadeTo(options.speed, 0.9);
-							$that.animate({ 'height': options.height+'px' }, options.speed, options.easing, function(){
-								plugin.triggerEvent('closed', $that, options);
-							});
-						});
+						if (options.on == 'click' || $.fn.jKit_iOS()){
+							var openEvent = 'click';
+							var closeEvent = 'click';
+						} else {
+							var openEvent = 'mouseenter';
+							var closeEvent = 'mouseleave';
+						}
 						
-						// For touch devices that don't fire mouseover events, we have to add an additional click event:
-					
-						$morediv.on('click', function(){
-							$that.animate({ 'height': originalHeight+'px' }, options.speed, options.easing, function(){
-								plugin.triggerEvent('closed', $that, options);
-							});
+						$that.css({ 'height': options.height+'px', 'overflow': 'hidden' }).on( openEvent+' down', function() {
+							if ($that.height() < originalHeight){
+								$morediv.fadeTo(options.speed, 0);
+								$that.animate({ 'height': originalHeight+'px' }, options.speed, options.easing, function(){
+									plugin.triggerEvent('open', $that, options);
+								});
+							}
+						}).on( closeEvent+' up',  function(){
+							if ($that.height() == originalHeight){
+								$morediv.fadeTo(options.speed, 0.9);
+								$that.animate({ 'height': options.height+'px' }, options.speed, options.easing, function(){
+									plugin.triggerEvent('closed', $that, options);
+								});
+							}
 						});
 						
 					}
