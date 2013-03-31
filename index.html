@@ -1,1258 +1,1138 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<meta http-equiv="imagetoolbar" content="no" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<meta name="viewport" content="width=960, initial-scale=1, maximum-scale=1">
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<title>jKit - jQuery based UI Toolkit - Demos</title>
 
-<title>jKit - jQuery Plugin - UI Library</title>
+	<meta name="description" content="A very easy to use, cross platform, jQuery based UI toolkit, that's still small in size, has the features you need, and doesn't get in your way of doing things!">
 
-<meta property="og:title" content="jKit - jQuery Plugin - UI Library"/>
-<meta property="og:description" content="A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way."/>
-<meta property="og:type" content="website"/>
-<meta property="og:image" content="http://jquery-jkit.com/jkit-facebook-logo.gif"/>
-<meta property="og:site_name" content="jKit - jQuery Plugin - UI Library"/>
-<meta property="og:url" content="http://jquery-jkit.com/"/>
-<meta property="fb:app_id" content="108151702665072"/>
-
-<meta itemprop="name" content="jKit - jQuery Plugin - UI Library">
-<meta itemprop="description" content="A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.">
-<meta itemprop="image" content="http://jquery-jkit.com/jkit-facebook-logo.gif">
-
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-
-<link rel="stylesheet" type="text/css" href="css/jkit.css" />
-
-<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="jquery.jkit.1.1.29.min.js"></script>
-
-<script type="text/javascript">
-
-$(document).ready(function(){
+	<meta name="viewport" content="width=960, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 	
-	$('body').jKit({ 
-		'plugins': {
-			date: { 'path': "plugins/datepicker/js/datepicker.js", 'fn': 'DatePicker' },
-			hint: { 'path': "plugins/jquery.ztinputhint-1.2.js", 'fn': 'ztInputHint' },
-			maxlength: { 'path': "plugins/maxlength/jquery.maxlength-min.js", 'fn': 'maxlength' },
-			confirm: { 'path': "plugins/jquery.confirm-1.3.js", 'fn': 'confirm' }
-		},
-		'replacements': {
-			'encode': specialEncodeCommand
-		}
-	});
-	
-	$('ul#navigation > li > a').each( function(){
-		$('body').data('jKit').executeCommand(this, 'scroll', { 'speed': 1000, 'dynamic': 'no' });
-	});
+	<link rel="shortcut icon" type="image/x-icon" href="http://jquery-jkit.com/favicon.ico" />
 
-});
-
-function specialEncodeCommand(that, type, options){
-	
-	var s = this.settings; // we don't need this one, but I'll leave it here so you know how to get the plugin settings in case you need them
-	var $that = $(that);
-	
-	this.executeCommand(that, type, options); // execute the original command
-	
-	// now add some additional functionality:
-	
-	if (options.format == 'uppercase'){
-		$that.html($that.html().toUpperCase());
-	}
-	
-}
-
-</script>
-
+	<link rel="stylesheet" href="css/jkit.css">
 </head>
 <body>
-	
-	<img data-jkit="[background:distort=no]" id="bg" src="images/jkit_bg.png" width="1920" height="1080">
-	
 	<div id="container">
 		
-		<!-- Download Button -->
+		<h1>jKit</h1>
 		
-		<div id="download">
-			<a href="https://github.com/FrediBach/jQuery-jKit/archive/master.zip">
-				<strong><span>[</span> DOWNLOAD <span>]</span></strong> &nbsp; <small>Size? Less than half of jQuery!</small>
-			</a>
-		</div>
+		<p>A very easy to use, cross platform, jQuery based UI toolkit, that's still small in size, has the features you need, and doesn't get in your way of doing things!</p>
 		
+		<h2>Demos</h2>
 		
-		<h1><img src="images/jkit_logo.png" alt="jKit" title="jKit"></h1>
+		<p>Get the full demos and documentation over here: <a href="http://jquery-jkit.com/">jquery-jkit.com</a></p>
 		
+					<h2>Binding</h2>
+			<p>
+				Bind different things to other things. Only your imagination sets the limit.
+			</p>
+
+
+<div class="demo"><input type="text" id="bindingsource" value="test">
+<span data-jkit="[binding:selector=#bindingsource;mode=bindingFilter]"></span>
+<script>
+	var bindingFilter = function(value, el){
+		el.text(value.length+' chars entered');
+	}
+</script></div>
+
+
+
+<div class="demo">Body css.width: <span data-jkit="[binding:selector=body;source=css.width;mode=text]"></span></div>
+
+
+
+<div class="demo"><style>.mydivs{ float:left; margin-right: 10px; width: 28%; padding: 10px; background: #fff; }</style>
+<div id="d1" class="mydivs" data-jkit="[binding:selector=#d1|#d2|#d3;source=css.height.max;mode=css.height]">
+	<p>
+		klfhdkljsfhg jdfjg dfjhg jfdhgs djhgjh dsfhg jdfhsgjk hfjkghs djkfhgkfldshjfgh dfskjhg kfdhgsk kjls v cb fsgbh g bf gb gfsh ff gh h ft h dfg hgfdh gfd h  hgf dh gf dh fgd df sd fa df as d f asd fdsafdsadfdfa  dfsafdsa f dfsa ffdsa fsd f ds f sd af dsf 
+	</p>
+</div>
+<div id="d2" class="mydivs" data-jkit="[binding:selector=#d1|#d2|#d3;source=css.height.max;mode=css.height]">
+	<p>
+		dhf kljdhgsjklfhglkfd shg ksl
+	</p>
+</div>
+<div id="d3" class="mydivs" data-jkit="[binding:selector=#d1|#d2|#d3;source=css.height.max;mode=css.height]">
+	<p>
+		 fhjkldgh fdhgjlfdhs gdfhjg hfsdjhg jfdshg jfhdjls hgjh ghfdsjö hfk fg sdf g fd gs fg s f dfgsdg  dfgs fd g fds gdfsg fd s fgd sfgdfsgfds fgdsgfds
+	</p>
+</div></div>
+
+
+
+<div class="demo"><strong>Paragraph with content:</strong><br />
+<p class="demo" data-jkit="[binding:selector=this;source=text;mode=css.display]">
+	dfsadf dsf sdf dsf dsafsdf sdaf dsf dsafsda
+</p>
+<strong>Paragraph without content:</strong><br />
+<p class="demo" data-jkit="[binding:selector=this;source=text;mode=css.display]"></p></div>
+
+
+
+<div class="demo"><p class="demobox" data-jkit="[binding:selector=this;source=event.click;mode=css.opacity;condition=value=1;if=0;speed=1000;interval=-1]">
+	Click me!
+</p></div>
+
+
+
+<div class="demo"><p class="demobox" data-jkit="[binding:selector=this;source=clearance;mode=css.opacity;condition=value>0;if=1;else=0.2]"></p></div>
+
+
+
+<div class="demo"><div data-jkit="[binding:target=children;selector=this;source=has.text;search=test;mode=css.width;math=value*100]" class="test">
+	<p style="background:#65BAE2">Test the test test</p>
+	<p style="background:#C8295B">Two testtest</p>
+	<p style="background:#BBD17C">Only one test</p>
+</div></div>
+
+
+
+<div class="demo"><p class="demobox" style="display:none" data-jkit="[show:onevent=viewport.true][hide:onevent=viewport.false]">
+	reacting on viewport binding events
+</p>
+<p class="demobox" rel="jKit[binding.viewport:selector=this;source=clearance;mode=css.opacity;condition=value>0;if=1;else=0.2]">
+	viewport detecting box
+</p></div>
+
+
+
+<div class="demo">Testlinks: <a href="#test">test</a>, <a href="#example">example</a>, <a href="#whatever">whatever</a>
+<p class="demobox" data-jkit="[binding:selector=this;source=has.hash;mode=css.display.block;search=#test]">
+	#test
+</p>
+<p class="demobox" data-jkit="[binding:selector=this;source=has.hash;mode=css.display.block;search=#example]">
+	#example
+</p></div>
+
+
+
+<div class="demo">Testlinks: <a href="#test2">test</a>, <a href="#example2">example</a>, <a href="#whatever2">whatever</a>
+<p class="demobox" data-jkit="[binding.test:selector=this;source=has.hash;mode=attr.jkit-hash;search=#test2][show:onevent=test.true][hide:onevent=test.false]">
+	#test2
+</p>
+<p class="demobox" data-jkit="[binding.example:selector=this;source=has.hash;mode=attr.jkit-hash;search=#example2][show:onevent=example.true][hide:onevent=example.false]">
+	#example2
+</p></div>
+
+			<h2>Template</h2>
+			<p>
+				Reduce repetition and load times of your page with our little templating engine.
+			</p>
+
+
+<div class="demo"><!-- this whole div is our template -->
+<div data-jkit="[template:action=set;name=mylist;vars=heading,text,info]" style="display:none">
+	<div class="mylist">
+	
+		<!-- only show if first entry (class: if-entry-first) -->
+		<span class="if-entry-first entrynumber">First entry:</span>
 		
-		<!-- slogan -->
+		<!-- only show if 3rd entry (class: if-entry-3) -->
+		<span class="if-entry-3 entrynumber"> ... 3rd entry ...</span>
 		
-		<p class="note">
-			A very easy to use, cross platform jQuery UI library that's still small in size, has the features you need and doesn't get in your way.
+		<!-- only show if last entry (class: if-entry-last) -->
+		<span class="if-entry-last entrynumber"> ... last entry.</span>
+		
+		<h3>
+			<!-- "info" is in the option vars, content will be replaced -->
+			<div><span class="info">Info Text</span></div>
+			
+			<!-- "heading" is in the option vars, content will be replaced -->
+			Title: "<span class="heading">Heading Text</span>"
+		</h3>
+		
+		<!-- only show this block if text var isn't empty (class: if-text) -->
+		<p class="if-text">
+			<strong>Description:</strong> 
+			
+			<!-- "text" is in the option vars, content will be replaced -->
+			<span class="text">Text ...</span>
 		</p>
-		<p class="info">Tested browsers: Chrome, Firefox, Safari, IE7+, Opera and Safari Mobile</p>
 		
-		
-		<!-- basics -->
-		
-		<h2>Basics</h2>
-		<pre>&lt;script type="text/javascript" src="jquery.jkit.1.1.29.min.js"&gt;&lt;/script&gt;</pre>
-		<p class="info">Attach it to the whole body or any other element:</p>
-		<pre>&lt;script type="text/javascript"&gt;
-$(document).ready(function(){
-	<span>$('body').jKit();</span>
-});
-&lt;/script&gt;</pre>
-		<p class="info">Apply one of the many commands to some element with the rel attribute:</p>
-		<pre>rel="<span>jKit[command:option=value;anotheroption=anothervalue]</span>"</pre>
-		<p class="info">Or if you don't want to misuse the rel attribute, do it the HTML5 way:</p>
-		<pre><span>data-jkit</span>="<span>[command:option=value;anotheroption=anothervalue]</span>"</pre>
-		<p class="info">And of course you can execute a command through JavaScript if needed:</p>
-		<pre><span>$('#myelement').jKit('scroll', { 'speed': 1000, 'dynamic': 'no' });</span></pre>
-		
-		<!-- commands -->
-		
-		<h2>Commands</h2>
-		<ul id="navigation">
-			<li><a href="#command_background">background</a></li>
-			<li><a href="#command_hide">hide</a></li>
-			<li><a href="#command_remove">remove</a></li>
-			<li><a href="#command_show">show</a></li>
-			<li><a href="#command_showandhide">showandhide</a></li>
-			<li><a href="#command_loop">loop</a></li>
-			<li><a href="#command_limit">limit</a></li>
-			<li><a href="#command_scroll">scroll</a></li>
-			<li><a href="#command_lightbox">lightbox</a></li>
-			<li><a href="#command_partially">partially</a></li>
-			<li><a href="#command_random">random</a></li>
-			<li><a href="#command_slideshow">slideshow</a></li>
-			<li><a href="#command_gallery">gallery</a></li>
-			<li><a href="#command_tabs">tabs</a></li>
-			<li><a href="#command_accordion">accordion</a></li>
-			<li><a href="#command_carousel">carousel</a></li>
-			<li><a href="#command_parallax">parallax</a></li>
-			<li><a href="#command_animation">animation</a></li>
-			<li><a href="#command_menu">menu</a></li>
-			<li><a href="#command_tooltip">tooltip</a></li>
-			<li><a href="#command_form">form</a></li>
-			<li><a href="#command_validate">validate</a></li>
-			<li><a href="#command_plugin">plugin</a></li>
-			<li><a href="#command_lorem">lorem</a></li>
-			<li><a href="#command_binding">binding</a></li>
-			<li><a href="#command_macro">macro</a></li>
-			<li><a href="#command_template">template</a></li>
-			<li><a href="#command_chart">chart</a></li>
-			<li><a href="#command_encode">encode</a></li>
-			<li><a href="#command_split">split</a></li>
-			<li><a href="#command_live">live</a></li>
-			<li><a href="#command_key">key</a></li>
-			<li><a href="#command_ajax">ajax</a></li>
-			<li><a href="#command_replace">replace</a></li>
-			<li><a href="#command_cycle">cycle</a></li>
-			<li><a href="#command_fontsize">fontsize</a></li>
-			<li><a href="#command_swap">swap</a></li>
-			<li><a href="#command_ticker">ticker</a></li>
-			<li><a href="#command_sort">sort</a></li>
-			<li><a href="#command_zoom">zoom</a></li>
-			<li><a href="#command_api">api</a></li>
-			<li><a href="#command_filter">filter</a></li>
-			<li><a href="#command_summary">summary</a></li>
-			<li><a href="#command_paginate">paginate</a></li>
-		</ul>
-		<p class="info" style="clear:both">More to come ...</p>
-		
-		
-		<!-- background command -->
-		
-		<h2 id="command_background">Background</h2>
-		<p class="info">Ideally added right after the body tag, and don't forget the "width" and "height" attribute:</p>
-		<pre>&lt;img rel="<span>jKit[background:distort=no]</span>" id="bg" src="images/bg5.jpeg" width="2048" height="1536"&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>distort:</strong> <span>yes</span> <span class="default">no</span></li>
-		</ul>
-		
-		
-		<!-- hide command -->
-		
-		<h2 id="command_hide">Hide</h2>
-		<p class="info">Hide any element easily:</p>
-		<pre>&lt;div class="box" id="mydiv1" rel="<span>jKit[hide:delay=2000;speed=500;animation=fade]</span>"&gt;Text ...&lt;/div&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>delay:</strong> <span>Int (Milliseconds)</span> <span class="default">0</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">500</span></li>
-			<li><strong>animation:</strong> <span>"fade", "slide" or "none"</span> <span class="default">fade</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-		</ul>
-		
-		
-		<!-- remove command -->
-		
-		<h2 id="command_remove">Remove</h2>
-		<p class="info">Or just completelly remove an element from the DOM:</p>
-		<pre>&lt;div class="box" id="mydiv2" rel="<span>jKit[remove:delay=4000]</span>"&gt;Text ...&lt;/div&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>delay:</strong> <span>Int (Milliseconds)</span> <span class="default">0</span></li>
-		</ul>
-		
-		
-		<!-- show command -->
-		
-		<h2 id="command_show">Show</h2>
-		<p class="info">You can of course show an element, as well:</p>
-		<pre>&lt;div class="box" id="mydiv3" style="display:none" rel="<span>jKit[show:delay=6000;speed=1500]</span>"&gt;Text ...&lt;/div&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>delay:</strong> <span>Int (Milliseconds)</span> <span class="default">0</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">500</span></li>
-			<li><strong>animation:</strong> <span>"fade", "slide" or "none"</span> <span class="default">fade</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-		</ul>
-		
-		
-		<!-- showandhide command -->
-		
-		<h2 id="command_showandhide">Show and Hide</h2>
-		<p class="info">Or do both things, show and hide, in succession:</p>
-		<pre>&lt;div class="box" id="mydiv4" style="display:none" rel="<span>jKit[showandhide:delay=2000;speed=500;duration=5000]</span>"&gt;Text ...&lt;/div&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>delay:</strong> <span>Int (Milliseconds)</span> <span class="default">0</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">500</span></li>
-			<li><strong>duration:</strong> <span>Int (Milliseconds)</span> <span class="default">10000</span></li>
-			<li><strong>animation:</strong> <span>"fade", "slide" or "none"</span> <span class="default">fade</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-		</ul>
-		
-		
-		<!-- loop command -->
-		
-		<h2 id="command_loop">Loop</h2>
-		<p class="info">Or do the whole loop (duration1 is the hidden phase, duration2 the shown):</p>
-		<pre>&lt;div class="box" id="mydiv4b" style="display:none" rel="<span>jKit[loop:speed1=2000;duration1=250;speed2=250;duration2=2000]</span>"&gt;Text ...&lt;/div&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>speed1:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">500</span></li>
-			<li><strong>speed2:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">500</span></li>
-			<li><strong>duration1:</strong> <span>Int (Milliseconds)</span> <span class="default">2000</span></li>
-			<li><strong>duration2:</strong> <span>Int (Milliseconds)</span> <span class="default">2000</span></li>
-			<li><strong>easing1:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-			<li><strong>easing2:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-			<li><strong>animation:</strong> <span>"fade", "slide" or "none"</span> <span class="default">fade</span></li>
-		</ul>
-		<div class="box" id="mydiv4b" style="display:none" rel="jKit[loop:speed1=2000;duration1=250;speed2=250;duration2=2000]">Loop me!</div>
-		
-		
-		<!-- limit command -->
-		
-		<h2 id="command_limit">Limit</h2>
-		<p class="info">Remove any childrens inside an element that exceed a limit of 3:</p>
-		<pre>&lt;ul rel="<span>jKit[limit:count=3]</span>"&gt;
-	&lt;li&gt;Entry 1&lt;/li&gt;
-	&lt;li&gt;Entry 2&lt;/li&gt;
-	&lt;li&gt;Entry 3&lt;/li&gt;
-	&lt;li&gt;Entry 4&lt;/li&gt;
-&lt;/ul></pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>elements:</strong> <span>"children" or "chars"</span> <span class="default">children</span></li>
-			<li><strong>count:</strong> <span>Int</span> <span class="default">5</span></li>
-			<li><strong>endstring:</strong> <span>String</span> <span class="default">...</span> <span>(used if type = chars)</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">250</span></li>
-			<li><strong>animation:</strong> <span>"fade", "slide" or "none"</span> <span class="default">none</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-		</ul>
-		<div class="box">
-			<ul rel="jKit[limit:count=3]">
-				<li>Entry 1</li>
-				<li>Entry 2</li>
-				<li>Entry 3</li>
-				<li>Entry 4</li>
-			</ul>
-		</div>
-		<p class="info">Limit a string to 25 characters:</p>
-		<pre>&lt;span rel="<span>jKit[limit:elements=chars;count=25]</span>"&gt;1234567890123456789012345678901234567890123456789&lt;/span&gt;</pre>
-		<div class="box">
-			<span rel="jKit[limit:elements=chars;count=25]">1234567890123456789012345678901234567890123456789</span>
-		</div>
-		
-		<!-- scroll command -->
-		
-		<h2 id="command_scroll">Scroll</h2>
-		<p class="info">Smoothly scrolls to an anchor or the top on click:</p>
-		<pre>&lt;a href="" rel="<span>jKit[scroll]</span>">To the top!&lt;/a&gt;</pre>
-		<pre>&lt;a href="#command_random" rel="<span>jKit[scroll:speed=1000;easing=easeOutBounce]</span>">To the top!&lt;/a&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">500</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-			<li><strong>dynamic:</strong> <span>"yes" or "no"</span> <span class="default">yes</span></li>
-		</ul>
-		<div class="box">
-			<a href="" rel="jKit[scroll]">To the top!</a> &nbsp; &nbsp; <a href="#command_random" rel="jKit[scroll:speed=1000;easing=easeOutBounce]">To the animation command anchor.</a>
-		</div>
-		
-		
-		<!-- lightbox command -->
-		
-		<h2 id="command_lightbox">Lightbox</h2>
-		<p class="info">Simple lightbox functionality for images and iframed urls:</p>
-		<pre>&lt;a href="images/sky.jpg" rel="<span>jKit[lightbox]</span>" title="Paragliders in the sky">Open Image&lt;/a&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>group:</strong> <span>String</span> <span class="default">''</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">500</span></li>
-			<li><strong>opacity:</strong> <span>Float 0-1</span> <span class="default">0.7</span></li>
-			<li><strong>clearance:</strong> <span>Int (pixels)</span> <span class="default">200</span></li>
-			<li><strong>closer:</strong> <span>HTML</span> <span class="default">x</span></li>
-			<li><strong>next:</strong> <span>HTML</span> <span class="default">></span></li>
-			<li><strong>prev:</strong> <span>HTML</span> <span class="default"><</span></li>
-			<li><strong>modal:</strong> <span>"yes" or "no"</span> <span class="default">no</span></li>
-			<li><strong>width:</strong> <span>CSS width</span> <span class="default">''</span></li>
-			<li><strong>height:</strong> <span>CSS height</span> <span class="default">''</span></li>
-			<li><strong>titleHeight:</strong> <span>Int (pixels)</span> <span class="default">'20'</span></li>
-		</ul>
-		<div class="box">
-			<a href="images/sky.jpg" rel="jKit[lightbox:group=images]" title="Paragliders in the sky">Open image</a> &nbsp; &nbsp; 
-			<a href="images/oversized.jpg" rel="jKit[lightbox:group=images]" title="Beautiful!">Oversized image</a> &nbsp; &nbsp; 
-			<a href="images/square.jpg" rel="jKit[lightbox:group=images]" title="Watermelons, square!">Open square image</a> &nbsp; &nbsp; 
-			<a href="http://reddit.com" rel="jKit[lightbox]" title="Reddit: The social news platform">Open website (iFrame)</a> &nbsp; &nbsp; 
-			<a href="modal.html" rel="jKit[lightbox:modal=yes;width=500px;height=300px]">Modal dialog (iFrame)</a>
-		</div>
-		
-		
-		<!-- partially command -->
-		
-		<h2 id="command_partially">Partially</h2>
-		<p class="info">Too much of something? Than only show part of it:</p>
-		<pre>&lt;div class="box" id="mydiv5" style="width:400px;padding:6px;background:#ffd;border:1px #eeb solid" rel="<span>jKit[partially:height=50;speed=500;easing=easeOutBounce]</span>"&gt;Text ...&lt;/div&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>height:</strong> <span>Int (Pixels)</span> <span class="default">200</span></li>
-			<li><strong>text:</strong> <span>Text or HTML</span> <span class="default">more ...</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">250</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-		</ul>
-		<div class="box" id="mydiv5" style="width:400px;padding:6px;background:#ffd;border:1px #eeb solid" rel="jKit[partially:height=50;speed=500;easing=easeOutBounce]">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</div>
-		
-		
-		<!-- random command -->
-		
-		<h2 id="command_random">Random</h2>
-		<p class="info">Another way to show only part of something is to randomly pick one or more from something:</p>
-		<pre>&lt;div class="box" id="randomly" rel="<span>jKit[random:count=2]</span>"&gt;
-	&lt;p id="rand1" style="color:#c30"&gt;
-		Text 1 (red)
-	&lt;/p&gt;
-	&lt;p id="rand2" style="color:#0c3"&gt;
-		Text 2 (green)
-	&lt;/p&gt;
-	&lt;p id="rand2" style="color:#03c"&gt;
-		Text 3 (blue)
-	&lt;/p&gt;
-&lt;/div&gt;</pre>
-		<div class="box" id="randomly" rel="jKit[random:count=2]">
-			<p id="rand1" style="color:#c30">
-				Text 1 (red)
+		<!-- only show this block if text var isn't empty (class: if-text) -->
+		<div class="if-text">&nbsp;</div>
+	</div>
+</div>
+
+<!-- every li content will be replaced with the template -->
+<!-- the template vars heading, info and text are defined by the classes with the same name -->
+<ul class="myul" data-jkit="[template:action=apply;children=li;name=mylist]">
+	<li>
+		<h3 class="heading">List Entry 1</h3>
+		<p class="info">250 character jKit lorem</p>
+		<p class="text"><span data-jkit="[lorem:length=250]"></span></p>
+	</li>
+	<li>
+		<h3 class="heading">List Entry 2</h3>
+		<p class="info">350 character jKit lorem</p>
+		<p class="text"><span data-jkit="[lorem:length=350]"></span></p>
+	</li>
+	<li>
+		<h3 class="heading">List Entry 3</h3>
+		<p class="info">150 character jKit lorem</p>
+		<p class="text"><span data-jkit="[lorem:length=150]"></span></p>
+	</li>
+	<li>
+		<h3 class="heading">List Entry 4</h3>
+		<p class="info">2 paragraph jKit lorem</p>
+		<p class="text"><span data-jkit="[lorem:paragraphs=2]"></span></p>
+	</li>
+	<li>
+		<h3 class="heading">List Entry 5</h3>
+		<p class="info">Without text (removed paragraph) ...</p>
+	</li>
+</ul></div>
+
+			<h2>Background</h2>
+			<p>
+				Do you need an image that scales to the whole of the browser window, at all times? With or without distortion? Than this one's for you.
 			</p>
-			<p id="rand2" style="color:#0c3">
-				Text 2 (green)
+
+
+<div class="demo"><img data-jkit="[background:distort=no]" id="bg" src="../img/jkit_bg.jpg" width="1920" height="1080"></div>
+
+			<h2>Lightbox</h2>
+			<p>
+				Open images, or html documents in a lightbox or modal window.
 			</p>
-			<p id="rand2" style="color:#03c">
-				Text 3 (blue)
+
+
+<div class="demo"><a href="../img/sky.jpg" data-jkit="[lightbox:group=images]" title="Paragliders in the sky">Open image</a> &nbsp; &nbsp; 
+<a href="../img/oversized.jpg" data-jkit="[lightbox:group=images]" title="Beautiful!">Oversized image</a> &nbsp; &nbsp; 
+<a href="../img/square.jpg" data-jkit="[lightbox:group=images]" title="Watermelons, square!">Open square image</a> &nbsp; &nbsp; 
+<a href="http://reddit.com" data-jkit="[lightbox]" title="Reddit: The social news platform">Open website (iFrame)</a> &nbsp; &nbsp; 
+<a href="../stuff/modal.html" data-jkit="[lightbox:modal=yes;width=500px;height=300px]">Modal dialog (iFrame)</a></div>
+
+
+
+<div class="demo"><img src="../img/sky.jpg" data-jkit="[lightbox]" title="Paragliders in the sky" width="50" height="50" style="cursor:pointer;cursor:hand"></div>
+
+			<h2>Slideshow</h2>
+			<p>
+				Create slideshows of images or other HTML elements, even linked ones.
 			</p>
-		</div>
-		
-		
-		<!-- slideshow command -->
-		
-		<h2 id="command_slideshow">Slideshow</h2>
-		<p class="info">Create a slideshow the easy way, with many options for different usecases:</p>
-		<pre>&lt;div id="mydiv7" rel="<span>jKit[slideshow:interval=4000;speed=250;animation=fade]</span>"&gt;
-	&lt;a href="http://fredibach.ch" target="_blank"&gt;&lt;img src="slides/p1.jpg"&gt;&lt;/a&gt;
-	&lt;a href="http://fredibach.ch" target="_blank"&gt;&lt;img src="slides/p2.jpg"&gt;&lt;/a&gt;
-	&lt;a href="http://fredibach.ch" target="_blank"&gt;&lt;img src="slides/p3.jpg"&gt;&lt;/a&gt;
-	&lt;a href="http://fredibach.ch" target="_blank"&gt;&lt;img src="slides/p4.jpg"&gt;&lt;/a&gt;
-	&lt;a href="http://fredibach.ch" target="_blank"&gt;&lt;img src="slides/p5.jpg"&gt;&lt;/a&gt;
-&lt;/div&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>shuffle:</strong> <span>"yes" or "no"</span> <span class="default">no</span></li>
-			<li><strong>interval:</strong> <span>Int (Milliseconds)</span> <span class="default">3000</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">500</span></li>
-			<li><strong>animation:</strong> <span>"fade", "slide" or "none"</span> <span class="default">fade</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-		</ul>
-		<div class="box">
-			<div id="mydiv7" rel="jKit[slideshow:interval=4000;speed=250;animation=fade]">
-				<a href="http://fredibach.ch" target="_blank"><img src="slides/p1.jpg"></a>
-				<a href="http://fredibach.ch" target="_blank"><img src="slides/p2.jpg"></a>
-				<a href="http://fredibach.ch" target="_blank"><img src="slides/p3.jpg"></a>
-				<a href="http://fredibach.ch" target="_blank"><img src="slides/p4.jpg"></a>
-				<a href="http://fredibach.ch" target="_blank"><img src="slides/p5.jpg"></a>
+
+
+<div class="demo"><div data-jkit="[slideshow:interval=4000;speed=250;animation=fade]">
+	<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p1.jpg"></a>
+	<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p2.jpg"></a>
+	<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p3.jpg"></a>
+	<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p4.jpg"></a>
+	<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p5.jpg"></a>
+</div></div>
+
+
+
+<div class="demo"><div style="text-align:center;font-size:2em" data-jkit="[slideshow:interval=2000;speed=500;animation=fade]">
+	<h3>First Headline</h3>
+	<h3>Another Headline</h3>
+	<h3>Even More of a Headline</h3>
+	<h3>Still not the last headline</h3>
+	<h3>The last headline</h3>
+</div></div>
+
+
+
+<div class="demo"><div data-jkit="[slideshow:interval=2000;speed=250;animation=fade;on=click]">
+	<img src="../img/slides/p1.jpg">
+	<img src="../img/slides/p2.jpg">
+	<img src="../img/slides/p3.jpg">
+	<img src="../img/slides/p4.jpg">
+	<img src="../img/slides/p5.jpg">
+</div></div>
+
+
+
+<div class="demo"><div data-jkit="[slideshow:interval=2000;speed=250;animation=fade;on=mouseover]">
+	<img src="../img/slides/p1.jpg">
+	<img src="../img/slides/p2.jpg">
+	<img src="../img/slides/p3.jpg">
+	<img src="../img/slides/p4.jpg">
+	<img src="../img/slides/p5.jpg">
+</div></div>
+
+			<h2>Gallery</h2>
+			<p>
+				Create a tab navigation for inline content.
+			</p>
+
+
+<div class="demo"><div data-jkit="[gallery:event=click;active=4]">
+	<img src="../img/slides/p1.jpg" title="Image caption one">
+	<img src="../img/slides/p2.jpg" title="Image caption two">
+	<img src="../img/slides/p3.jpg" title="Image caption three">
+	<img src="../img/slides/p4.jpg" title="Image caption four">
+	<img src="../img/slides/p5.jpg" title="Image caption five">
+</div></div>
+
+
+
+<div class="demo"><div data-jkit="[gallery:event=mouseover;showcaptions=no]">
+	<img src="../img/slides/p1.jpg" title="Image caption one">
+	<img src="../img/slides/p2.jpg" title="Image caption two">
+	<img src="../img/slides/p3.jpg" title="Image caption three">
+	<img src="../img/slides/p4.jpg" title="Image caption four">
+	<img src="../img/slides/p5.jpg" title="Image caption five">
+</div></div>
+
+
+
+<div class="demo"><div data-jkit="[gallery:event=mouseover;showcaptions=no;lightbox=yes]">
+	<img src="../img/slides/p1.jpg" title="Image caption one">
+	<img src="../img/slides/p2.jpg" title="Image caption two">
+	<img src="../img/slides/p3.jpg" title="Image caption three">
+	<img src="../img/slides/p4.jpg" title="Image caption four">
+	<img src="../img/slides/p5.jpg" title="Image caption five">
+</div></div>
+
+
+
+<div class="demo"><div data-jkit="[gallery:event=click;animation=fade;speed=250]">
+	<img src="../img/slides/p1.jpg" title="Image caption one">
+	<img src="../img/slides/p2.jpg" title="Image caption two">
+	<img src="../img/slides/p3.jpg" title="Image caption three">
+	<img src="../img/slides/p4.jpg" title="Image caption four">
+	<img src="../img/slides/p5.jpg" title="Image caption five">
+</div></div>
+
+			<h2>Tabs</h2>
+			<p>
+				Create a tab navigation for inline content.
+			</p>
+
+
+<div class="demo"><div class="tabs" style="width:100%" data-jkit="[tabs:animation=none]">
+	<div>
+		<h3>Tab 1</h3>
+		<div>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</div>
+	</div>
+	<div>
+		<h3>Tab 2</h3>
+		<div>At vero eos et accusam et justo duo dolores et ea rebum.</div>
+	</div>
+	<div>
+		<h3>Tab 3</h3>
+		<div>Duo dolores et ea rebum.</div>
+	</div>
+</div></div>
+
+
+
+<div class="demo"><div class="tabs" style="width:100%;" data-jkit="[tabs:animation=none]">
+	<div>
+		<h3>Some lorem text</h3>
+		<div data-jkit="[lorem:paragraphs=2]">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</div>
+	</div>
+	<div>
+		<h3>jKit Slideshow</h3>
+		<div>
+			<div id="mydiv7" data-jkit="[slideshow:interval=4000;speed=250;animation=fade]">
+				<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p1.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p2.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p3.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p4.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p5.jpg"></a>
 			</div>
 		</div>
-		<p class="info">You can create a slideshow with almost anything, for example with headings:</p>
-		<pre>&lt;div id="mydiv8" style="text-align:center;font-size:2em" rel="<span>jKit[slideshow:interval=2000;speed=500;animation=fade]</span>"&gt;
-	&lt;h3>First Headline&lt;/h3&gt;
-	&lt;h3>Another Headline&lt;/h3&gt;
-	&lt;h3>Even More of a Headline&lt;/h3&gt;
-	&lt;h3>Still not the last headline&lt;/h3&gt;
-	&lt;h3>The last headline&lt;/h3&gt;
-&lt;/div&gt;</pre>
-		<div class="box">
-			<div id="mydiv8" style="text-align:center;font-size:2em" rel="jKit[slideshow:interval=2000;speed=500;animation=fade]">
-				<h3>First Headline</h3>
-				<h3>Another Headline</h3>
-				<h3>Even More of a Headline</h3>
-				<h3>Still not the last headline</h3>
-				<h3>The last headline</h3>
-			</div>
-		</div>
-		
-		<div class="box">
-			<div id="mydiv9" rel="jKit[slideshow:interval=2000;speed=250;animation=fade;on=click]">
-				<img src="slides/p1.jpg">
-				<img src="slides/p2.jpg">
-				<img src="slides/p3.jpg">
-				<img src="slides/p4.jpg">
-				<img src="slides/p5.jpg">
-			</div>
-		</div>
-		
-		<div class="box">
-			<div id="mydiv10" rel="jKit[slideshow:interval=2000;speed=250;animation=fade;on=mouseover]">
-				<img src="slides/p1.jpg">
-				<img src="slides/p2.jpg">
-				<img src="slides/p3.jpg">
-				<img src="slides/p4.jpg">
-				<img src="slides/p5.jpg">
-			</div>
-		</div>
-		
-		
-		<!-- gallery command -->
-		
-		<h2 id="command_gallery">Gallery</h2>
-		<p class="info">Another thing you can create with images is a gallery:</p>
-		<pre>&lt;div id="mydiv9" rel="<span>jKit[gallery:event=click;active=4]</span>"&gt;
-	&lt;img src="slides/p1.jpg" title="Image caption one"&gt;
-	&lt;img src="slides/p2.jpg" title="Image caption two"&gt;
-	&lt;img src="slides/p3.jpg" title="Image caption three"&gt;
-	&lt;img src="slides/p4.jpg" title="Image caption four"&gt;
-	&lt;img src="slides/p5.jpg" title="Image caption five"&gt;
-&lt;/div&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>active:</strong> <span>Int</span> <span class="default">1</span></li>
-			<li><strong>event:</strong> <span>"mouseover" or "click"</span> <span class="default">click</span></li>
-			<li><strong>showcaptions:</strong> <span>"yes" or "no"</span> <span class="default">yes</span></li>
-		</ul>
-		<div class="box">
-			<div id="mydiv9" rel="jKit[gallery:event=click;active=4;animation=fade;speed=250]">
-				<img src="slides/p1.jpg" title="Image caption one">
-				<img src="slides/p2.jpg" title="Image caption two">
-				<img src="slides/p3.jpg" title="Image caption three">
-				<img src="slides/p4.jpg" title="Image caption four">
-				<img src="slides/p5.jpg" title="Image caption five">
-			</div>
-		</div>
-		
-		
-		<!-- tabs command -->
-		
-		<h2 id="command_tabs">Tabs</h2>
-		<p class="info">A good way to work with a lot of content that can be easily separated:</p>
-		<pre>&lt;div id="mytabs" style="height:300px;width:420px;" rel="<span>jKit[tabs:animation=none]</span>"&gt;
-	&lt;div&gt;
-		&lt;h3&gt;Title 1&lt;/h3&gt;
-		&lt;div&gt;Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/div&gt;
-	&lt;/div&gt;
-	&lt;div&gt;
-		&lt;h3&gt;Title 2&lt;/h3&gt;
-		&lt;div&gt;&lt;a href="http://fredibach.ch" target="_blank"&gt;&lt;img src="images400x250/paragliding1.jpeg"&gt;&lt;/a&gt;&lt;/div&gt;
-	&lt;/div&gt;
-	&lt;div&gt;
-		&lt;h3&gt;Title 3&gt;/h3&lt;
-		&lt;div&gt;&lt;ul&gt;&lt;li&gt;List Item 1&lt;/li&gt;&lt;li&gt;List Item 2&lt;/li&gt;&lt;li&gt;List Item 3&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
-	&lt;/div&gt;
-&lt;/div&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>active:</strong> <span>Int</span> <span class="default">1</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">250</span></li>
-			<li><strong>animation:</strong> <span>"fade", "slide" or "none"</span> <span class="default">none</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-		</ul>
-		<div class="box">
-			<div id="mytabs" style="width:100%;" rel="jKit[tabs:animation=none]">
-				<div>
-					<h3>Some lorem text</h3>
-					<div rel="jKit[lorem:paragraphs=2]">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</div>
-				</div>
-				<div>
-					<h3>jKit Slideshow</h3>
-					<div>
-						<div id="mydiv7" rel="jKit[slideshow:interval=4000;speed=250;animation=fade]">
-							<a href="http://fredibach.ch" target="_blank"><img src="slides/p1.jpg"></a>
-							<a href="http://fredibach.ch" target="_blank"><img src="slides/p2.jpg"></a>
-							<a href="http://fredibach.ch" target="_blank"><img src="slides/p3.jpg"></a>
-							<a href="http://fredibach.ch" target="_blank"><img src="slides/p4.jpg"></a>
-							<a href="http://fredibach.ch" target="_blank"><img src="slides/p5.jpg"></a>
-						</div>
-					</div>
-				</div>
-				<div>
-					<h3>A list</h3>
-					<div><ul><li>List Item 1</li><li>List Item 2</li><li>List Item 3</li></ul></div>
-				</div>
-				<div>
-					<h3>jKit Parallax</h3>
-					<div>
-						<div class="parallax-container" rel="jKit[parallax:strength=2;axis=x]">
-							<div class="parallax parallax1">Background Layer</div>
-							<div class="parallax parallax2">Middle Layer</div>
-							<div class="parallax parallax3">Foreground Layer</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		
-		<!-- accordion command -->
-		
-		<h2 id="command_accordion">Accordion</h2>
-		<p class="info">Similar like tabs, but with a different concept:</p>
-		<pre>&lt;div id="myaccordion" style="width:420px;" rel="<span>jKit[accordion]</span>"&gt;
-	&lt;div&gt;
-		&lt;h3&gt;Title 1&lt;/h3&gt;
-		&lt;div>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.&lt;/div&gt;
-	&lt;/div&gt;
-	&lt;div&gt;
-		&lt;h3>Title 2&lt;/h3&gt;
-		&lt;div&gt;&lt;a href="http://fredibach.ch" target="_blank"&gt;&lt;img src="images400x250/paragliding1.jpeg"&gt;&lt;/a&gt;&lt;/div&gt;
-	&lt;/div&gt;
-	&lt;div&gt;
-		&lt;h3>Title 3&lt;/h3&gt;
-		&lt;div&gt;&lt;ul&gt;&lt;li&gt;List Item 1&lt;/li&gt;&lt;li&gt;List Item 2&lt;/li&gt;&lt;li&gt;List Item 3&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
-	&lt;/div&gt;
-&lt;/div&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>active:</strong> <span>Int</span> <span class="default">1</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">250</span></li>
-			<li><strong>animation:</strong> <span>"slide" or "none"</span> <span class="default">slide</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-		</ul>
-		<div class="box">
-			<div id="myaccordion" rel="jKit[accordion]">
-				<div>
-					<h3>Title 1</h3>
-					<div>
-						<div rel="jKit[lorem:length=4000]"></div>
-					</div>
-				</div>
-				<div>
-					<h3>Title 2</h3>
-					<div>
-						<div id="mydiv7" rel="jKit[slideshow:interval=4000;speed=250;animation=fade]">
-							<a href="http://fredibach.ch" target="_blank"><img src="slides/p1.jpg"></a>
-							<a href="http://fredibach.ch" target="_blank"><img src="slides/p2.jpg"></a>
-							<a href="http://fredibach.ch" target="_blank"><img src="slides/p3.jpg"></a>
-							<a href="http://fredibach.ch" target="_blank"><img src="slides/p4.jpg"></a>
-							<a href="http://fredibach.ch" target="_blank"><img src="slides/p5.jpg"></a>
-						</div>
-					</div>
-				</div>
-				<div>
-					<h3>Title 3</h3>
-					<div><ul><li>List Item 1</li><li>List Item 2</li><li>List Item 3</li></ul></div>
-				</div>
-			</div>
-		</div>
-		
-		
-		<!-- carousel command -->
-		
-		<h2 id="command_carousel">Carousel</h2>
-		<p class="info">Let different content go around and around ... and around:</p>
-		<pre>&lt;div class="carousel" rel="<span>jKit[carousel]</span>"&gt;
-	&lt;div class="carousel-item"&gt;
-		DIV 1 ...
-	&lt;/div&gt;
-	&lt;div class="carousel-item"&gt;
-		DIV 2 ...
-	&lt;/div&gt;
-	&lt;div class="carousel-item"&gt;
-		DIV 3 ...
-	&lt;/div&gt;
-	&lt;div class="carousel-item"&gt;
-		DIV 4 ...
-	&lt;/div&gt;
-	&lt;div class="carousel-item"&gt;
-		DIV 5 ...
-	&lt;/div&gt;
-	&lt;div class="carousel-item"&gt;
-		DIV 6 ...
-	&lt;/div&gt;
-	&lt;div class="carousel-item"&gt;
-		DIV 7 ...
-	&lt;/div&gt;
-&lt;/div&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>autoplay:</strong> <span>"yes" or "no"</span> <span class="default">"yes"</span></li>
-			<li><strong>limit:</strong> <span>Int</span> <span class="default">5</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">250</span></li>
-			<li><strong>animation:</strong> <span>"slide" or "none"</span> <span class="default">grow</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-			<li><strong>interval:</strong> <span>Int (Milliseconds)</span> <span class="default">5000</span></li>
-			<li><strong>prevhtml:</strong> <span>HTML</span> <span class="default">&lt;</span></li>
-			<li><strong>nexthtml:</strong> <span>HTML</span> <span class="default">&gt;</span></li>
-		</ul>
-		<div class="box">
-			<div class="carousel" rel="jKit[carousel]">
-				<div class="carousel-item">
-					DIV 1 ...
-				</div>
-				<div class="carousel-item">
-					DIV 2 ...
-				</div>
-				<div class="carousel-item">
-					DIV 3 ...
-				</div>
-				<div class="carousel-item">
-					DIV 4 ...
-				</div>
-				<div class="carousel-item">
-					DIV 5 ...
-				</div>
-				<div class="carousel-item">
-					DIV 6 ...
-				</div>
-				<div class="carousel-item">
-					DIV 7 ...
-				</div>
-			</div>
-		</div>
-		
-		
-		<!-- parallax command -->
-		
-		<h2 id="command_parallax">Parallax</h2>
-		<p class="info">Create a parallax scrolling effect with multiple elements of different content:</p>
-		<pre>&lt;div class="parallax-container" rel="<span>jKit[parallax:strength=3]</span>"&gt;
-	&lt;div class="parallax parallax1"&gt;Background Layer&lt;/div&gt;
-	&lt;div class="parallax parallax2"&gt;Middle Layer&lt;/div&gt;
-	&lt;div class="parallax parallax3"&gt;Foreground Layer&lt;/div&gt;
-&lt;/div&gt;</pre>
-		<ul class="options">
-			<li><strong>strength:</strong> <span>Int (1-10)</span> <span class="default">5</span></li>
-			<li><strong>axis:</strong> <span>"x", "y" or "both"</span> <span class="default">x</span></li>
-			<li><strong>scope:</strong> <span>"local" or "global"</span> <span class="default">global</span></li>
-		</ul>
-		<div class="box">
-			<div class="parallax-container" rel="jKit[parallax:strength=2;axis=both]">
+	</div>
+	<div>
+		<h3>A list</h3>
+		<div><ul><li>List Item 1</li><li>List Item 2</li><li>List Item 3</li></ul></div>
+	</div>
+	<div>
+		<h3>jKit Parallax</h3>
+		<div>
+			<div class="parallax-container" data-jkit="[parallax:strength=2;axis=x]">
 				<div class="parallax parallax1">Background Layer</div>
 				<div class="parallax parallax2">Middle Layer</div>
 				<div class="parallax parallax3">Foreground Layer</div>
 			</div>
 		</div>
-		
-		
-		<!-- animation command -->
-		
-		<h2 id="command_animation">Animation</h2>
-		<p class="info">Animation has two uses, the first if the jKit version of jQuery.animate, the other is an keyframe animation tool. Let's first have a look at the jQuery.animate part, it is used as soon as you set the "to" option:</p>
-		<pre rel="jKit[encode]">
-			<p style="width:300px;height:100px;background:#f30" data-jkit="[animation:delay=2000;speed=500;to=width(500px),height(50px)]">
-				After two seconds ...
-			</p>
-			<p style="width:300px;height:100px;background:#f30" data-jkit="[animation:on=click;speed=500;to=width(500px),height(50px)]">
-				On click ...
-			</p>
-			<p style="width:300px;height:100px;background:#f30" data-jkit="[animation:on=mouseenter;speed=250;to=width(500px),height(110px)][animation:on=mouseleave;speed=250;to=width(300px),height(100px)]">
-				On mouseenter and mouseleave ...
-			</p>
-		</pre>
-		<p class="info">Options:</p>
-		<ul class="options">
-			<li><strong>from:</strong> <span>jKit CSS String, example: "margin-top(20px),height(50px)"</span> <span class="default">""</span></li>
-			<li><strong>to:</strong> <span>jKit CSS String</span> <span class="default">""</span></li>
-			<li><strong>on:</strong> <span>jQuery event ("click", "mouseover", "mouseout" ...)</span> <span class="default">""</span></li>
-			<li><strong>delay:</strong> <span>Int (Milliseconds)</span> <span class="default">0</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">500</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-		</ul>
-		<div class="box">
-			<p style="width:300px;height:100px;background:#f30" data-jkit="[animation:delay=2000;speed=500;to=width(500px),height(50px)]">
-				After two seconds ...
-			</p>
-			<p style="width:300px;height:100px;background:#f30" data-jkit="[animation:on=click;speed=500;to=width(500px),height(50px)]">
-				On click ...
-			</p>
-			<p style="width:300px;height:100px;background:#f30" data-jkit="[animation:on=mouseenter;speed=250;to=width(500px),height(110px)][animation:on=mouseleave;speed=250;to=width(300px),height(100px)]">
-				On mouseenter and mouseleave ...
-			</p>
-		</div>
-		
-		<p class="info">The second use of the animation command is a keyframe animation tool. Here we create an animation with frames of different content:</p>
-		<pre>&lt;div class="animation-container" rel="<span>jKit[animation:fps=30;loop=yes]</span>"&gt;
-	&lt;div class="animation" rel="<span>jKit[frame:steps=100;action=fadeout]</span>" style="font-size:90px;background:#000"&gt;&lt;img src="images/jkit_logo.png" alt="jKit" title="jKit" style="margin-top:110px">&lt;/div&gt;
-	&lt;div class="animation" rel="<span>jKit[frame:steps=7]</span>" style="font-size:90px;line-height:260%">animation&lt;/div&gt;
-	&lt;div class="animation" rel="<span>jKit[frame:steps=10]</span>" style="font-size:90px;line-height:260%">made&lt;/div&gt;
-	&lt;div class="animation" rel="<span>jKit[frame:steps=50;action=tween;easing=easeOutBounce]</span>" style="font-size:200px;padding-top:110px">easy&lt;/div&gt;
-	&lt;div class="animation" rel="<span>jKit[frame:steps=1]</span>" style="font-size:20px;opacity:0;padding-top:110px">easy&lt;/div&gt;
-	&lt;div class="animation" rel="<span>jKit[frame:steps=25]</span>">&lt;/div&gt;
-	&lt;div class="animation" rel="<span>jKit[frame:steps=75;action=fadeinout]</span>" style="font-size:50px;line-height:500%;color:#E01B49;background:#fff">really easy!&lt;/div&gt;
-	&lt;div class="animation" rel="<span>jKit[frame:steps=50]</span>">&lt;/div&gt;
-	&lt;div class="animation" rel="<span>jKit[frame:steps=50;action=fadein]</span>" style="background:#000"&gt;&lt;/div&gt;
-&lt;/div&gt;</pre>
-		<p class="info">Animation options:</p>
-		<ul class="options">
-			<li><strong>fps:</strong> <span>Int (1-10)</span> <span class="default">25</span></li>
-			<li><strong>loop:</strong> <span>"yes" or "no"</span> <span class="default">no</span></li>
-		</ul>
-		<p class="info">Frame options:</p>
-		<ul class="options">
-			<li><strong>steps:</strong> <span>Int</span> <span class="default">1</span></li>
-			<li><strong>action:</strong> <span>"show", "fadeout", "fadein", "fadeinout" or "tween"</span> <span class="default">show</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-		</ul>
-		<div class="box">
-			<div class="animation-container" rel="jKit[animation:fps=30;loop=yes]">
-				<div class="animation" rel="jKit[frame:steps=100;action=fadeout]" style="font-size:90px;background:#000"><img src="images/jkit_logo.png" alt="jKit" title="jKit" style="margin-top:110px"></div>
-				<div class="animation" rel="jKit[frame:steps=7]" style="font-size:90px;line-height:260%">animation</div>
-				<div class="animation" rel="jKit[frame:steps=10]" style="font-size:90px;line-height:260%">made</div>
-				<div class="animation" rel="jKit[frame:steps=50;action=tween;easing=easeOutBounce]" style="font-size:200px;padding-top:110px">easy</div>
-				<div class="animation" rel="jKit[frame:steps=1]" style="font-size:20px;opacity:0;padding-top:110px">easy</div>
-				<div class="animation" rel="jKit[frame:steps=25]"></div>
-				<div class="animation" rel="jKit[frame:steps=75;action=fadeinout]" style="font-size:50px;line-height:500%;color:#E01B49;background:#fff">really easy!</div>
-				<div class="animation" rel="jKit[frame:steps=50]"></div>
-				<div class="animation" rel="jKit[frame:steps=50;action=fadein]" style="background:#000"></div>
-			</div>
-		</div>
-		
-		
-		<!-- menu command -->
-		
-		<h2 id="command_menu">Menu</h2>
-		<p class="info">Create a dropdown menu from a multi-level unordered list:</p>
-		<pre>&lt;ul class="dropdown" rel="<span>jKit[menu]</span>"&gt;
-	&lt;li&gt;&lt;a href="#"&gt;Main 1&lt;/a&gt;
-      		&lt;ul class="sub_menu"&gt;
-      			 &lt;li>&lt;a href="#"&gt;Sub 1A&lt;/a>&lt;/li&gt;
-      			 &lt;li>&lt;a href="#"&gt;Sub 1B&lt;/a>&lt;/li&gt;
-      			 &lt;li>&lt;a href="#"&gt;Sub 1C&lt;/a>&lt;/li&gt;
-      			 &lt;li>&lt;a href="#"&gt;Sub 1D&lt;/a>&lt;/li&gt;
-      		&lt;/ul&gt;
-      	&lt;/li&gt;
-	&lt;li&gt;&lt;a href="#"&gt;Main 2&lt;/a&gt;
-      		&lt;ul class="sub_menu"&gt;
-      			 &lt;li&gt;&lt;a href="#"&gt;Sub 2A&lt;/a&gt;&lt;/li&gt;
-      			 &lt;li&gt;&lt;a href="#"&gt;Sub 2B&lt;/a&gt;&lt;/li&gt;
-      		&lt;/ul&gt;
-      	&lt;/li&gt;
-	&lt;li&gt;&lt;a href="#"&gt;Main 3&lt;/a&gt;
-      		&lt;ul class="sub_menu"&gt;
-      			 &lt;li&gt;&lt;a href="#"&gt;Sub 3A&lt;/a&gt;&lt;/li&gt;
-      			 &lt;li&gt;&lt;a href="#"&gt;Sub 3B&lt;/a&gt;&lt;/li&gt;
-      			 &lt;li&gt;
-				&lt;a href="#"&gt;Sub 3C&lt;/a&gt;
-				&lt;ul&gt;
-      					&lt;li&gt;&lt;a href="#"&gt;Sub 3C1&lt;/a&gt;&lt;/li&gt;
-      					&lt;li&gt;&lt;a href="#"&gt;Sub 3C2&lt;/a&gt;&lt;/li&gt;
-      				&lt;/ul&gt;
-			&lt;/li&gt;
-      		&lt;/ul&gt;
-      	&lt;/li&gt;
-&lt;/ul&gt;</pre>
-		<ul class="dropdown" rel="jKit[menu]">
-			<li><a href="#">Main 1</a>
-        		<ul class="sub_menu">
-        			 <li><a href="#">Sub 1A</a></li>
-        			 <li><a href="#">Sub 1B</a></li>
-        			 <li><a href="#">Sub 1C</a></li>
-        			 <li><a href="#">Sub 1D</a></li>
-        		</ul>
-        	</li>
-			<li><a href="#">Main 2</a>
-        		<ul class="sub_menu">
-        			 <li><a href="#">Sub 2A</a></li>
-        			 <li><a href="#">Sub 2B</a></li>
-        		</ul>
-        	</li>
-			<li><a href="#">Main 3</a>
-        		<ul class="sub_menu">
-        			 <li><a href="#">Sub 3A</a></li>
-        			 <li><a href="#">Sub 3B</a></li>
-        			 <li>
-						<a href="#">Sub 3C</a>
-						<ul>
-        					<li><a href="#">Sub 3C1</a></li>
-        					<li><a href="#">Sub 3C2</a></li>
-        				</ul>
-					</li>
-        		</ul>
-        	</li>
-		</ul>
-		<div style="clear:both">&nbsp;</div>
-		
-		
-		<!-- tooltip command -->
-		
-		<h2 id="command_tooltip">Tooltip</h2>
-		<p class="info">Show additional info with a tooltip:</p>
-		<pre>&lt;a href="#" rel="<span>jKit[tooltip:color=#fff;background=#999;text=Test Tooltip Text]</span>"&gt;Test Link&lt;/a&gt; &nbsp; &nbsp; 
-&lt;a href="#" rel="<span>jKit[tooltip:color=#333;background=#E01B49;text=Test Tooltip Text 2]</span>"&gt;Test Link 2&lt;/a&gt;
-&lt;a href="#" rel="<span>jKit[tooltip:classname=mytooltip;text=Test Tooltip Text 3]</span>"&gt;Test Link with a class for styling&lt;/a&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>text:</strong> <span>String</span> <span class="default">""</span></li>
-			<li><strong>color:</strong> <span>CSS color</span> <span class="default">#fff</span></li>
-			<li><strong>background:</strong> <span>CSS color</span> <span class="default">#000</span></li>
-		</ul>
-		<div class="box">
-			<a href="#" rel="jKit[tooltip:color=#fff;background=#999;text=Test Tooltip Text]">Test Link</a> &nbsp; &nbsp; 
-			<a href="#" rel="jKit[tooltip:color=#333;background=#E01B49;text=Test Tooltip Text 2]">Test Link 2</a> &nbsp; &nbsp;
-			<a href="#" rel="jKit[tooltip:classname=mytooltip;text=Test Tooltip Text 3]">Test Link with a class for styling</a>
-		</div>
-		<ul class="box">
-			<li><a href="#" rel="jKit[tooltip:color=#fff;background=#999;text=Test Tooltip Text]">Test Link</a></li> 
-			<li><a href="#" rel="jKit[tooltip:color=#333;background=#E01B49;text=Test Tooltip Text 2]">Test Link 2</a></li>
-			<li><a href="#" rel="jKit[tooltip:classname=mytooltip;text=Test Tooltip Text 3]">Test Link with a class for styling</a></li>
-		</ul>
-		
-		
-		<!-- plugin command -->
-		
-		<h2 id="command_plugin">Plugin</h2>
-		<p class="info">Register some plugins (plugins with single and multiple options are possible):</p>
-		<pre>$('body').jKit({ 
-	'plugins': {
-		date: { 'path': "plugins/datepicker/js/datepicker.js", 'fn': 'DatePicker' },
-		hint: { 'path': "plugins/jquery.ztinputhint-1.2.js", 'fn': 'ztInputHint' },
-		maxlength: { 'path': "plugins/maxlength/jquery.maxlength-min.js", 'fn': 'maxlength' },
-		grow: { 'path': "plugins/jquery.jgrow-0.4.js", 'fn': 'jGrow' },
-		confirm: { 'path': "plugins/jquery.confirm-1.3.js", 'fn': 'confirm' },
-		time: { 'path': "plugins/timePicker/jquery.timePicker.min.js", 'fn': 'timePicker' },
-		mask: { 'path': "plugins/jquery.maskedinput-1.2.2.min.js", 'fn': 'mask', 'option': 'mask' }
-	}
-});</pre>
-		<p class="info">And than apply the plugin to an element in a similar way as with native jKit commands:</p>
-		<pre>&lt;input name="hint" id="hint" title="My Hint Text" rel="<span>jKit[plugin:script=hint;hintClass=hint]</span>"&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>script:</strong> <span>registered key or script path</span></li>
-			<li>+ plugin specific options ...</li>
-		</ul>
-		<div class="box">
-			<input name="hint" id="hint" title="My Hint Text" rel="jKit[plugin:script=hint;hintClass=hint]">
-		</div>
-		<p class="info">A maximun number of characters:</p>
-		<pre>>&lt;input name="tweet" id="tweet" rel="<span>jKit[plugin:script=maxlength;maxCharacters=140]</span>">&gt;</pre>
-		<div class="box">
-			<input name="tweet" id="tweet" rel="jKit[plugin:script=maxlength;maxCharacters=140]">
-		</div>
-		
-		
-		<!-- form command -->
-		
-		<h2 id="command_form">Form</h2>
-		<p style="color:#ccc">An example with the Ajax Mailer that is bundled with the script:</p>
-		<pre>&lt;form class="box" method="post" action="ajaxmailer.php" rel="<span>jKit[form:success=Thank you;error=Please check all fields]</span>"&gt;
-...
-&lt;/form&gt;</pre>
-		<p style="color:#ccc">Or just validate:</p>
-<pre>&lt;form class="box" method="post" action="?" rel="<span>jKit[form:validateonly=true]</span>"&gt;
-...
-&lt;/form&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>success:</strong> <span>Text or element ID</span></li>
-			<li><strong>error:</strong> <span>Text</span></li>
-			<li><strong>validateonly:</strong> <span>"yes" or "no"</span> <span class="default">no</span></li>
-		</ul>
-		
-		<form class="box" method="post" action="?" rel="jKit[form:validateonly=true]">
-			<p>
-				<label for="miniusername">Benutzername:</label><br />
-				<input name="miniusername" id="miniusername" rel="jKit[validate:required=true;min=3;max=10;error=Bitte gib deinen Benutzernamen ein (3-10 Zeichen)]">
-			</p>
-			<p>
-				<label for="minipassword">Passwort:</label><br />
-				<input name="minipassword" id="minipassword" type="password" rel="jKit[validate:required=true;strength=50;error=Bitte gib ein sicheres Passwort ein]">
-			</p>
-			<p>
-				<input name="send" type="submit" value="Senden" />
-			</p>
-		</form>
-		<div style="clear:both">&nbsp;</div>
-		
-		
-		<!-- validate command -->
-		
-		<h2 id="command_validate">Validate</h2>
-		<p class="info">Validation without a type, just min. and max. length and the field is required:</p>
-		<pre>&lt;input name="username" id="username" rel="<span>jKit[validate:required=true;min=3;max=10;error=Bitte gib deinen Benutzernamen ein (3-10 Zeichen)]</span>"&gt;</pre>
-		<p class="info">Validation with type "custom" that takes a custom function to validate:</p>
-		<pre>&lt;input name="custom" id="custom" title="127-785-145" rel="<span>jKit[validate:type=custom;checkfunction=checkCustom;error=Bitte gib deinen Custom Code ein][plugin:script=hint;hintClass=hint]</span>"&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>type:</strong> <span>"email", "url", "date", "time", "phone", "float", "int", "group", "extension" or "custom"</span></li>
-			<li><strong>required:</strong> <span>Bool</span> <span class="default">false</span></li>
-			<li><strong>error:</strong> <span>String</span></li>
-			<li><strong>min:</strong> <span>Int, Float or String</span></li>
-			<li><strong>max:</strong> <span>Int, Float or String</span></li>
-			<li><strong>length:</strong> <span>String length</span></li>
-			<li><strong>bigger:</strong> <span>DOM Element</span></li>
-			<li><strong>smaller:</strong> <span>DOM Element</span></li>
-			<li><strong>older:</strong> <span>DOM Element</span></li>
-			<li><strong>younger:</strong> <span>DOM Element</span></li>
-			<li><strong>longer:</strong> <span>DOM Element</span></li>
-			<li><strong>shorter:</strong> <span>DOM Element</span></li>
-			<li><strong>strength:</strong> <span>Int 1-100</span></li>
-			<li><strong>same:</strong> <span>DOM Element</span></li>
-			<li><strong>different:</strong> <span>DOM Element</span></li>
-			<li><strong>options:</strong> <span>Strings (comma separated)</span></li>
-			<li><strong>checkfunction:</strong> <span>Function name</span></li>
-			<li><strong>name:</strong> <span>Group name</span></li>
-		</ul>
-		
-		<form class="box" method="post" action="?" data-jkit="[form:validateonly=true]">
-			<input name="custom" id="custom" title="127-785-145" data-jkit="[validate:type=custom;checkfunction=checkCustom;error=Bitte gib deinen Custom Code ein]"> 
-			<input name="send" type="submit" value="Senden" />
-		</form>
-		
-		<form method="post" action="ajaxmailer.php" rel="jKit[form:success=Vielen Dank;error=Bitte überprüfen sie nochmals alle Felder]">
-		
-		<input type="hidden" name="recipient" value="osxcode+jkit@gmail.com">
-		<input type="hidden" name="subject" value="Example Form">
-		<input type="hidden" name="code" value="123456"> <!-- <-- replace with captcha solution -->
-		
-		<p class="info">Example where we check if the values of two fields are the same:</p>
-		<pre>&lt;input name="password" id="password" type="password" rel="<span>jKit[validate:required=true;strength=50;error=Please enter a secure password]</span>"&gt;</pre>
-		<pre>&lt;input name="passwordtest" id="passwordtest" type="password" rel="<span>jKit[validate:required=true;same=#password;error=The two passwords don't match, please try again]</span>"&gt;</pre>
-		<div class="box">
-			<label for="password">Password:</label><br />
-			<input name="password" id="password" type="password" rel="jKit[validate:required=true;strength=50;error=Please enter a secure password]">
-			<br />
-			<label for="passwordtest">Repeat password:</label><br />
-			<input name="passwordtest" id="passwordtest" type="password" rel="jKit[validate:required=true;same=#password;error=The two passwords don't match, please try again]">
-		</div>
-		
-		<p class="info">Phone number check (Currently supported formats: +41 78 450 45 21 or 078 450 45 21):</p>
-		<pre>&lt;input name="phone" id="phone" title="+41 78 450 45 21" rel="<span>jKit[validate:type=phone;required=true;error=Please enter a valid phone number]</span>"&gt;</pre>
-		<div class="box">
-			<input name="phone" id="phone" title="+41 78 450 45 21" rel="jKit[validate:type=phone;required=true;error=Please enter a valid phone number]">
-		</div>
-		
-		<p class="info">Email check:</p>
-		<pre>&lt;input name="email" id="email" title="me@abc.ch" rel="<span>jKit[validate:type=email;required=true;error=Please enter a valid email address]</span>"&gt;</pre>
-		<div class="box">
-			<input name="email" id="email" title="me@abc.ch" rel="jKit[validate:type=email;required=true;error=Please enter a valid email address]">
-		</div>
-		
-		<p class="info">URL check:</p>
-		<pre>&lt;input name="homepage" id="homepage" title="http://www.abc.ch" rel="<span>jKit[validate:type=url;error=This isn't a valid URL]</span>"&gt;</pre>
-		<div class="box">
-			<input name="homepage" id="homepage" title="http://www.abc.ch" rel="jKit[validate:type=url;error=This isn't a valid URL]">
-		</div>
-		
-		<p class="info">File extension check:</p>
-		<pre>&lt;input name="avatar" type="file" id="avatar" rel="<span>jKit[validate:type=extension;options=jpg,jpeg,gif;error=Please choose a valid image format]</span>"&gt;</pre>
-		<div class="box">
-			<input name="avatar" type="file" id="avatar" rel="jKit[validate:type=extension;options=jpg,jpeg,gif;error=Please choose a valid image format]">
-		</div>
-		
-		<p class="info">Check if a radiogroup has one option checked:</p>
-		<pre>&lt;div id="radiogroup" rel="<span>jKit[validate:type=group;name=group1;error=Please choose one option]</span>"&gt;
-	&lt;input type="radio" id="group1_milk" name="group1" value="Milk"&gt; Milk&lt;br&gt;
-	&lt;input type="radio" id="group1_butter" name="group1" value="Butter"&gt; Butter&lt;br&gt;
-	&lt;input type="radio" id="group1_cheese" name="group1" value="Cheese"&gt; Cheese
-&lt;/div&gt;</pre>
-		<div class="box">
-			<div id="radiogroup" rel="jKit[validate:type=group;name=group1;error=Please choose one option]">
-				<input type="radio" id="group1_milk" name="group1" value="Milk"> Milk<br>
-				<input type="radio" id="group1_butter" name="group1" value="Butter"> Butter<br>
-				<input type="radio" id="group1_cheese" name="group1" value="Cheese"> Cheese
-			</div>
-		</div>
-		
-		<p class="info">Check if at least one option, but not more than two are checked:</p>
-		<pre>&lt;div id="checkgroup" rel="<span>jKit[validate:type=group;min=1;max=2;error=Please choose at least one option, but not more than two]</span>"&gt;
-	&lt;input type="checkbox" id="group2_milk" name="group2_milk" value="Milk"&gt; Milk&lt;br&gt;
-	&lt;input type="checkbox" id="group2_butter" name="group2_butter" value="Butter"&gt; Butter&lt;br&gt;
-	&lt;input type="checkbox" id="group2_salt" name="group2_salt" value="Salt"&gt; Salt&lt;br&gt;
-	&lt;input type="checkbox" id="group2_cheese" name="group2_cheese" value="Cheese"&gt; Cheese
-&lt;/div&gt;</pre>
-		<div class="box">
-			<div id="checkgroup" rel="jKit[validate:type=group;min=1;max=2;error=Please choose at least one option, but not more than two]">
-				<input type="checkbox" id="group2_milk" name="group2_milk" value="Milk"> Milk<br>
-				<input type="checkbox" id="group2_butter" name="group2_butter" value="Butter"> Butter<br>
-				<input type="checkbox" id="group2_salt" name="group2_salt" value="Salt"> Salt<br>
-				<input type="checkbox" id="group2_cheese" name="group2_cheese" value="Cheese"> Cheese
-			</div>
-		</div>
-		
-		<p class="info">Date format check:</p>
-		<pre>&lt;input name="mydate" id="mydate" title="Example: 21.04.12" rel="<span>jKit[validate:type=date;required=true;error=Please add a valid date]</span>"&gt;</pre>
-		<div class="box">
-			<input name="mydate" id="mydate" title="Example: 21.04.12" rel="jKit[validate:type=date;required=true;error=Please add a valid date]">
-		</div>
-		
-		<p class="info">Time format check in combination with a time select plugin:</p>
-		<pre>&lt;input name="mytime" id="mytime" title="Example: 12:05" rel="<span>jKit[validate:type=time;required=true;error=Please add a time]</span>"&gt;</pre>
-		<div class="box">
-			<input name="mytime" id="mytime" title="Example: 12:05" rel="jKit[validate:type=time;required=true;error=Please add a time]">
-		</div>
-		
-		<p class="info">Integer check that is above zero:</p>
-		<pre>&lt;input name="myint" id="myint" rel="<span>jKit[validate:type=int;min=1;required=true;error=Please add a valid positiv Integer above zero]</span>"&gt;</pre>
-		<div class="box">
-			<input name="myint" id="myint" rel="jKit[validate:type=int;min=1;required=true;error=Please add a valid positiv Integer above zero]">
-		</div>
-		
-		<p class="info">Float check that is between 1 and 2.5:</p>
-		<pre>&lt;input name="myfloat" id="myfloat" title="1.72" rel="<span>jKit[validate:type=float;min=1;max=2.5;required=true;error=Please enter a float between 1 and 2.5]</span>"&gt;</pre>
-		<div class="box">
-			<input name="myfloat" id="myfloat" title="1.72" rel="jKit[validate:type=float;min=1;max=2.5;required=true;error=Please enter a float between 1 and 2.5]">
-		</div>
-		
-		<p class="info">String length check (exactly six characters):</p>
-		<pre>&lt;input name="length" id="length" rel="<span>jKit[validate:length=6;error=Please enter exactly six characters]</span>"&gt;</pre>
-		<div class="box">
-			<input name="length" id="length" rel="jKit[validate:length=6;error=Please enter exactly six characters]">
-		</div>
-		
-		<p class="info">Submit confirmation with a plugin (validation errors will show up after clicking "yes"):</p>
-		<pre>&lt;input name="send" type="submit" value="Senden" rel="<span>jKit[plugin:script=confirm;msg=Everything filled out correctly?]</span>"&gt;</pre>
-		<div class="box">
-			<input name="send" type="submit" value="Senden" rel="jKit[plugin:script=confirm;msg=Everything filled out correctly?]">
-		</div>
-		
-		</form>
-		<div style="clear:both">&nbsp;</div>
-		
-		<script>
-			var checkCustom = function(string){
+	</div>
+</div></div>
 
-				var filter = /^[0-9]{3}-[0-9]{3}-[0-9]{3}$/i;
-				return filter.test(string);
+			<h2>Accordion</h2>
+			<p>
+				Create an accordion style inline content navigation.
+			</p>
 
-			}
-		</script>
-		
-		
-		<!-- lorem command -->
-		
-		<h2 id="command_lorem">Lorem</h2>
-		<pre>&lt;div class="box" id="loremdiv" rel="<span>jKit[lorem:paragraphs=2]</span>"&gt;&lt;/div&gt;</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>paragraphs:</strong> <span>Int</span> <span class="default">0</span></li>
-			<li><strong>length:</strong> <span>Int</span> <span class="default">100</span></li>
-			<li><strong>random:</strong> <span>"yes" or "no"</span> <span class="default">no</span></li>
-		</ul>
-		<div class="box" id="loremdiv" rel="jKit[lorem:paragraphs=2]"></div>
-		
-		
-		<!-- binding command -->
-		
-		<h2 id="command_binding">Binding</h2>
-		<pre>&lt;input type="text" id="bindingsource" value="test"&gt;
-&lt;p style="font-size:32px" rel="<span>jKit[binding:selector=#bindingsource;mode=bindingFilter]</span>"&gt;&lt;/p&gt;</pre>
-		<p class="info">The custom function used:</p>
-		<pre>var bindingFilter = function(value,el){
-	el.text(value.length+' chars entered');
-}</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>selector:</strong> <span>String: '#mydiv' or '#mydiv1|#mydiv2|#mydiv3' or "this"</span> <span class="default">''</span></li>
-			<li><strong>source:</strong> <span>"text", "html", "val", "attr.id", "css.height", "css.height.max"</span> <span class="default">val</span></li>
-			<li><strong>variable:</strong> <span>String</span> <span class="default">''</span></li>
-			<li><strong>mode:</strong> <span>"text", "html", "val", "attr.id", "css.height", or some custom function</span> <span class="default">text</span></li>
-			<li><strong>interval:</strong> <span>Int (-1 = no interval)</span> <span class="default">100</span></li>
-		</ul>
-		<div class="box" id="bindingdiv">
-			<input type="text" id="bindingsource" value="test">
-			<p style="font-size:32px" rel="jKit[binding:selector=#bindingsource;mode=bindingFilter]"></p>
+
+<div class="demo"><div class="accordion" data-jkit="[accordion]">
+	<div>
+		<h3>Title 1</h3>
+		<div>
+			Text 1
 		</div>
-		<p class="info">Binding the width of the background image (try resizing the browser window):</p>
-		<pre>&lt;h3 style="margin:12px;font-size:32px;text-align:center" rel="<span>jKit[binding:selector=#jkit-background;source=css.width;mode=text]</span>"&gt;&lt;/h3&gt;</pre>
-		<div class="box" id="bindingdiv2">
-			<h3 style="margin:12px;font-size:32px;text-align:center" rel="jKit[binding:selector=#jkit-background;source=css.width;mode=text]"></h3>
+	</div>
+	<div>
+		<h3>Title 2</h3>
+		<div>
+			Text 2
 		</div>
-		<p class="info">Making three divs the same height:</p>
-		<pre>On every div: rel="<span>jKit[binding:selector=#d1|#d2|#d3;source=css.height.max;mode=css.height</span>]</pre>
-		<div class="box" id="bindingdiv3" style="overflow:hidden">
-			<div class="box" id="d1" style="width:255px;float:left;margin-right:10px" rel="jKit[binding:selector=#d1|#d2|#d3;source=css.height.max;mode=css.height]">
-				<p>
-					klfhdkljsfhg jdfjg dfjhg jfdhgs djhgjh dsfhg jdfhsgjk hfjkghs djkfhgkfldshjfgh dfskjhg kfdhgsk kjls v cb fsgbh g bf gb gfsh ff gh h ft h dfg hgfdh gfd h  hgf dh gf dh fgd df sd fa df as d f asd fdsafdsadfdfa  dfsafdsa f dfsa ffdsa fsd f ds f sd af dsf 
-				</p>
-			</div>
-			<div class="box" id="d2" style="width:255px;float:left;margin-right:10px" rel="jKit[binding:selector=#d1|#d2|#d3;source=css.height.max;mode=css.height]">
-				<p>
-					dhf kljdhgsjklfhglkfd shg ksl
-				</p>
-			</div>
-			<div class="box" id="d3" style="width:255px;float:left;margin-right:10px" rel="jKit[binding:selector=#d1|#d2|#d3;source=css.height.max;mode=css.height]">
-				<p>
-					 fhjkldgh fdhgjlfdhs gdfhjg hfsdjhg jfdshg jfhdjls hgjh ghfdsjö hfk fg sdf g fd gs fg s f dfgsdg  dfgs fd g fds gdfsg fd s fgd sfgdfsgfds fgdsgfds
-				</p>
+	</div>
+	<div>
+		<h3>Title 3</h3>
+		<div>
+			Text 3
+		</div>
+	</div>
+</div></div>
+
+
+
+<div class="demo"><div class="accordion" data-jkit="[accordion]">
+	<div>
+		<h3>Title 1</h3>
+		<div>
+			<div data-jkit="[lorem:length=4000]"></div>
+		</div>
+	</div>
+	<div>
+		<h3>Title 2</h3>
+		<div>
+			<div id="mydiv7" data-jkit="[slideshow:interval=4000;speed=250;animation=fade]">
+				<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p1.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p2.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p3.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p4.jpg"></a>
+				<a href="http://fredibach.ch" target="_blank"><img src="../img/slides/p5.jpg"></a>
 			</div>
 		</div>
-		<p class="info">Hiding empty div:</p>
-		<pre>rel="<span>jKit[binding:selector=this;source=text;mode=css.display</span>]</pre>
-		<div class="box" id="bindingdiv4">
-			<h3>Paragraph with content</h3>
-			<p style="border:1px #f30 dotted" rel="jKit[binding:selector=this;source=text;mode=css.display]">dfsadf dsf sdf dsf dsafsdf sdaf dsf dsafsda</p>
-			<h3>Paragraph without content</h3>
-			<p style="border:1px #f30 dotted" rel="jKit[binding:selector=this;source=text;mode=css.display]"></p>
-		</div>
-		
-		<div class="box">
-			<ul data-jkit="[binding:target=children;selector=this;source=has.text;search=test;mode=css.width;math=value*100]" class="test">
-				<li style="background:#f30">Test the test test</li>
-				<li style="background:#f60">Two testtest</li>
-				<li style="background:#f90">Only one test</li>
-			</ul>
-		</div>
-		
-		<div class="box">
-			<ul data-jkit="[binding:target=each.input;selector=this;source=has.val;search=test;mode=css.width;math=value*100]" class="test">
-				<li style="background:#f30"><input value="Test the test test"></li>
-				<li style="background:#f60"><input value="Two testtest"></li>
-				<li style="background:#f90"><input value="Only one test"></li>
-			</ul>
-		</div>
-		
-		
-		<!-- macro command -->
-		
-		<h2 id="command_macro">Macro</h2>
-		<p class="info">Not really a command, but a way to create your own custom commands or as we named them, macros. You can create macros for stuff you're often using, let's say you want to have easier access to the above code for hiding an empty div, than just add it as a macro on init like this:</p>
-		<pre>&lt;script type="text/javascript"&gt;
-$(document).ready(function(){
-	<span>$('body').jKit({ macros: { 'hide-if-empty': 'binding:selector=this;source=text;mode=css.display' } });</span>
-});
-&lt;/script&gt;</pre>
-		<p class="info">Now you can use it in a way that's much easier to remember:</p>
-		<pre>rel="<span>jKit[hide-if-empty]</span>"</pre>
-		
-		<script>
-			var bindingFilter = function(value,el){
-				el.text(value.length+' chars entered');
-			}
-		</script>
-		
-		
-		
-		<!-- template command -->
-		
-		<h2 id="command_template">Template</h2>
-		<p class="info">Define a template like this:</p>
-		<pre>rel="<span>jKit[template:action=set;name=mylist;vars=heading,text,info]</span>"</pre>
-		<p class="info">And than apply the template like this:</p>
-		<pre>rel="<span>jKit[template:action=apply;children=li;name=mylist]</span>"</pre>
-		
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>action:</strong> <span>String: 'set' or 'apply'</span> <span class="default">set</span></li>
-			<li><strong>name:</strong> <span>String</span> <span class="default">template</span></li>
-			<li><strong>vars:</strong> <span>Comma separated class names of content elements</span></li>
-			<li><strong>children:</strong> <span>String (optional)</span></li>
-		</ul>
-		
-		<p class="info">Have a look at the source of this example to get a better idea:</p>
-		
-		<div class="box">
-		
-			<div rel="jKit[template:action=set;name=mylist;vars=heading,text,info]" style="display:none">
-				<div class="mylist">
-					<span class="if-entry-first entrynumber">First entry:</span>
-					<span class="if-entry-3 entrynumber"> ... 3rd entry ...</span>
-					<span class="if-entry-last entrynumber"> ... last entry.</span>
-					<h3>
-						<div><span class="info">Info Text</span></div>
-						Title: "<span class="heading">Heading Text</span>"
-					</h3>
-					<p class="if-text">
-						<strong>Description:</strong> <span class="text">Text ...</span>
-					</p>
-					<div class="if-text">&nbsp;</div>
+	</div>
+	<div>
+		<h3>Title 3</h3>
+		<div><ul><li>List Item 1</li><li>List Item 2</li><li>List Item 3</li></ul></div>
+	</div>
+</div></div>
+
+
+
+<div class="demo"><div class="accordion" data-jkit="[accordion]">
+	<div>
+		<h3>Title 1</h3>
+		<div>
+			<div class="accordion" data-jkit="[accordion]">
+				<div>
+					<h3>Subtitle 1</h3>
+					<div>
+						<div class="accordion" data-jkit="[accordion]">
+							<div>
+								<h3>Subsubtitle 1</h3>
+								<div>
+									Subsubtext 1
+								</div>
+							</div>
+							<div>
+								<h3>Subsubtitle 2</h3>
+								<div>
+									Subsubtext 2
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<h3>Subtitle 2</h3>
+					<div>
+						Subtext 2
+					</div>
+				</div>
+				<div>
+					<h3>Subtitle 3</h3>
+					<div>
+						Subtext 3
+					</div>
 				</div>
 			</div>
-		
-			<ul class="myul" rel="jKit[template:action=apply;children=li;name=mylist]">
-				<li>
-					<h3 class="heading">List Entry 1</h3>
-					<p class="info">250 character jKit lorem</p>
-					<p class="text"><span rel="jKit[lorem:length=250]"></span></p>
-				</li>
-				<li>
-					<h3 class="heading">List Entry 2</h3>
-					<p class="info">350 character jKit lorem</p>
-					<p class="text"><span rel="jKit[lorem:length=350]"></span></p>
-				</li>
-				<li>
-					<h3 class="heading">List Entry 3</h3>
-					<p class="info">150 character jKit lorem</p>
-					<p class="text"><span rel="jKit[lorem:length=150]"></span></p>
-				</li>
-				<li>
-					<h3 class="heading">List Entry 4</h3>
-					<p class="info">2 paragraph jKit lorem</p>
-					<p class="text"><span rel="jKit[lorem:paragraphs=2]"></span></p>
-				</li>
-				<li>
-					<h3 class="heading">List Entry 5</h3>
-					<p class="info">Without text (removed paragraph) ...</p>
-				</li>
-			</ul>
 		</div>
-		
-		
-		<div class="box" rel="jKit[template:action=set;name=commits]" style="display:none">
-			<ul>
-				<li data-jkit-api-if="data[0]">
-					<div data-jkit-api="data[0].commit.message"></div>
-					<div data-jkit-api="data[0].commit.url"></div>
-					<div data-jkit-api="data[0].commit.committer.date"></div>
-					<div data-jkit-api="data[0].commit.committer.name"></div>
-				</li>
-				<li data-jkit-api-if="data[1]">
-					<div data-jkit-api="data[1].commit.message"></div>
-					<div data-jkit-api="data[1].commit.url"></div>
-					<div data-jkit-api="data[1].commit.committer.date"></div>
-					<div data-jkit-api="data[1].commit.committer.name"></div>
-				</li>
-				<li data-jkit-api-if="data[2]">
-					<div data-jkit-api="data[2].commit.message"></div>
-					<div data-jkit-api="data[2].commit.url"></div>
-					<div data-jkit-api="data[2].commit.committer.date"></div>
-					<div data-jkit-api="data[2].commit.committer.name"></div>
-				</li>
-				<li data-jkit-api-if="data[112]">
-					<div data-jkit-api="data[112].commit.message"></div>
-					<div data-jkit-api="data[112].commit.url"></div>
-					<div data-jkit-api="data[112].commit.committer.date"></div>
-					<div data-jkit-api="data[112].commit.committer.name"></div>
-				</li>
-			</ul>
+	</div>
+	<div>
+		<h3>Title 2</h3>
+		<div>
+			Text 2
 		</div>
-		
-		<div data-jkit="[api:format=json;template=commits;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits]">loading ...</div>
-		
-		
-		<h2 id="command_chart">Chart</h2>
-		<p class="info">Create a table with your data like this:</p>
-		<pre rel="jKit[encode]"><table rel="jKit[chart:style=bar;units=USD;align=vertical;max=1000]">
+	</div>
+	<div>
+		<h3>Title 3</h3>
+		<div>
+			Text 3
+		</div>
+	</div>
+</div></div>
+
+			<h2>Carousel</h2>
+			<p>
+				Make content go around and around ... and around.
+			</p>
+
+
+<div class="demo"><div class="carousel" data-jkit="[carousel]">
+	<div class="carousel-item">
+		<div>DIV 1 ...</div>
+	</div>
+	<div class="carousel-item">
+		<div>DIV 2 ...</div>
+	</div>
+	<div class="carousel-item">
+		<div>DIV 3 ...</div>
+	</div>
+	<div class="carousel-item">
+		<div>DIV 4 ...</div>
+	</div>
+	<div class="carousel-item">
+		<div>DIV 5 ...</div>
+	</div>
+	<div class="carousel-item">
+		<div>DIV 6 ...</div>
+	</div>
+	<div class="carousel-item">
+		<div>DIV 7 ...</div>
+	</div>
+</div></div>
+
+			<h2>Parallax</h2>
+			<p>
+				This command lets you create a parallax effect of different layers triggered by mouse movement.
+			</p>
+
+
+<div class="demo"><div class="parallax-container" data-jkit="[parallax:strength=2;axis=both]">
+	<div class="parallax parallax1">Background Layer</div>
+	<div class="parallax parallax2">Middle Layer</div>
+	<div class="parallax parallax3">Foreground Layer</div>
+</div></div>
+
+
+
+<div class="demo"><div class="parallax-container" data-jkit="[parallax:strength=2;axis=x]">
+	<div class="parallax parallax1">Background Layer</div>
+	<div class="parallax parallax2">Middle Layer</div>
+	<div class="parallax parallax3">Foreground Layer</div>
+</div></div>
+
+
+
+<div class="demo"><div class="parallax-container" data-jkit="[parallax:strength=7;axis=both]">
+	<div class="parallax parallax1">Background Layer</div>
+	<div class="parallax parallax2">Middle Layer</div>
+	<div class="parallax parallax3">Foreground Layer</div>
+</div></div>
+
+
+
+<div class="demo"><div class="parallax-container" data-jkit="[parallax:strength=2;axis=both;scope=local]">
+	<div class="parallax parallax1">Background Layer</div>
+	<div class="parallax parallax2">Middle Layer</div>
+	<div class="parallax parallax3">Foreground Layer</div>
+</div></div>
+
+
+
+<div class="demo"><div class="parallax-container" data-jkit="[parallax:strength=2;axis=both;detect=scroll]">
+	<div class="parallax parallax1">Background Layer</div>
+	<div class="parallax parallax2">Middle Layer</div>
+	<div class="parallax parallax3">Foreground Layer</div>
+</div></div>
+
+			<h2>Ticker</h2>
+			<p>
+				Create a news ticker from a list of entries.
+			</p>
+
+
+<div class="demo"><ul data-jkit="[ticker]">
+	<li>Ticker Text 1</li>
+	<li>Another one</li>
+	<li><a href="http://fredibach.ch" target="_blank">The third ticker text</a></li>
+	<li><a href="index.php">Even more text for the ticker</a></li>
+</ul></div>
+
+
+
+<div class="demo"><div rel="jKit[template:action=set;name=commits]" style="display:none">
+	<ul>
+		<li data-jkit-api-if="data[0]" data-jkit-api="data[0].commit.message"></li>
+		<li data-jkit-api-if="data[1]" data-jkit-api="data[1].commit.message"></li>
+		<li data-jkit-api-if="data[2]" data-jkit-api="data[2].commit.message"></li>
+		<li data-jkit-api-if="data[3]" data-jkit-api="data[3].commit.message"></li>
+		<li data-jkit-api-if="data[4]" data-jkit-api="data[4].commit.message"></li>
+	</ul>
+</div>
+<div style="display:none" data-jkit="[show:speed=500;onevent=commits.complete]"> 
+	<div data-jkit="[api.commits:format=json;template=commits;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits][ticker:speed=50;delay=1500;onevent=commits.complete]">loading ...</div>
+</div></div>
+
+			<h2>Cycle</h2>
+			<p>
+				Maske it easy to cycle through a sequence of different elements to style them differently.
+			</p>
+
+
+<div class="demo"><ul data-jkit="[cycle:what=class;where=li;scope=children;sequence=odd,even]">
+	<li>List entry 1</li>
+	<li>List entry 2</li>
+	<li>List entry 3</li>
+	<li>
+		List entry 4
+		<ul>
+			<li>Sub entry 1</li>
+			<li>Sub entry 2</li>
+			<li>Sub entry 3</li>
+		</ul>
+	</li>
+	<li>List entry 5</li>
+</ul></div>
+
+
+
+<div class="demo"><ul data-jkit="[cycle:what=class;where=li;scope=all;sequence=odd,even]">
+	<li>List entry 1</li>
+	<li>List entry 2</li>
+	<li>List entry 3</li>
+	<li>
+		List entry 4
+		<ul>
+			<li>Sub entry 1</li>
+			<li>Sub entry 2</li>
+			<li>Sub entry 3</li>
+		</ul>
+	</li>
+	<li>List entry 5</li>
+</ul></div>
+
+
+
+<div class="demo"><ul data-jkit="[cycle:what=css.color;where=li;scope=all;sequence=#000,#f30]">
+	<li>List entry 1</li>
+	<li>List entry 2</li>
+	<li>List entry 3</li>
+	<li>
+		List entry 4
+		<ul>
+			<li>Sub entry 1</li>
+			<li>Sub entry 2</li>
+			<li>Sub entry 3</li>
+		</ul>
+	</li>
+	<li>List entry 5</li>
+</ul></div>
+
+
+
+<div class="demo"><ul data-jkit="[cycle:what=css.color;where=li;scope=all;sequence=#000,#03f,#f30]">
+	<li>List entry 1</li>
+	<li>List entry 2</li>
+	<li>List entry 3</li>
+	<li>
+		List entry 4
+		<ul>
+			<li>Sub entry 1</li>
+			<li>Sub entry 2</li>
+			<li>Sub entry 3</li>
+		</ul>
+	</li>
+	<li>List entry 5</li>
+</ul></div>
+
+
+
+<div class="demo"><div id="rainbow1" style="font-size:20px;font-weight:bold" data-jkit="[split:container=span][cycle:what=css.color;where=span;sequence=#FF0000,#FF7F00,#FFE100,#00FF00,#0000FF,#6600FF,#8B00FF]">This is some example text, it will look like a rainbow ... hopefully.</div></div>
+
+
+
+<div class="demo"><div id="ever4" style="font-size:20px;font-weight:bold" data-jkit="[split:container=span][cycle:what=css.color;where=span;sequence=,,,#f30]">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div>
+
+			<h2>Animation</h2>
+			<p>
+				Tween between different elements (frames) to create an animation.
+			</p>
+
+
+<div class="demo"><p class="demobox" data-jkit="[animation:delay=4000;speed=500;to=width(50%),height(50px)]">
+	After four seconds ...
+</p>
+<p class="demobox" data-jkit="[animation:on=click;speed=500;to=width(50%),height(50px)]">
+	On click ...
+</p>
+<p class="demobox" data-jkit="[animation:on=mouseenter;speed=250;to=width(50%),height(110px)][animation:on=mouseleave;speed=250;to=width(100%),height(100px)]">
+	On mouseenter and mouseleave ...
+</p></div>
+
+
+
+<div class="demo"><div class="animation-container" data-jkit="[animation:fps=30;loop=yes]">
+	<div class="animation" data-jkit="[frame:steps=100;action=fadeout]" style="font-size:90px;background:#000"><img src="../img/jkit_logo.png" alt="jKit" title="jKit" style="margin-top:110px"></div>
+	<div class="animation" data-jkit="[frame:steps=7]" style="font-size:90px;line-height:260%">animation</div>
+	<div class="animation" data-jkit="[frame:steps=10]" style="font-size:90px;line-height:260%">made</div>
+	<div class="animation" data-jkit="[frame:steps=50;action=tween;easing=easeOutBounce]" style="font-size:200px;padding-top:110px">easy</div>
+	<div class="animation" data-jkit="[frame:steps=1]" style="font-size:20px;opacity:0;padding-top:110px">easy</div>
+	<div class="animation" data-jkit="[frame:steps=25]"></div>
+	<div class="animation" data-jkit="[frame:steps=75;action=fadeinout]" style="font-size:50px;line-height:500%;color:#E01B49;background:#fff">really easy!</div>
+	<div class="animation" data-jkit="[frame:steps=50]"></div>
+	<div class="animation" data-jkit="[frame:steps=50;action=fadein]" style="background:#000"></div>
+</div></div>
+
+			<h2>Zoom</h2>
+			<p>
+				Zoom into an image on mouseover.
+			</p>
+
+
+<div class="demo"><img src="../img/newyorkcity_1280x800.jpg" width="640" data-jkit="[zoom]"></div>
+
+
+
+<div class="demo"><img src="../img/monsters.jpg" width="640" data-jkit="[zoom:scale=4]"></div>
+
+
+
+<div class="demo"><img src="../img/newyorkcity_1280x800.jpg" width="640" data-jkit="[zoom.newyork]">
+<div style="display:none" data-jkit="[show:speed=250;animation=grow;onevent=newyork.zoomin][hide:speed=250;animation=grow;onevent=newyork.zoomout]">
+	<strong>So much detail, it's crazy! ;-)</strong>
+</div></div>
+
+
+
+<div class="demo"><img src="../img/newyorkcity_1280x800.jpg" width="640" data-jkit="[zoom:lightbox=yes]"></div>
+
+			<h2>Menu</h2>
+			<p>
+				Create a dropdown menu that works on all browsers, especially mobiles.
+			</p>
+
+
+<div class="demo"><div style="height:160px;"><ul class="dropdown" data-jkit="[menu]">
+	<li><a href="#">Main 1</a>
+      		<ul class="sub_menu">
+      			 <li><a href="#">Sub 1A</a></li>
+      			 <li><a href="#">Sub 1B</a></li>
+      			 <li><a href="#">Sub 1C</a></li>
+      			 <li><a href="#">Sub 1D</a></li>
+      		</ul>
+      	</li>
+	<li><a href="#">Main 2</a>
+      		<ul class="sub_menu">
+      			 <li><a href="#">Sub 2A</a></li>
+      			 <li><a href="#">Sub 2B</a></li>
+      		</ul>
+      	</li>
+	<li><a href="#">Main 3</a>
+      		<ul class="sub_menu">
+      			 <li><a href="#">Sub 3A</a></li>
+      			 <li><a href="#">Sub 3B</a></li>
+      			 <li>
+				<a href="#">Sub 3C</a>
+				<ul>
+      					<li><a href="#">Sub 3C1</a></li>
+      					<li><a href="#">Sub 3C2</a></li>
+      				</ul>
+			</li>
+      		</ul>
+      	</li>
+</ul></div></div>
+
+
+
+<div class="demo"><div style="height:160px;"><ul class="dropdown" data-jkit="[menu:autoactive=yes]">
+	<li><a href="#">Main 1</a>
+      		<ul class="sub_menu">
+      			 <li><a href="menu.html">Should be active</a></li>
+      			 <li><a href="#">Sub 1B</a></li>
+      			 <li><a href="#">Sub 1C</a></li>
+      			 <li><a href="#">Sub 1D</a></li>
+      		</ul>
+      	</li>
+	<li><a href="#">Main 2</a>
+      		<ul class="sub_menu">
+      			 <li><a href="#">Sub 2A</a></li>
+      			 <li><a href="#">Sub 2B</a></li>
+      		</ul>
+      	</li>
+	<li><a href="#">Main 3</a>
+      		<ul class="sub_menu">
+      			 <li><a href="#">Sub 3A</a></li>
+      			 <li><a href="#">Sub 3B</a></li>
+      			 <li>
+				<a href="#">Sub 3C</a>
+				<ul>
+      					<li><a href="#">Sub 3C1</a></li>
+      					<li><a href="#">Sub 3C2</a></li>
+      				</ul>
+			</li>
+      		</ul>
+      	</li>
+</ul></div></div>
+
+			<h2>Tooltip</h2>
+			<p>
+				Show additional information on hovering a link.
+			</p>
+
+
+<div class="demo"><a href="#" data-jkit="[tooltip:color=#fff;background=#999;text=Test Tooltip Text]">Test Link</a> &nbsp; &nbsp; 
+<a href="#" data-jkit="[tooltip:color=#333;background=#E01B49;text=Test Tooltip Text 2]">Test Link 2</a> &nbsp; &nbsp;
+<a href="#" data-jkit="[tooltip:classname=mytooltip;text=Test Tooltip Text 3]">Test Link with a class for styling</a></div>
+
+			<h2>Paginate</h2>
+			<p>
+				Lets you create paginated content.
+			</p>
+
+
+<div class="demo"><table width="100%" data-jkit="[paginate:limit=5;container=tbody]">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Location</th>
+			<th>Birthday</th>
+			<th>Category</th>
+			<th>Status</th>
+			<th>Superior</th>
+			<th>Price (CHF)</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td><td>freelancer</td><td>active</td><td>#120</td><td>1.00</td></tr>
+		<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td><td>freelancer</td><td>active</td><td>#120</td><td>25.25</td></tr>
+		<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td><td>freelancer</td><td>active</td><td></td><td>2.99</td></tr>
+		<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td><td>freelancer</td><td>active</td><td>#1168</td><td>48.95</td></tr>
+		<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td><td>trainee</td><td>active</td><td>#120</td><td>200.10</td></tr>
+		<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td><td>-5.05</td></tr>
+		<tr><td>Mr. Kon Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td><td>-5.05</td></tr>
+		<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td><td>employee</td><td>active</td><td>#1168</td><td>10</td></tr>
+		<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td><td>freelancer</td><td>active</td><td>#120</td><td>4721.45</td></tr>
+		<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td><td>guest</td><td>active</td><td>#120</td><td>12.55</td></tr>
+		<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td><td>trainee</td><td>active</td><td>#120</td><td>354.50</td></tr>
+		<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td><td>freelancer</td><td>active</td><td></td><td>42.85</td></tr>
+		<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td><td>guest</td><td>active</td><td></td><td>87.41</td></tr>
+		<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td><td>freelancer</td><td>active</td><td>#463</td><td>354.01</td></tr>
+		<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td><td>employee</td><td>active</td><td>#120</td><td>14.12</td></tr>
+		<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td><td>employee</td><td>active</td><td>#120</td><td>10.25</td></tr>
+	</tbody>
+</table></div>
+
+
+
+<div class="demo"><ul style="width:250px" data-jkit="[paginate:by=height;limit=100;animation=fade;pos=before]">
+	<li>jh sdgjkgh fjdhsgdfjkhgfjkdhsg jhjksdgh fjkdhg jkfdshjkg jkfdh sgjkhfdjkshg fjhgjkfhdjsghjksh g</li>
+	<li>hdjh gjkdfhgj khfdjkgha jfhgkj gdsalhd f </li>
+	<li>j dsfjk hdjf gdshafg hdsgfa hjhdfg sdhjgfjh dsfahj ghdfg dsahgfhjsdfgh ab</li>
+	<li>j dhsfkajhdj fghjkdhg ajfhjghd sjhagjjkhgfjdh gjkhdfjkahgj</li>
+	<li>dh safhjkl hgfdjhasjdkghjhdajkhg jdfh gahjkd hsajghj fghadfjk hjgkh jkhg dfa</li>
+	<li>d skhafmh gjhdfjka ghjghjk dashjgjkhf adhfg jdhajk sg</li>
+	<li>d sfhajhdjfhjsda gjh jl</li>
+	<li>d shfjklh djkahfgjk dajksghjkghadsj jkgh jdashjk ghjksadg jgh ljhdjgks ad sjhaflkhf jkadghjh gjklhdgajhkjljksagl asdg</li>
+	<li>d dhjsfga hjgdsagads jdsha hfj hj salhfjd shakhfd jkahsd fjkdsagfjkgfdjhsagl fjhgsda l</li>
+	<li>jj sakdflh jkh djkhfjdsajhf jdsfhgdshfhjdfh jkhdsjd sfagjklg dfsjajdgjkgdsajkl jdas gljkds akl</li>
+	<li>dmh safhgjk dashjf kgjkfgd sajkgfjk sdjhgf lsdagjk gfjkdas gfg asd</li>
+	<li>jgajs fgjk</li>
+</ul></div>
+
+			<h2>Sort</h2>
+			<p>
+				Let visitors sort table rows by their columns.
+			</p>
+
+
+<div class="demo"><table class="sort" width="100%">
+	<thead>
+		<tr>
+			<th data-jkit="[sort:what=text;start=4]">Name</th>
+			<th data-jkit="[sort:what=text]">Location</th>
+			<th data-jkit="[sort:what=text;by=date]">Birthday</th>
+			<th data-jkit="[sort:what=text]">Category</th>
+			<th data-jkit="[sort:what=text]">Status</th>
+			<th data-jkit="[sort:what=text;start=2]">Superior</th>
+			<th data-jkit="[sort:what=text;by=num]">Price (CHF)</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td><td>freelancer</td><td>active</td><td>#120</td><td>1.00</td></tr>
+		<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td><td>freelancer</td><td>active</td><td>#120</td><td>25.25</td></tr>
+		<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td><td>freelancer</td><td>active</td><td></td><td>2.99</td></tr>
+		<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td><td>freelancer</td><td>active</td><td>#1168</td><td>48.95</td></tr>
+		<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td><td>trainee</td><td>active</td><td>#120</td><td>200.10</td></tr>
+		<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td><td>-5.05</td></tr>
+		<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td><td>employee</td><td>active</td><td>#1168</td><td>10</td></tr>
+		<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td><td>freelancer</td><td>active</td><td>#120</td><td>4721.45</td></tr>
+		<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td><td>guest</td><td>active</td><td>#120</td><td>12.55</td></tr>
+		<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td><td>trainee</td><td>active</td><td>#120</td><td>354.50</td></tr>
+		<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td><td>freelancer</td><td>active</td><td></td><td>42.85</td></tr>
+		<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td><td>guest</td><td>active</td><td></td><td>87.41</td></tr>
+		<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td><td>freelancer</td><td>active</td><td>#463</td><td>354.01</td></tr>
+		<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td><td>employee</td><td>active</td><td>#120</td><td>14.12</td></tr>
+		<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td><td>employee</td><td>active</td><td>#120</td><td>10.25</td></tr>
+	</tbody>
+</table></div>
+
+
+
+<div class="demo"><div data-jkit="[cycle:what=css.background;where=table > tbody > tr;scope=all;sequence=#ddd,#fff][cycle:onevent=tablesort.complete;what=css.background;where=table > tbody > tr;scope=all;sequence=#ddd,#fff]">
+	<table class="sort" width="100%">
+		<thead>
+			<tr>
+				<th data-jkit="[sort.tablesort:what=text;start=4]">Name</th>
+				<th data-jkit="[sort.tablesort:what=text]">Location</th>
+				<th data-jkit="[sort.tablesort:what=text;by=date]">Birthday</th>
+				<th data-jkit="[sort.tablesort:what=text]">Category</th>
+				<th data-jkit="[sort.tablesort:what=text]">Status</th>
+				<th data-jkit="[sort.tablesort:what=text;start=2]">Superior</th>
+				<th data-jkit="[sort.tablesort:what=text;by=num]">Price (CHF)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td><td>freelancer</td><td>active</td><td>#120</td><td>1.00</td></tr>
+			<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td><td>freelancer</td><td>active</td><td>#120</td><td>25.25</td></tr>
+			<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td><td>freelancer</td><td>active</td><td></td><td>2.99</td></tr>
+			<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td><td>freelancer</td><td>active</td><td>#1168</td><td>48.95</td></tr>
+			<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td><td>trainee</td><td>active</td><td>#120</td><td>200.10</td></tr>
+			<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td><td>-5.05</td></tr>
+			<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td><td>employee</td><td>active</td><td>#1168</td><td>10</td></tr>
+			<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td><td>freelancer</td><td>active</td><td>#120</td><td>4721.45</td></tr>
+			<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td><td>guest</td><td>active</td><td>#120</td><td>12.55</td></tr>
+			<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td><td>trainee</td><td>active</td><td>#120</td><td>354.50</td></tr>
+			<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td><td>freelancer</td><td>active</td><td></td><td>42.85</td></tr>
+			<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td><td>guest</td><td>active</td><td></td><td>87.41</td></tr>
+			<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td><td>freelancer</td><td>active</td><td>#463</td><td>354.01</td></tr>
+			<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td><td>employee</td><td>active</td><td>#120</td><td>14.12</td></tr>
+			<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td><td>employee</td><td>active</td><td>#120</td><td>10.25</td></tr>
+		</tbody>
+	</table>
+</div></div>
+
+			<h2>Filter</h2>
+			<p>
+				Dynamically filter your content and only show what's currently needed
+			</p>
+
+
+<div class="demo"><div class="box" data-jkit="[filter:by=text;affected=ul > li]">
+	<select class="jkit-filter">
+		<option value="">All</option>
+		<option value="test1">test1</option>
+		<option value="test2" selected>test2</option>
+		<option value="test3">test3</option>
+		<option value="test1 test2">test1 & test2</option>
+	</select>
+	<select class="jkit-filter">
+		<option value="" selected>All</option>
+		<option value="long">long</option>
+	</select>
+	<input type="text" class="jkit-filter" value="">
+	<ul>
+		<li class="test1">Entry 1 ... (test1)</li>
+		<li class="test2">Entry 2 ... (test2)</li>
+		<li class="test3">Entry 3 ... (test3)</li>
+		<li class="test2 long">Entry 4 ... (test2 long)</li>
+		<li class="test1 long">Entry 5 ... (test1 long)</li>
+		<li class="test3">Entry 6 ... (test3)</li>
+		<li class="test2">Entry 7 ... (test2)</li>
+		<li class="test1 test3">Entry 8 ... (test1 test3)</li>
+		<li class="test1 test2">Entry 9 ... (test1 test2)</li>
+		<li class="test99">Entry 10 ... (test99)</li>
+	</ul>
+</div></div>
+
+
+
+<div class="demo"><div data-jkit="[filter:by=text;affected=table > tbody > tr]">
+	Search: <input type="text" class="jkit-filter" value=""> (try searching for "Gerber")
+	<table width="100%">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Location</th>
+				<th>Birthday</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td></tr>
+			<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td></tr>
+			<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td></tr>
+			<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td></tr>
+			<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td></tr>
+			<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td></tr>
+			<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td></tr>
+			<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td></tr>
+			<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td></tr>
+			<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td></tr>
+			<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td></tr>
+			<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td></tr>
+			<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td></tr>
+			<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td></tr>
+			<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td></tr>
+		</tbody>
+	</table>
+</div></div>
+
+			<h2>Form</h2>
+			<p>
+				Create an ajax submitted form.
+			</p>
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	<p>
+		<label for="miniusername">Username:</label><br />
+		<input name="miniusername" id="miniusername" data-jkit="[validate:required=true;min=3;max=10;error=Please enter your username (3-10 characters)]">
+	</p>
+	<p>
+		<label for="minipassword">Password:</label><br />
+		<input name="minipassword" id="minipassword" type="password" data-jkit="[validate:required=true;strength=50;error=Please enter a secure password]">
+	</p>
+	<p>
+		<input name="send" type="submit" value="Submit" />
+	</p>
+</form></div>
+
+			<h2>Validate</h2>
+			<p>
+				Validate form values in many different ways.
+			</p>
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	Password: <input name="password" type="password" data-jkit="[validate:required=true;strength=50;error=Please enter a secure password]">
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	Password: <input name="password" type="password" id="password" data-jkit="[validate:required=true;strength=50;error=Please enter a secure password]">
+	<br />Repeat: <input name="passwordtest" type="password" data-jkit="[validate:required=true;same=#password;error=The two passwords don't match, please try again]">
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	Tel. <input name="phone" data-jkit="[validate:type=phone;required=true;error=Please enter a valid phone number]">
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	Email: <input name="email" data-jkit="[validate:type=email;required=true;error=Please enter a valid email address]">
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	Homepage: <input name="homepage" data-jkit="[validate:type=url;error=This isn't a valid URL]">
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	Image: <input name="avatar" type="file" data-jkit="[validate:type=extension;options=jpg,jpeg,gif;error=Please choose a valid image format]">
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	<div id="radiogroup" data-jkit="[validate:type=group;name=group1;error=Please choose one option]">
+		<input type="radio" id="group1_milk" name="group1" value="Milk"> Milk<br>
+		<input type="radio" id="group1_butter" name="group1" value="Butter"> Butter<br>
+		<input type="radio" id="group1_cheese" name="group1" value="Cheese"> Cheese
+	</div>
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	<div id="checkgroup" data-jkit="[validate:type=group;min=1;max=2;error=Please choose at least one option, but not more than two]">
+		<input type="checkbox" id="group2_milk" name="group2_milk" value="Milk"> Milk<br>
+		<input type="checkbox" id="group2_butter" name="group2_butter" value="Butter"> Butter<br>
+		<input type="checkbox" id="group2_salt" name="group2_salt" value="Salt"> Salt<br>
+		<input type="checkbox" id="group2_cheese" name="group2_cheese" value="Cheese"> Cheese
+	</div>
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	Date: <input name="mydate" data-jkit="[validate:type=date;required=true;error=Please add a valid date]">
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	Time: <input name="mytime" data-jkit="[validate:type=time;required=true;error=Please add a time]">
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	<input name="myint" data-jkit="[validate:type=int;min=1;required=true;error=Please add a valid positiv Integer above zero]">
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	<input name="myfloat" data-jkit="[validate:type=float;min=1;max=2.5;required=true;error=Please enter a float between 1 and 2.5]">
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+
+
+<div class="demo"><form method="post" action="?" data-jkit="[form:validateonly=true]">
+	<input name="length" data-jkit="[validate:length=6;error=Please enter exactly six characters]">
+	<br /><input name="send" type="submit" value="Submit" />
+</form></div>
+
+			<h2>Ajax</h2>
+			<p>
+				Easely convert normal href links into ajax links.
+			</p>
+
+
+<div class="demo"><a href="../stuff/ajax_sample_content_1.html" data-jkit="[ajax:element=#ajaxdiv]">Link 1</a>, 
+<a href="../stuff/ajax_sample_content_2.html" data-jkit="[ajax:element=#ajaxdiv]">Link 2</a>
+<div id="ajaxdiv">
+	Initial text ...
+</div></div>
+
+
+
+<div class="demo"><div data-jkit="[ajax:when=load;href=../stuff/ajaxcontent1.html]">
+	<!-- load this stuff after the dom has loaded -->
+</div></div>
+
+
+
+<div class="demo"><div data-jkit="[ajax:when=viewport;href=../stuff/ajaxcontent2.html]">
+	<!-- load this stuff after the div is inside the viewport -->
+</div></div>
+
+
+
+<div class="demo"><img src="../img/fb_logo_min.jpg" data-jkit="[ajax:when=viewport;src=../img/fb_logo_full.jpg]"></div>
+
+			<h2>Chart</h2>
+			<p>
+				Create animated bar charts from tabular data.
+			</p>
+
+
+<div class="demo"><table data-jkit="[chart:style=bar;units=USD;align=vertical;max=1000]">
 	<thead>
 		<tr>
 			<th class="label">Year</th>
@@ -1269,665 +1149,383 @@ $(document).ready(function(){
 			<th>214</th><th>124</th><th>127</th><th>452</th><th>421</th><th>12</th><th>127</th><th>189</th><th>145</th><th>123</th><th>741</th><th></th>
 		</tr>
 	</tbody>
-</table></pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>max:</strong> <span>Int</span> <span class="default">0</span></li>
-			<li><strong>delaysteps:</strong> <span>Int</span> <span class="default">100</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">500</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-		</ul>
-		<div class="box">
+</table></div>
+
+			<h2>Plugin</h2>
+			<p>
+				Use a jQuery plugin the same way as your other jKit commands with the help of this command.
+			</p>
+
+
+<div class="demo"><input name="hint" id="hint" title="My Hint Text" data-jkit="[plugin:script=hint;hintClass=hint]"></div>
+
+
+
+<div class="demo"><input name="tweet" id="tweet" data-jkit="[plugin:script=maxlength;maxCharacters=140]"></div>
+
+			<h2>API</h2>
+			<p>
+				Easely gather data from external API's.
+			</p>
+
+
+<div class="demo"><ul>
+	<li>Twitter count: <span data-jkit="[api:format=json;value=count;url=http\://urls.api.twitter.com/1/urls/count.json?url\=http\://news.ycombinator.com]"></span></li>
+	<li>Facebook shares: <span data-jkit="[api:format=json;value=shares;url=http\://graph.facebook.com/http\://news.ycombinator.com]"></span></li>
+</ul></div>
+
+
+
+<div class="demo"><p>
+	Latest jKit commit: <span data-jkit="[api:format=json;value=data[0].commit.message;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits]"></span></li>
+</p></div>
+
+
+
+<div class="demo"><!-- defining our api template: -->
+
+<div class="box" rel="jKit[template:action=set;name=commits]" style="display:none">
+	<ul>
+		<li data-jkit-api-if="data[0]">
+			<h4 data-jkit-api="data[0].commit.message"></h4>
+			<p>
+				<span data-jkit-api="data[0].commit.committer.date"></span>
+				 by <span data-jkit-api="data[0].commit.committer.name"></span>
+			</p>
+		</li>
+		<li data-jkit-api-if="data[1]">
+			<h4 data-jkit-api="data[1].commit.message"></h4>
+			<p>
+				<span data-jkit-api="data[1].commit.committer.date"></span>
+				 by <span data-jkit-api="data[1].commit.committer.name"></span>
+			</p>
+		</li>
+		<li data-jkit-api-if="data[2]">
+			<h4 data-jkit-api="data[2].commit.message"></h4>
+			<p>
+				<span data-jkit-api="data[2].commit.committer.date"></span>
+				 by <span data-jkit-api="data[2].commit.committer.name"></span>
+			</p>
+		</li>
 		
-			<table rel="jKit[chart:style=bar;units=USD;align=vertical;max=1000]">
-				<thead>
-					<tr>
-						<th class="label">Year</th>
-						<th>Jan.</th><th>Feb.</th><th>Mar.</th><th>Apr.</th><th>Mai</th><th>Jun.</th><th>Jul.</th><th>Aug.</th><th>Sep.</th><th>Okt.</th><th>Nov.</th><th>Dez.</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th class="label">2011</th>
-						<th>500</th><th>124</th><th>254</th><th>124</th><th>245</th><th>233</th><th>125</th><th>147</th><th>189</th><th>156</th><th>164</th><th>144</th>
-					</tr>
-					<tr>
-						<th class="label">2012</th>
-						<th>214</th><th>124</th><th>127</th><th>452</th><th>421</th><th>12</th><th>127</th><th>189</th><th>145</th><th>123</th><th>741</th><th></th>
-					</tr>
-				</tbody>
-			</table>
-			
-		</div>
+		<!-- ... cutted out more entries for better readability ... -->
 		
-		
-		<h2 id="command_encode">Encode</h2>
-		<pre>rel="<span>jKit[encode:format=text</span>]</pre>
-		<ul class="options">
-			<li><strong>format:</strong> <span>String "code", "text", "esc" or "url"</span> <span class="default">"code"</span></li>
-		</ul>
-		<p class="info">Demos of the four decoding types, "code", "text", "esc" and "url":</p>
-		<pre rel="jKit[encode]"><h2 id="command_encode">Encode</h2></pre>
-		<div class="box" rel="jKit[encode:format=text]">
-			<h2 id="command_encode">Encode</h2>
-		</div>
-		<div class="box" rel="jKit[encode:format=esc]">
-			<h2 id="command_encode">Encode</h2>
-		</div>
-		<div class="box" rel="jKit[encode:format=uri]">
-			<h2 id="command_encode">Encode</h2>
-		</div>
-		<p class="info">Here's an example where we first use the text format and than we're using an uppercase format that we added through jKits replacements feature (check the head source):</p>
-		<div class="box" rel="jKit[encode:format=text][encode:format=uppercase]">
-			<h2 id="command_encode">Encode</h2>
-		</div>
-		
-		
-		
-		<h2 id="command_split">Split</h2>
-		<pre>rel="<span>jKit[split]</span>"</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>separator:</strong> <span>String</span> <span class="default">""</span></li>
-			<li><strong>container:</strong> <span>String (DOM element type)</span> <span class="default">"span"</span></li>
-			<li><strong>before:</strong> <span>String</span> <span class="default">""</span></li>
-			<li><strong>after:</strong> <span>String</span> <span class="default">""</span></li>
-		</ul>
-		<p class="info">Splitting a comma separated string into a "ul > li" list:</p>
-		<pre rel="jKit[encode]"><div class="box" rel="jKit[split:separator=, ;container=li;before=<ul>;after=</ul>]">
+	</ul>
+</div>
+
+<!-- calling the template with the api command: -->
+
+<div data-jkit="[api:format=json;template=commits;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits]">loading ...</div></div>
+
+			<h2>Scroll</h2>
+			<p>
+				Smoothly scroll to an anchor or the top of the page.
+			</p>
+
+
+<div class="demo"><a href="" data-jkit="[scroll]">To the top!</a> &nbsp; &nbsp; 
+<a href="#anchor_options" data-jkit="[scroll:speed=1000;easing=easeOutBounce]">To the options anchor.</a></div>
+
+			<h2>Partially</h2>
+			<p>
+				Hide part of an element that exceeds a specific size and make it unhidable.
+			</p>
+
+
+<div class="demo"><div style="width:400px;padding:6px;background:#ffd;border:1px #eeb solid" data-jkit="[partially:height=50;speed=500;easing=easeOutBounce]">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</div></div>
+
+
+
+<div class="demo"><div style="width:400px;padding:6px;background:#ffd;border:1px #eeb solid" data-jkit="[partially:on=click;height=50;speed=500;easing=easeOutBounce]">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</div></div>
+
+			<h2>Summary</h2>
+			<p>
+				Create a summery, linked or not, of a content area
+			</p>
+
+
+<div class="demo"><div data-jkit="[summary:what=h4;linked=yes;from=#testcontent]"></div>
+<div id="testcontent">
+	<h4>Test headline 1</h4>
+	<p data-jkit="[lorem:paragraphs=2]"></p>
+
+	<h4>Test headline 2</h4>
+	<p data-jkit="[lorem:paragraphs=1]"></p>
+	<div>
+		<h4>Test sub headline 1</h4>
+		<p data-jkit="[lorem:paragraphs=2]"></p>
+	</div>
+	
+	<h4>Test headline 3</h4>
+	<p data-jkit="[lorem:paragraphs=3]"></p>
+
+	<h4>Test headline 4</h4>
+	<p data-jkit="[lorem:paragraphs=2]"></p>
+</div></div>
+
+			<h2>Limit</h2>
+			<p>
+				Limit the number of entries in a list or the number of characters in a string.
+			</p>
+
+
+<div class="demo"><ul data-jkit="[limit:count=3]">
+	<li>Entry 1</li>
+	<li>Entry 2</li>
+	<li>Entry 3</li>
+	<li>Entry 4</li>
+</ul></div>
+
+
+
+<div class="demo"><span data-jkit="[limit:elements=chars;count=25]">1234567890123456789012345678901234567890123456789</span></div>
+
+			<h2>Hide</h2>
+			<p>
+				Hide something at a specific time after pageload, and animated if needed.
+			</p>
+
+
+<div class="demo"><div data-jkit="[hide:delay=2000;speed=500;animation=fade]">Text ...</div></div>
+
+			<h2>Remove</h2>
+			<p>
+				Completely remove something from the page after a delay.
+			</p>
+
+
+<div class="demo"><div data-jkit="[remove:delay=2000;speed=500;animation=fade]">Text ...</div></div>
+
+			<h2>Show</h2>
+			<p>
+				Show something at a specific time after pageload, and animated if needed.
+			</p>
+
+
+<div class="demo"><div data-jkit="[show:delay=2000;speed=500;animation=fade]">Text ...</div></div>
+
+
+
+<div class="demo"><div data-jkit="[show:target=children.div;delay={rand|500-3000}]">
+	<div class="demosquare">Box 1</div>
+	<div class="demosquare">Box 2</div>
+	<div class="demosquare">Box 3</div>
+	<div class="demosquare">Box 4</div>
+	<div class="demosquare">Box 5</div>
+	<div class="demosquare">Box 6</div>
+	<div class="demosquare">Box 7</div>
+	<div class="demosquare">Box 8</div>
+	<div class="demosquare">Box 9</div>
+	<div class="demosquare">Box 10</div>
+</div></div>
+
+			<h2>Showandhide</h2>
+			<p>
+				Show something and then hide it again. You have full control over the specifics.
+			</p>
+
+
+<div class="demo"><div data-jkit="[showandhide:delay=2000;speed=500;duration=5000]">Text ...</div></div>
+
+			<h2>Loop</h2>
+			<p>
+				The new blink tag, just animated. Use it on your own risk.
+			</p>
+
+
+<div class="demo"><div data-jkit="[loop:speed1=2000;duration1=250;speed2=250;duration2=2000]">Text ...</div></div>
+
+
+
+<div class="demo"><div data-jkit="[loop:target=children.div;speed1={rand|500-1500};duration2={rand|500-2500};speed2={rand|500-1500};duration1={rand|500-2500}]">
+	<div class="demosquare">Box 1</div>
+	<div class="demosquare">Box 2</div>
+	<div class="demosquare">Box 3</div>
+	<div class="demosquare">Box 4</div>
+	<div class="demosquare">Box 5</div>
+	<div class="demosquare">Box 6</div>
+	<div class="demosquare">Box 7</div>
+	<div class="demosquare">Box 8</div>
+	<div class="demosquare">Box 9</div>
+	<div class="demosquare">Box 10</div>
+</div></div>
+
+			<h2>Random</h2>
+			<p>
+				Randomly choose one or more elements from a selection of elements.
+			</p>
+
+
+<div class="demo"><div data-jkit="[random:count=2]">
+	<p id="rand1" style="color:#65BAE2">
+		Text 1 (red)
+	</p>
+	<p id="rand2" style="color:#C8295B">
+		Text 2 (green)
+	</p>
+	<p id="rand2" style="color:#BBD17C">
+		Text 3 (blue)
+	</p>
+</div></div>
+
+
+
+<div class="demo"><div data-jkit="[random:count=1]">
+	<img src="../img/slides/p1.jpg" title="Image caption one">
+	<img src="../img/slides/p2.jpg" title="Image caption two">
+	<img src="../img/slides/p3.jpg" title="Image caption three">
+	<img src="../img/slides/p4.jpg" title="Image caption four">
+	<img src="../img/slides/p5.jpg" title="Image caption five">
+</div></div>
+
+			<h2>Encode</h2>
+			<p>
+				A simple command to encode the content of an element, especially usefull for pre and code elements.
+			</p>
+
+
+<div class="demo"><pre data-jkit="[encode]"><h2 id="command_encode">Encode</h2></pre>
+<div class="box" data-jkit="[encode:format=text]">
+	<h2 id="command_encode">Encode</h2>
+</div>
+<div class="box" data-jkit="[encode:format=esc]">
+	<h2 id="command_encode">Encode</h2>
+</div>
+<div class="box" data-jkit="[encode:format=uri]">
+	<h2 id="command_encode">Encode</h2>
+</div></div>
+
+
+
+<div class="demo"><div class="box" data-jkit="[encode:format=text][encode:format=uppercase]">
+	<h2 id="command_encode">Encode</h2>
+</div></div>
+
+			<h2>Split</h2>
+			<p>
+				Split a string into DOM elements.
+			</p>
+
+
+<div class="demo"><div data-jkit="[split:separator=, ;container=li;before=<ul>;after=</ul>]">
 	Sun, Stars, Moon, Asteroid
-</div></pre>
-		<div class="box" rel="jKit[split:separator=, ;container=li;before=<ul>;after=</ul>]">
-			Sun, Stars, Moon, Asteroid
-		</div>
-		
-		
-		
-		<h2 id="command_live">Live</h2>
-		<pre>rel="<span>jKit[live]</span>"</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>interval:</strong> <span>Int (seconds)</span> <span class="default">60</span></li>
-		</ul>
-		<p class="info">Reload a (webcam) image every 10 seconds:</p>
-		<pre rel="jKit[encode]"><img src="http://www.pradaschier.ch/images/cam/image.jpg" width="500" rel="jKit[live:interval=10]"></pre>
-		<div class="box">
-			<img src="http://www.pradaschier.ch/images/cam/image.jpg" width="500" rel="jKit[live:interval=10]">
-		</div>
-		
-		
-		
-		<h2 id="command_key">Key</h2>
-		<pre>rel="<span>jKit[key:code=ctrl+shift+g]</span>"</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>code:</strong> <span>String (keycode combination, for example: "ctrl+shift+g")</span></li>
-		</ul>
-		<p class="info">Control links with your keyboard by adding keyboard shortcuts to them:</p>
-		<div class="box">
-			<ul>
-				<li><a href="#command_split" rel="jKit[key:code=shift+up]">Move to the split command with key combo "shift+up"</a></li>
-				<li><a href="http://fredibach.ch" target="_blank" rel="jKit[key:code=alt+shift+o]">Open a website in a blank window with "alt+shift+o"</a></li>
-				<li><a href="#" onclick="alert('test')" rel="jKit[key:code=ctrl+shift+a]">Open an onclick alert with "ctrl+shift+a"</a></li>
-				<li><a href="#" onclick="alert('f3 pressed')" rel="jKit[key:code=f3]">Open an onclick alert with "f3"</a></li>
-			</ul>
-		</div>
-		
-		
-		
-		<h2 id="command_ajax">Ajax</h2>
-		<pre>rel="<span>jKit[ajax:element=#ajaxdiv]</span>"</pre>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>href:</strong> <span>String (url)</span> <span class="default">element href attribute</span></li>
-			<li><strong>element:</strong> <span>String (dom element)</span> <span class="default">""</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">250</span></li>
-			<li><strong>animation:</strong> <span>"fade", "slide" or "none"</span> <span class="default">slide</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-		</ul>
-		<p class="info">Easely convert normal href links into ajax links:</p>
-		<div class="box">
-			<a href="ajax_sample_content_1.html" rel="jKit[ajax:element=#ajaxdiv]">Link 1</a>, <a href="ajax_sample_content_2.html" rel="jKit[ajax:element=#ajaxdiv]">Link 2</a>
-			<div id="ajaxdiv">
-				Initial text ...
-			</div>
-		</div>
-		<p class="info">Load content into a div on page load (after the DOM is ready):</p>
-		<pre rel="jKit[encode]"><div class="box" rel="jKit[ajax:when=load;href=ajaxcontent1.html]"></div></pre>
-		<div class="box" rel="jKit[ajax:when=load;href=ajaxcontent1.html]">
-			<!-- load this stuff after the dom has loaded -->
-		</div>
-		<p class="info">Lazy load content into a div as soon as the element comes into the viewport:</p>
-		<pre rel="jKit[encode]"><div class="box" rel="jKit[ajax:when=viewport;href=ajaxcontent2.html]"></div></pre>
-		<div class="box" rel="jKit[ajax:when=viewport;href=ajaxcontent2.html]">
-			<!-- load this stuff after the div is inside the viewport -->
-		</div>
-		<p class="info">Lazy load an image:</p>
-		<pre rel="jKit[encode]"><img src="images/fb_logo_min.jpg" rel="jKit[ajax:when=viewport;src=images/fb_logo_full.jpg]"></pre>
-		<div class="box">
-			<img src="images/fb_logo_min.jpg" rel="jKit[ajax:when=viewport;src=images/fb_logo_full.jpg]">
-		</div>
-		
-		
-		
-		<h2 id="command_replace">Replace</h2>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>modifier:</strong> <span>String</span> <span class="default">"g"</span></li>
-			<li><strong>search:</strong> <span>String</span> <span class="default">""</span></li>
-			<li><strong>replacement:</strong> <span>String</span> <span class="default">""</span></li>
-		</ul>
-		<p class="info">Replace the name "Fredi" with "Fredi Bach" in bold:</p>
-		<pre>rel="<span>jKit[replace:search=Fredi;replacement=&lt;strong&gt;Fredi Bach&lt;/strong&gt;]</span>"</pre>
-		<div class="box" rel="jKit[replace:search=Fredi;replacement=<strong>Fredi Bach</strong>]">
-			Hi, my name is Fredi. I'm a programmer. Fredi is also a designer.
-		</div>
-		<p class="info">Replace all numbers with XXX:</p>
-		<pre>rel="<span>jKit[replace:search=[0-9]+;replacement=XXX]</span>"</pre>
-		<div class="box" rel="jKit[replace:search=[0-9]+;replacement=XXX]">
-			This product costs 123 dollars more than the other product that costs just 77 dollars.
-		</div>
-		
-		
-		
-		<h2 id="command_cycle">Cycle</h2>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>what:</strong> <span>String, examples: "class", "html", "attr.attributename", "css.cssoption"</span> <span class="default">"class"</span></li>
-			<li><strong>where:</strong> <span>String</span> <span class="default">"li"</span></li>
-			<li><strong>scope:</strong> <span>String "children", "all"</span> <span class="default">"children"</span></li>
-			<li><strong>sequence:</strong> <span>String (comma separated)</span> <span class="default">"odd,even"</span></li>
-		</ul>
-		<p class="info">Add "odd" and "even" classes to the immediate children lis:</p>
-		<pre>rel="<span>jKit[cycle:what=class;where=li;scope=children;sequence=odd,even]</span>"</pre>
-		<div class="box">
-			<ul rel="jKit[cycle:what=class;where=li;scope=children;sequence=odd,even]">
-				<li>List entry 1</li>
-				<li>List entry 2</li>
-				<li>List entry 3</li>
-				<li>
-					List entry 4
-					<ul>
-						<li>Sub entry 1</li>
-						<li>Sub entry 2</li>
-						<li>Sub entry 3</li>
-					</ul>
-				</li>
-				<li>List entry 5</li>
-			</ul>
-		</div>
-		<p class="info">Add "odd" and "even" classes to all lis:</p>
-		<pre>rel="<span>jKit[cycle:what=class;where=li;scope=all;sequence=odd,even]</span>"</pre>
-		<div class="box">
-			<ul rel="jKit[cycle:what=class;where=li;scope=all;sequence=odd,even]">
-				<li>List entry 1</li>
-				<li>List entry 2</li>
-				<li>List entry 3</li>
-				<li>
-					List entry 4
-					<ul>
-						<li>Sub entry 1</li>
-						<li>Sub entry 2</li>
-						<li>Sub entry 3</li>
-					</ul>
-				</li>
-				<li>List entry 5</li>
-			</ul>
-		</div>
-		<p class="info">Or do some direct inline css styling:</p>
-		<pre>rel="<span>jKit[cycle:what=css.color;where=li;scope=all;sequence=#000,#666]</span>"</pre>
-		<div class="box">
-			<ul rel="jKit[cycle:what=css.color;where=li;scope=all;sequence=#000,#666]">
-				<li>List entry 1</li>
-				<li>List entry 2</li>
-				<li>List entry 3</li>
-				<li>
-					List entry 4
-					<ul>
-						<li>Sub entry 1</li>
-						<li>Sub entry 2</li>
-						<li>Sub entry 3</li>
-					</ul>
-				</li>
-				<li>List entry 5</li>
-			</ul>
-		</div>
-		<p class="info">And of course you can cycle with more than two options, as many as you want actually:</p>
-		<pre>rel="<span>jKit[cycle:what=css.color;where=li;scope=all;sequence=#000,#03f,#f30]</span>"</pre>
-		<div class="box">
-			<ul rel="jKit[cycle:what=css.color;where=li;scope=all;sequence=#000,#03f,#f30]">
-				<li>List entry 1</li>
-				<li>List entry 2</li>
-				<li>List entry 3</li>
-				<li>
-					List entry 4
-					<ul>
-						<li>Sub entry 1</li>
-						<li>Sub entry 2</li>
-						<li>Sub entry 3</li>
-					</ul>
-				</li>
-				<li>List entry 5</li>
-			</ul>
-		</div>
-		<p class="info">And you can of course combine it with other commands, for example to create rainbow text:</p>
-		<pre>rel="<span>jKit[split:container=span][cycle:what=css.color;where=span;sequence=#FF0000,#FF7F00,#FFFF00,#00FF00,#0000FF,#6600FF,#8B00FF]</span>"</pre>
-		<div class="box">
-			<div style="background:#fff;font-size:20px;font-weight:bold" rel="jKit[split:container=span][cycle:what=css.color;where=span;sequence=#FF0000,#FF7F00,#FFE100,#00FF00,#0000FF,#6600FF,#8B00FF]">This is some example text, it will look like a rainbow ... hopefully.</div>
-		</div>
-		<p class="info">Or just affect every 4th character:</p>
-		<pre>rel="<span>jKit[split:container=span][cycle:what=css.color;where=span;sequence=,,,#f30]</span>"</pre>
-		<div class="box">
-			<div style="background:#fff;font-size:20px;font-weight:bold" rel="jKit[split:container=span][cycle:what=css.color;where=span;sequence=,,,#f30]">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
-		</div>
-		
-		
-		
-		<h2 id="command_fontsize">Fontsize</h2>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>steps:</strong> <span>Int</span> <span class="default">2</span></li>
-			<li><strong>min:</strong> <span>Int</span> <span class="default">6</span></li>
-			<li><strong>max:</strong> <span>Int</span> <span class="default">72</span></li>
-			<li><strong>affected:</strong> <span>String (jQuery selector)</span> <span class="default">"p"</span></li>
-		</ul>
-		<pre rel="jKit[encode]">
-			<input type="button" value="bigger" rel="jKit[fontsize:steps=2;affected=#fs-example p]">
-			<input type="button" value="smaller" rel="jKit[fontsize:steps=-2;affected=#fs-example p]">
-		</pre>
-		<div class="box">
-			<input type="button" value="bigger" rel="jKit[fontsize:steps=2;affected=#fs-example p]">
-			<input type="button" value="smaller" rel="jKit[fontsize:steps=-2;affected=#fs-example p]">
-			<div id="fs-example">
-				<h3>Some heading</h3>
-				<p>Some text ...<p>
-				<p>Some more text ...</p>
-			</div>
-		</div>
-		
-		
-		
-		<h2 id="command_swap">Swap</h2>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>versions:</strong> <span>String (comma separated)</span> <span class="default">"_off,_on"</span></li>
-		</ul>
-		<p class="info">Very easely swap images with preloaded image replacements:</p>
-		<pre rel="jKit[encode]"><img src="images/sample_button_off.png" rel="jKit[swap]"></pre>
-		<div class="box">
-			<img src="images/sample_button_off.png" rel="jKit[swap]">
-		</div>
-		
-		
-		<h2 id="command_ticker">Ticker</h2>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>delay:</strong> <span>Int (Milliseconds)</span> <span class="default">2000</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">100</span></li>
-		</ul>
-		<pre rel="jKit[encode]">
-		<ul rel="jKit[ticker]">
-			<li><a href="http://fredibach.ch" target="_blank">Ticker Text 1</a></li>
-			<li><a href="index.php">Another one</a></li>
-			<li>The third ticker text</li>
-			<li>Even more text for the ticker</li>
-		</ul></pre>
-		<div class="box">
-			<ul rel="jKit[ticker]">
-				<li><a href="http://fredibach.ch" target="_blank">Ticker Text 1</a></li>
-				<li><a href="index.php">Another one</a></li>
-				<li>The third ticker text</li>
-				<li>Even more text for the ticker</li>
-			</ul>
-		</div>
-		<div class="box">
-			<ul rel="jKit[ticker]">
-				<li>Ticker Text 1</li>
-				<li>Another one</li>
-				<li>The third ticker text</li>
-				<li>Even more text for the ticker</li>
-			</ul>
-		</div>
-		
-		
-		<h2 id="command_sort">Sort</h2>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>what:</strong> <span>"text", "html" or "class"</span> <span class="default">"text"</span></li>
-			<li><strong>by:</strong> <span>"alphabetic" or "date"</span> <span class="default">"alphabetic"</span></li>
-			<li><strong>start:</strong> <span>Int</span> <span class="default">0</span></li>
-			<li><strong>end:</strong> <span>Int</span> <span class="default">0</span></li>
-		</ul>
-		<p class="info">Sort table rows on click (up an d down):</p>
-		<pre rel="jKit[encode]">
-		<table width="100%">
-			<thead>
-				<tr>
-					<th data-jkit="[sort:what=text;start=4]">Name</th>
-					<th data-jkit="[sort:what=text]">Location</th>
-					<th data-jkit="[sort:what=text;by=date]">Birthday</th>
-					<th data-jkit="[sort:what=text]">Category</th>
-					<th data-jkit="[sort:what=text]">Status</th>
-					<th data-jkit="[sort:what=text;start=2]">Superior</th>
-					<th data-jkit="[sort:what=text;by=num]">Price (CHF)</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td><td>freelancer</td><td>active</td><td>#120</td><td>1.00</td></tr>
-				<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td><td>freelancer</td><td>active</td><td>#120</td><td>25.25</td></tr>
-				<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td><td>freelancer</td><td>active</td><td></td><td>2.99</td></tr>
-				<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td><td>freelancer</td><td>active</td><td>#1168</td><td>48.95</td></tr>
-				<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td><td>trainee</td><td>active</td><td>#120</td><td>200.10</td></tr>
-				<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td><td>-5.05</td></tr>
-				<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td><td>employee</td><td>active</td><td>#1168</td><td>10</td></tr>
-				<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td><td>freelancer</td><td>active</td><td>#120</td><td>4721.45</td></tr>
-				<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td><td>guest</td><td>active</td><td>#120</td><td>12.55</td></tr>
-				<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td><td>trainee</td><td>active</td><td>#120</td><td>354.50</td></tr>
-				<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td><td>freelancer</td><td>active</td><td></td><td>42.85</td></tr>
-				<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td><td>guest</td><td>active</td><td></td><td>87.41</td></tr>
-				<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td><td>freelancer</td><td>active</td><td>#463</td><td>354.01</td></tr>
-				<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td><td>employee</td><td>active</td><td>#120</td><td>14.12</td></tr>
-				<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td><td>employee</td><td>active</td><td>#120</td><td>10.25</td></tr>
-			</tbody>
-		</table>
-		</pre>
-		<div class="box">
-			<table width="100%">
-				<thead>
-					<tr>
-						<th data-jkit="[sort:what=text;start=4]">Name</th>
-						<th data-jkit="[sort:what=text]">Location</th>
-						<th data-jkit="[sort:what=text;by=date]">Birthday</th>
-						<th data-jkit="[sort:what=text]">Category</th>
-						<th data-jkit="[sort:what=text]">Status</th>
-						<th data-jkit="[sort:what=text;start=2]">Superior</th>
-						<th data-jkit="[sort:what=text;by=num]">Price (CHF)</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td><td>freelancer</td><td>active</td><td>#120</td><td>1.00</td></tr>
-					<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td><td>freelancer</td><td>active</td><td>#120</td><td>25.25</td></tr>
-					<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td><td>freelancer</td><td>active</td><td></td><td>2.99</td></tr>
-					<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td><td>freelancer</td><td>active</td><td>#1168</td><td>48.95</td></tr>
-					<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td><td>trainee</td><td>active</td><td>#120</td><td>200.10</td></tr>
-					<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td><td>-5.05</td></tr>
-					<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td><td>employee</td><td>active</td><td>#1168</td><td>10</td></tr>
-					<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td><td>freelancer</td><td>active</td><td>#120</td><td>4721.45</td></tr>
-					<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td><td>guest</td><td>active</td><td>#120</td><td>12.55</td></tr>
-					<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td><td>trainee</td><td>active</td><td>#120</td><td>354.50</td></tr>
-					<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td><td>freelancer</td><td>active</td><td></td><td>42.85</td></tr>
-					<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td><td>guest</td><td>active</td><td></td><td>87.41</td></tr>
-					<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td><td>freelancer</td><td>active</td><td>#463</td><td>354.01</td></tr>
-					<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td><td>employee</td><td>active</td><td>#120</td><td>14.12</td></tr>
-					<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td><td>employee</td><td>active</td><td>#120</td><td>10.25</td></tr>
-				</tbody>
-			</table>
-		</div>
-		
-	
-		<h2 id="command_zoom">Zoom</h2>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>scale:</strong> <span>Int</span> <span class="default">2</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">150</span></li>
-		</ul>
-		<p class="info">Zoom an image four times (the image has to be 4 times bigger than the embedded size!):</p>
-		<pre rel="jKit[encode]"><img src="images/newyorkcity_1280x800.jpg" width="320" rel="jKit[zoom]"></pre>
-		<div class="box"> 
-			<img src="images/newyorkcity_1280x800.jpg" width="640" rel="jKit[zoom]">
-		</div>
-	
-		
-		
-		<h2 id="command_api">API</h2>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>format:</strong> <span>String</span> <span class="default">json</span></li>
-			<li><strong>value:</strong> <span>String</span> <span class="default">""</span></li>
-			<li><strong>url:</strong> <span>String</span> <span class="default">""</span></li>
-		</ul>
-		<p class="info">Load the twitter and facebook count for the url: http://news.ycombinator.com</p>
-		<pre rel="jKit[encode]">
-			<ul>
-				<li>Twitter count: <span data-jkit="[api:format=json;value=count;url=http\://urls.api.twitter.com/1/urls/count.json?url\=http\://news.ycombinator.com]"></span></li>
-				<li>Facebook shares: <span data-jkit="[api:format=json;value=shares;url=http\://graph.facebook.com/http\://news.ycombinator.com]"></span></li>
-			</ul>
-		</pre>
-		<div class="box">
-			<ul>
-				<li>Twitter count: <span data-jkit="[api:format=json;value=count;url=http\://urls.api.twitter.com/1/urls/count.json?url\=http\://news.ycombinator.com]"></span></li>
-				<li>Facebook shares: <span data-jkit="[api:format=json;value=shares;url=http\://graph.facebook.com/http\://news.ycombinator.com]"></span></li>
-			</ul>
-		</div>
-		<p class="info">Get the latest commit message from the jKit repo:</p>
-		<pre rel="jKit[encode]">
-			<ul>
-				<li>Latest jKit commit: <span data-jkit="[api:format=json;value=data[0].commit.message;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits]"></span></li>
-			</ul>
-		</pre>
-		<div class="box">
-			<ul>
-				<li>Latest jKit commit: <span data-jkit="[limit:elements=chars;count=50][macro:name=commitlimit][api:format=json;value=data[0].commit.message;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits;macro=commitlimit]">loading ...</span></li>
-			</ul>
-		</div>
-		
-		<div class="box">
-			<ul>
-				<li>Live updating: <span data-jkit="[api:format=json;value=count;interval=10;url=http\://www.aletscharena.ch/testapi.php]"></span></li>
-			</ul>
-		</div>
-		
-		
-		
-		<h2 id="command_filter">Filter</h2>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>by:</strong> <span>"class" or "text"</span> <span class="default">class</span></li>
-			<li><strong>affected:</strong> <span>jQuery Selector</span> <span class="default">""</span></li>
-			<li><strong>speed:</strong> <span>Int or "fast", "slow" (Milliseconds)</span> <span class="default">250</span></li>
-			<li><strong>animation:</strong> <span>"fade", "slide" or "none"</span> <span class="default">slide</span></li>
-			<li><strong>easing:</strong> <span>Easing plugin options</span> <span class="default">linear</span></li>
-			<li><strong>logic:</strong> <span>"and" or "or"</span> <span class="default">and</span></li>
-		</ul>
-		<p class="info">Load the twitter and facebook count for the url: http://news.ycombinator.com</p>
-		<pre rel="jKit[encode]">
-		<div class="box" data-jkit="[filter:by=text;affected=ul > li]">
-			<select class="jkit-filter">
-				<option value="">All</option>
-				<option value="test1">test1</option>
-				<option value="test2" selected>test2</option>
-				<option value="test3">test3</option>
-				<option value="test1 test2">test1 & test2</option>
-			</select>
-			<select class="jkit-filter">
-				<option value="">All</option>
-				<option value="long" selected>long</option>
-			</select>
-			<input type="text" class="jkit-filter" value="">
-			<ul>
-				<li class="test1">Entry 1 ... (test1)</li>
-				<li class="test2">Entry 2 ... (test2)</li>
-				<li class="test3">Entry 3 ... (test3)</li>
-				<li class="test2 long">Entry 4 ... (test2 long)</li>
-				<li class="test1 long">Entry 5 ... (test1 long)</li>
-				<li class="test3">Entry 6 ... (test3)</li>
-				<li class="test2">Entry 7 ... (test2)</li>
-				<li class="test1 test3">Entry 8 ... (test1 test3)</li>
-			</ul>
-		</div></pre>
-		<div class="box" data-jkit="[filter:by=text;affected=ul > li]">
-			<select class="jkit-filter">
-				<option value="">All</option>
-				<option value="test1">test1</option>
-				<option value="test2" selected>test2</option>
-				<option value="test3">test3</option>
-				<option value="test1 test2">test1 & test2</option>
-			</select>
-			<select class="jkit-filter">
-				<option value="">All</option>
-				<option value="long" selected>long</option>
-			</select>
-			<input type="text" class="jkit-filter" value="">
-			<ul>
-				<li class="test1">Entry 1 ... (test1)</li>
-				<li class="test2">Entry 2 ... (test2)</li>
-				<li class="test3">Entry 3 ... (test3)</li>
-				<li class="test2 long">Entry 4 ... (test2 long)</li>
-				<li class="test1 long">Entry 5 ... (test1 long)</li>
-				<li class="test3">Entry 6 ... (test3)</li>
-				<li class="test2">Entry 7 ... (test2)</li>
-				<li class="test1 test3">Entry 8 ... (test1 test3)</li>
-			</ul>
-		</div>
-		
-		
-		
-		<h2 id="command_summary">Summary</h2>
-		<h4>Options:</h4>
-		<ul class="options">
-			<li><strong>what:</strong> <span>Element</span> <span class="default">""</span></li>
-			<li><strong>linked:</strong> <span>"yes" or "no"</span> <span class="default">yes</span></li>
-			<li><strong>from:</strong> <span>String</span> <span class="default">""</span></li>
-			<li><strong>scope:</strong> <span>"children" or "all"</span> <span class="default">children</span></li>
-		</ul>
-		<p class="info">Load the twitter and facebook count for the url: http://news.ycombinator.com</p>
-		<pre rel="jKit[encode]">
-		<div data-jkit="[summary:what=h4;linked=yes;from=#testcontent]"></div>
-		<div id="testcontent">
-			<h4>Test 1</h4>
-			<p data-jkit="[lorem:paragraphs=4]"></p>
+</div></div>
 
-			<h4>Test 2</h4>
-			<p data-jkit="[lorem:paragraphs=2]"></p>
-			<div>
-				<h4>Test 2 Sub</h4>
-				<p data-jkit="[lorem:paragraphs=4]"></p>
-			</div>
+			<h2>Live</h2>
+			<p>
+				Update the source of an image or an iframe periodically, great for webcam images.
+			</p>
 
-			<h4>Test 3</h4>
-			<p data-jkit="[lorem:paragraphs=4]"></p>
 
-			<h4>Test 4</h4>
-			<p data-jkit="[lorem:paragraphs=4]"></p>
-		</div></pre>
-		<div class="box">
-			<div data-jkit="[summary:what=h4;linked=yes;from=#testcontent]"></div>
-			<div id="testcontent">
-				<h4>Test 1</h4>
-				<p data-jkit="[lorem:paragraphs=4]"></p>
+<div class="demo"><img src="http://www.gleitschirm.ch/fileadmin/livecam/kamera-links.jpg" width="500" data-jkit="[live:interval=60]"></div>
 
-				<h4>Test 2</h4>
-				<p data-jkit="[lorem:paragraphs=2]"></p>
-				<div>
-					<h4>Test 2 Sub</h4>
-					<p data-jkit="[lorem:paragraphs=4]"></p>
-				</div>
+			<h2>Key</h2>
+			<p>
+				Add keyboard shortcuts to links.
+			</p>
 
-				<h4>Test 3</h4>
-				<p data-jkit="[lorem:paragraphs=4]"></p>
 
-				<h4>Test 4</h4>
-				<p data-jkit="[lorem:paragraphs=4]"></p>
-			</div>
-		</div>
-		
-		
-		<h2 id="command_paginate">Paginate</h2>
-		<div class="box">
-			<table width="100%" data-jkit="[paginate:limit=5;container=tbody]">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Location</th>
-						<th>Birthday</th>
-						<th>Category</th>
-						<th>Status</th>
-						<th>Superior</th>
-						<th>Price (CHF)</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr><td>Mr. Max Keller</td><td>CH-7278 Davos Monstein</td><td>1-29-1986</td><td>freelancer</td><td>active</td><td>#120</td><td>1.00</td></tr>
-					<tr><td>Ms. Sophia Roth</td><td>CH-3186 D&uuml;dingen</td><td>2-16-1955</td><td>freelancer</td><td>active</td><td>#120</td><td>25.25</td></tr>
-					<tr><td>Mr. Fredi Baumann</td><td>CH-6543 Arvigo</td><td>11-21-1993</td><td>freelancer</td><td>active</td><td></td><td>2.99</td></tr>
-					<tr><td>Ms. Hannah Zimmermann</td><td>LI-9493 Mauren</td><td>6-26-1967</td><td>freelancer</td><td>active</td><td>#1168</td><td>48.95</td></tr>
-					<tr><td>Ms. Maja Brunner</td><td>D-21207 Seevetal</td><td>10-22-1934</td><td>trainee</td><td>active</td><td>#120</td><td>200.10</td></tr>
-					<tr><td>Mr. Tom Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td><td>-5.05</td></tr>
-					<tr><td>Mr. Kon Fischer</td><td>LI-9492 Eschen</td><td>5-19-1955</td><td>freelancer</td><td>inactive</td><td>#1168</td><td>-5.05</td></tr>
-					<tr><td>Ms. Alina Gerber</td><td>D-21710 Engelschoff</td><td>10-15-1981</td><td>employee</td><td>active</td><td>#1168</td><td>10</td></tr>
-					<tr><td>Mr. Tim Gerber</td><td>CH-6543 Arvigo</td><td>12-8-1943</td><td>freelancer</td><td>active</td><td>#120</td><td>4721.45</td></tr>
-					<tr><td>Mr. Felix Meier</td><td>LI-9486 Schaanwald</td><td>8-26-1975</td><td>guest</td><td>active</td><td>#120</td><td>12.55</td></tr>
-					<tr><td>Mr. Fredi M&uuml;ller</td><td>LI-9486 Schaanwald</td><td>10-24-1953</td><td>trainee</td><td>active</td><td>#120</td><td>354.50</td></tr>
-					<tr><td>Mr. Tim Gerber</td><td>CH-1773 L&eacute;chelles</td><td>12-25-1966</td><td>freelancer</td><td>active</td><td></td><td>42.85</td></tr>
-					<tr><td>Ms. Lilli Meyer</td><td>D-21207 Seevetal</td><td>11-29-1938</td><td>guest</td><td>active</td><td></td><td>87.41</td></tr>
-					<tr><td>Ms. Emilie Fischer</td><td>D-04299 Leipzig</td><td>11-7-1942</td><td>freelancer</td><td>active</td><td>#463</td><td>354.01</td></tr>
-					<tr><td>Mr. Fredi Graf</td><td>CH-6534 S. Vittore</td><td>12-7-1971</td><td>employee</td><td>active</td><td>#120</td><td>14.12</td></tr>
-					<tr><td>Ms. Cordelia Weber</td><td>CH-6543 Arvigo</td><td>2-23-1967</td><td>employee</td><td>active</td><td>#120</td><td>10.25</td></tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="box">
-			<ul style="width:250px" data-jkit="[paginate:by=height;limit=100;animation=fade;pos=before]">
-				<li>jh sdgjkgh fjdhsgdfjkhgfjkdhsg jhjksdgh fjkdhg jkfdshjkg jkfdh sgjkhfdjkshg fjhgjkfhdjsghjksh g</li>
-				<li>hdjh gjkdfhgj khfdjkgha jfhgkj gdsalhd f </li>
-				<li>j dsfjk hdjf gdshafg hdsgfa hjhdfg sdhjgfjh dsfahj ghdfg dsahgfhjsdfgh ab</li>
-				<li>j dhsfkajhdj fghjkdhg ajfhjghd sjhagjjkhgfjdh gjkhdfjkahgj</li>
-				<li>dh safhjkl hgfdjhasjdkghjhdajkhg jdfh gahjkd hsajghj fghadfjk hjgkh jkhg dfa</li>
-				<li>d skhafmh gjhdfjka ghjghjk dashjgjkhf adhfg jdhajk sg</li>
-				<li>d sfhajhdjfhjsda gjh jl</li>
-				<li>d shfjklh djkahfgjk dajksghjkghadsj jkgh jdashjk ghjksadg jgh ljhdjgks ad sjhaflkhf jkadghjh gjklhdgajhkjljksagl asdg</li>
-				<li>d dhjsfga hjgdsagads jdsha hfj hj salhfjd shakhfd jkahsd fjkdsagfjkgfdjhsagl fjhgsda l</li>
-				<li>jj sakdflh jkh djkhfjdsajhf jdsfhgdshfhjdfh jkhdsjd sfagjklg dfsjajdgjkgdsajkl jdas gljkds akl</li>
-				<li>dmh safhgjk dashjf kgjkfgd sajkgfjk sdjhgf lsdagjk gfjkdas gfg asd</li>
-				<li>jgajs fgjk</li>
-			</ul>
-		</div>
-		
-		
-		<h2>Event Test</h2>
-		<div class="box" style="display:none" data-jkit="[api.latestcommit:format=json;value=data[0].commit.message;url=https\://api.github.com/repos/FrediBach/jQuery-jKit/commits][show:speed=2500;onevent=latestcommit.finished]">
-			
-		</div>
-		
-		<div class="box">
-			<div id="mydiv7" rel="jKit[slideshow.header:interval=4000;speed=250;animation=fade]">
-				<a href="http://fredibach.ch" target="_blank"><img src="slides/p1.jpg"></a>
-				<a href="http://fredibach.ch" target="_blank"><img src="slides/p2.jpg"></a>
-				<a href="http://fredibach.ch" target="_blank"><img src="slides/p3.jpg"></a>
-				<a href="http://fredibach.ch" target="_blank"><img src="slides/p4.jpg"></a>
-				<a href="http://fredibach.ch" target="_blank"><img src="slides/p5.jpg"></a>
-			</div>
-			<div style="display:none" data-jkit="[show:animation=grow;onevent=header.showslide3][hide:animation=grow;onevent=header.showslide4]">
-				This text is only shown on slide 3!
-			</div>
-			<div style="display:none" data-jkit="[show:animation=grow;onevent=header.showslide2;execute=2][hide:animation=grow;onevent=header.showslide5;execute=2]">
-				This text is shown from slide two till the end of slide four!
-			</div>
-		</div>
-		
-		<div class="box" data-jkit="[showandhide.repeatme:delay=0;speed=500;duration=1000][repeat:onevent=header.showslide3]">
-			show and hide ... and repeat on slide 3
-		</div>
-		
-		<div class="box"> 
-			<img src="images/newyorkcity_1280x800.jpg" width="640" rel="jKit[zoom.newyork]">
-			<div style="display:none" data-jkit="[show:speed=250;animation=grow;onevent=newyork.zoomin;execute=once][hide:speed=250;animation=grow;onevent=newyork.zoomout;execute=once]">
-				Now these are some details!
-			</div>
-		</div>
-		
-		<div id="footer">
-			<div>jKit Facebook Page: <a href="http://www.facebook.com/jquery.jkit" target="_blank">www.facebook.com/jquery.jkit</a></div>
-			<div>jKit Google+ Page: <a href="https://plus.google.com/108788332827966881496" target="_blank">plus.google.com/108788332827966881496</a></div>
-			<div>My Facebook Profile: <a href="http://www.facebook.com/fredi.bach.ch/" target="_blank">www.facebook.com/fredi.bach.ch</a></div>
-			<div>My Google+ Profile: <a href="http://www.fredibach.ch/+" target="_blank">www.fredibach.ch/+</a></div>
-			<div>My personal Homepage: <a href="http://www.fredibach.ch/" target="_blank">www.fredibach.ch</a></div>
-			<div>My Other Plugins:  <a href="http://www.fredibach.ch/jquery-plugins/" target="_blank">www.fredibach.ch/jquery-plugins</a></div>
-			<div>My Next Big Adventure:  <a href="http://www.kiliadventure.ch" target="_blank">www.kiliadventure.ch</a></div>
-		</div>
-		
-		<p style="color:#888;text-align:center">©2012 Fredi Bach</p>
+<div class="demo"><ul>
+	<li><a href="#anchor_options" data-jkit="[key:code=shift+up]">Move to the options with key combo "shift+up"</a></li>
+	<li><a href="http://fredibach.ch" target="_blank" data-jkit="[key:code=alt+shift+o]">Open a website in a blank window with "alt+shift+o"</a></li>
+	<li><a href="#" onclick="alert('test')" data-jkit="[key:code=ctrl+shift+a]">Open an onclick alert with "ctrl+shift+a"</a></li>
+	<li><a href="#" onclick="alert('f3 pressed')" data-jkit="[key:code=f3]">Open an onclick alert with "f3"</a></li>
+</ul></div>
+
+			<h2>Replace</h2>
+			<p>
+				Replace existing content with new content, based on simple strings or regexes.
+			</p>
+
+
+<div class="demo"><div data-jkit="[replace:search=Fredi;replacement=<strong>Fredi Bach</strong>]">
+	Hi, my name is Fredi. I'm a programmer. Fredi is also a designer.
+</div></div>
+
+
+
+<div class="demo"><div data-jkit="[replace:search=[0-9]+;replacement=XXX]">
+	This product costs 123 dollars more than the other product that costs just 77 dollars.
+</div></div>
+
+			<h2>Fontsize</h2>
+			<p>
+				Let the user easely change the fontsize of certain elements.
+			</p>
+
+
+<div class="demo"><input type="button" value="bigger" data-jkit="[fontsize:steps=2;affected=#fs-example p]">
+<input type="button" value="smaller" data-jkit="[fontsize:steps=-2;affected=#fs-example p]">
+<div id="fs-example">
+	<h3>Some heading</h3>
+	<p>Some text ...<p>
+	<p>Some more text ...</p>
+</div></div>
+
+			<h2>Swap</h2>
+			<p>
+				Swap an image with an automatically preloaded replacement.
+			</p>
+
+
+<div class="demo"><img src="../img/sample_button_off.png" data-jkit="[swap]"></div>
+
+			<h2>Lorem</h2>
+			<p>
+				Add some lorem filltext to your site for testing.
+			</p>
+
+
+<div class="demo"><div data-jkit="[lorem:paragraphs=2]"></div></div>
+
+
+
+<div class="demo"><div data-jkit="[lorem:length=250]"></div></div>
+
+
 		
 	</div>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="jquery-1.9.1.min.js"><\/script>')</script>
+	<script src="jquery.easing.1.3.js"></script>
+	<script src="jquery.jkit.1.2.1.min.js"></script>
+
+
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+
+		$('body').jKit({ 
+			'plugins': {
+				date: { 'path': "plugins/datepicker/js/datepicker.js", 'fn': 'DatePicker' },
+				hint: { 'path': "plugins/jquery.ztinputhint-1.2.js", 'fn': 'ztInputHint' },
+				maxlength: { 'path': "plugins/maxlength/jquery.maxlength-min.js", 'fn': 'maxlength' },
+				confirm: { 'path': "plugins/jquery.confirm-1.3.js", 'fn': 'confirm' }
+			},
+			'replacements': {
+				'encode': specialEncodeCommand
+			}
+		});
+
+	});
+
+	function specialEncodeCommand(that, type, options){
+
+		var s = this.settings; // we don't need this one, but I'll leave it here so you know how to get the plugin settings in case you need them
+		var $that = $(that);
+
+		this.executeCommand(that, type, options); // execute the original command
+
+		// now add some additional functionality:
+
+		if (options.format == 'uppercase'){
+			$that.html($that.html().toUpperCase());
+		}
+
+	}
+
+	</script>
+	
 </body>
 </html>

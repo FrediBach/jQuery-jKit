@@ -13,8 +13,8 @@ Basics
 
 ###Including the library
 
-    <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="jquery.jkit.1.0.43.min.js"></script>
+    <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="jquery.jkit.1.2.1.min.js"></script>
     
     <script type="text/javascript">
     $(document).ready(function(){
