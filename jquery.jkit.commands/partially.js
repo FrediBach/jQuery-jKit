@@ -18,12 +18,8 @@ plugin.commands.partially = (function(){
 		'text':				'more ...',
 		'speed':			250,
 		'easing':			'linear',
-<<<<<<< HEAD
-		'on': 				'mouseover'
-=======
 		'on': 				'mouseover',
 		'area':				''
->>>>>>> v1.2.2
 	});
 	
 	// The execute function is launched whenever this command is executed:
@@ -65,9 +61,6 @@ plugin.commands.partially = (function(){
 				var closeEvent = 'mouseleave';
 			}
 			
-<<<<<<< HEAD
-			$that.css({ 'height': options.height+'px', 'overflow': 'hidden' }).on( openEvent+' down', function() {
-=======
 			// If the **area** option is set to "morediv", we add the event handler only onto the more div
 			// and don't block the content inside the main element from receiving events.
 			
@@ -80,7 +73,6 @@ plugin.commands.partially = (function(){
 			$that.css({ 'height': options.height+'px', 'overflow': 'hidden' });
 			
 			$area.on( openEvent+' down', function() {
->>>>>>> v1.2.2
 				if ($that.height() < originalHeight){
 					$morediv.fadeTo(options.speed, 0);
 					$that.animate({ 'height': originalHeight+'px' }, options.speed, options.easing, function(){
