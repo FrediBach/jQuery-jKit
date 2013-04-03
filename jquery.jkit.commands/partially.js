@@ -19,7 +19,9 @@ plugin.commands.partially = (function(){
 		'speed':			250,
 		'easing':			'linear',
 		'on': 				'mouseover',
-		'area':				''
+		'area':				'',
+		'alphaon': 			0.9,
+		'alphaoff':			0
 	});
 	
 	// The execute function is launched whenever this command is executed:
@@ -46,7 +48,7 @@ plugin.commands.partially = (function(){
 					.addClass(s.prefix+'-morediv')
 					.appendTo($that)
 					.html(options.text)
-					.css( { width: $that.outerWidth()+'px', opacity: 0.9 });
+					.css( { width: $that.outerWidth()+'px', opacity: options.alphaon });
 			
 			// Add the event handlers and animations:
 			
@@ -74,14 +76,14 @@ plugin.commands.partially = (function(){
 			
 			$area.on( openEvent+' down', function() {
 				if ($that.height() < originalHeight){
-					$morediv.fadeTo(options.speed, 0);
+					$morediv.fadeTo(options.speed, options.alphaoff);
 					$that.animate({ 'height': originalHeight+'px' }, options.speed, options.easing, function(){
 						plugin.triggerEvent('open', $that, options);
 					});
 				}
 			}).on( closeEvent+' up',  function(){
 				if ($that.height() == originalHeight){
-					$morediv.fadeTo(options.speed, 0.9);
+					$morediv.fadeTo(options.speed, options.alphaon);
 					$that.animate({ 'height': options.height+'px' }, options.speed, options.easing, function(){
 						plugin.triggerEvent('closed', $that, options);
 					});

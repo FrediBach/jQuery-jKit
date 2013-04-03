@@ -13,8 +13,8 @@
 // And even if jKit doesn't have that one feature you need right now, jKit is fully extendable
 // with plugins and command replacements, all that and your API always stays the same.
 //
-// - Version: `1.2.2`
-// - Release date: `2. 4. 2013`
+// - Version: `1.2.3`
+// - Release date: `3. 4. 2013`
 // - [API Documentation & Demos](http://jquery-jkit.com/)
 // - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.2.0.js) (made 
 //	 with [sourceMakeup](http://jquery-jkit.com/sourcemakeup))
@@ -35,7 +35,7 @@
 //
 //     <script src="js/jquery-1.9.1.min.js"></script>
 //     <script src="js/jquery.easing.1.3.js"></script>
-//     <script src="js/jquery.jkit.1.2.1.min.js"></script>
+//     <script src="js/jquery.jkit.1.2.3.min.js"></script>
 //
 //     <script type="text/javascript">
 //         $(document).ready(function(){
@@ -2340,7 +2340,9 @@
 				'speed':			250,
 				'easing':			'linear',
 				'on': 				'mouseover',
-				'area':				''
+				'area':				'',
+				'alphaon': 			0.9,
+				'alphaoff':			0
 			});
 			
 			// The execute function is launched whenever this command is executed:
@@ -2367,7 +2369,7 @@
 							.addClass(s.prefix+'-morediv')
 							.appendTo($that)
 							.html(options.text)
-							.css( { width: $that.outerWidth()+'px', opacity: 0.9 });
+							.css( { width: $that.outerWidth()+'px', opacity: options.alphaon });
 					
 					// Add the event handlers and animations:
 					
@@ -2395,14 +2397,14 @@
 					
 					$area.on( openEvent+' down', function() {
 						if ($that.height() < originalHeight){
-							$morediv.fadeTo(options.speed, 0);
+							$morediv.fadeTo(options.speed, options.alphaoff);
 							$that.animate({ 'height': originalHeight+'px' }, options.speed, options.easing, function(){
 								plugin.triggerEvent('open', $that, options);
 							});
 						}
 					}).on( closeEvent+' up',  function(){
 						if ($that.height() == originalHeight){
-							$morediv.fadeTo(options.speed, 0.9);
+							$morediv.fadeTo(options.speed, options.alphaon);
 							$that.animate({ 'height': options.height+'px' }, options.speed, options.easing, function(){
 								plugin.triggerEvent('closed', $that, options);
 							});
