@@ -13,8 +13,8 @@
 // And even if jKit doesn't have that one feature you need right now, jKit is fully extendable
 // with plugins and command replacements, all that and your API always stays the same.
 //
-// - Version: `1.2.3`
-// - Release date: `3. 4. 2013`
+// - Version: `1.2.4`
+// - Release date: `8. 4. 2013`
 // - [API Documentation & Demos](http://jquery-jkit.com/)
 // - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.2.0.js) (made 
 //	 with [sourceMakeup](http://jquery-jkit.com/sourcemakeup))
@@ -35,7 +35,7 @@
 //
 //     <script src="js/jquery-1.9.1.min.js"></script>
 //     <script src="js/jquery.easing.1.3.js"></script>
-//     <script src="js/jquery.jkit.1.2.3.min.js"></script>
+//     <script src="js/jquery.jkit.1.2.4.min.js"></script>
 //
 //     <script type="text/javascript">
 //         $(document).ready(function(){
@@ -2837,14 +2837,16 @@
 				'trigger': 			'no',
 				'accuracy': 		'',
 				'min': 				'',
-				'max': 				''
+				'max': 				'',
+				'applyto': 			'',
+				'delay': 			0
 			});
 			
 			// The execute function is launched whenever this command is executed:
 			
 			command.execute = function($that, options){
 				
-				window.setTimeout( function() { binding($that, options); }, 0);
+				window.setTimeout( function() { binding($that, options); }, options.delay);
 				
 			};
 			
@@ -2881,15 +2883,27 @@
 								// The selector is either a jQuery selector string or "this" that references the 
 								// current element or "parent" that references the parent of the current element.
 								
+								var $v;
+								
 								if (v == 'this'){
-									v = el;
+									$v = (el);
 								} else if (v == 'parent'){
-									v = $(el).parent().get(0);
+									$v = $(el).parent();
+								} else {
+									var vsplit = v.split('.');
+									
+									if (vsplit.length == 1){
+										$v = $(vsplit[0]);
+									} else if (vsplit[0] == 'each'){
+										$v = el.find(vsplit[1]);
+									} else if (vsplit[0] == 'children') {
+										$v = el.children(vsplit[1]);
+									}
 								}
 								
 								// A jQuery selector string can match more than one string, so run through all of them:
 								
-								$(v).each( function(){
+								$v.each( function(){
 									
 									// The source option defines from where exactly we get our value. There are quite
 									// a few options.
@@ -3181,57 +3195,82 @@
 							}
 						}
 						
-						// The **mode** option defines what we have to do with our value. There are quite a few options.
-						// The **attr** and **css** modes take a second option that is separated with a dot.
+						// Do we have to apply the result to specified DOM nodes or the default source element?
 						
-						var modesplit = options.mode.split('.');
-						switch(modesplit[0]){
-							case 'text':
-								el.text(value);
-								break;
-							case 'html':
-								el.html(value);
-								break;
-							case 'val':
-								el.val(value);
-								break;
-							case 'attr':
-								el.attr(modesplit[1], value);
-								break;
-							case 'css':
-								if (modesplit[1] == 'display'){
-									if ($.trim(value) == '' || $.trim(value) == 0 || !value){
-										value = 'none';
-									} else {
-										if (modesplit[2] !== undefined){
-											value = modesplit[2];
+						var $els = el;
+						
+						if (options.applyto != ''){
+							
+							var applysplit = options.applyto.split('.');
+							
+							if (applysplit.length == 1){
+								$els = $(applysplit[0]);
+							} else if (applysplit[0] == 'each'){
+								$els = el.find(applysplit[1]);
+							} else if (applysplit[0] == 'children') {
+								$els = el.children(applysplit[1]);
+							}
+						
+						}
+						
+						$els.each( function(){
+							
+							var $el = $(this);
+							
+							// The **mode** option defines what we have to do with our value. There are quite a few options.
+							// The **attr** and **css** modes take a second option that is separated with a dot.
+						
+							var modesplit = options.mode.split('.');
+							switch(modesplit[0]){
+								case 'text':
+									$el.text(value);
+									break;
+								case 'html':
+									$el.html(value);
+									break;
+								case 'val':
+									$el.val(value);
+									break;
+								case 'attr':
+									$el.attr(modesplit[1], value);
+									break;
+								case 'css':
+									if (modesplit[1] == 'display'){
+										if ($.trim(value) == '' || $.trim(value) == 0 || !value){
+											value = 'none';
+										} else {
+											if (modesplit[2] !== undefined){
+												value = modesplit[2];
+											}
 										}
 									}
-								}
 								
-								// CSS values can be animated if needed:
+									// CSS values can be animated if needed:
 								
-								if (options.speed > 0){
-									var style = {};
-									style[modesplit[1]] =  value;
-									el.animate(style, options.speed, options.easing);
-								} else {
-									el.css(modesplit[1], value);
-								}
-								break;
-							case 'none':
-								break;
-							default:
-								
-								// The default behavior is to call a custom function if one exits with that name:
-							
-								if (modesplit[0] != undefined){
-									var fn = window[modesplit[0]];
-									if(typeof fn === 'function') {
-										fn(value,el);
+									if (options.speed > 0){
+										var style = {};
+										style[modesplit[1]] =  value;
+										$el.animate(style, options.speed, options.easing);
+									} else {
+										$el.css(modesplit[1], value);
 									}
-								}
-						}
+									break;
+								case 'none':
+									break;
+								default:
+								
+									// The default behavior is to call a custom function if one exits with that name:
+							
+									if (modesplit[0] != undefined){
+										var fn = window[modesplit[0]];
+										if(typeof fn === 'function') {
+											fn(value,$el);
+										}
+									}
+							}
+							
+						});
+							
 					}
 				
 				}
