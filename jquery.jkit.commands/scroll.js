@@ -15,7 +15,8 @@ plugin.commands.scroll = (function(){
 	plugin.addCommandDefaults('scroll', {
 		'speed': 			500,
 		'dynamic': 			'yes',
-		'easing': 			'linear'
+		'easing': 			'linear',
+		'offset': 			0
 	});
 	
 	// The execute function is launched whenever this command is executed:
@@ -33,6 +34,8 @@ plugin.commands.scroll = (function(){
 			} else {
 				var ypos = $($that.attr("href")).offset().top;
 			}
+			
+			ypos = ypos + parseInt(options.offset);
 			
 			// The dynamic option changes the scroll animation duration based on the distance between 
 			// us and the target element:
