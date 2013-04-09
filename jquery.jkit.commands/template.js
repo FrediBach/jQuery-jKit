@@ -93,8 +93,6 @@ plugin.commands.template = (function(){
 		
 	};
 	
-	// ### applyTemplate
-	//
 	// The **applyTemplate** function is used by the template command. It adds the template with all it's
 	// options to the suoplied element.
 	
@@ -152,8 +150,6 @@ plugin.commands.template = (function(){
 	};
 	
 	
-	// ### renameDynamicAttributes
-	//
 	// The **renameDynamicAttributes** function is used by the **plugin.applyTemplate** function. It's 
 	// used to rename attributes on dynamic elements so that we get unique elements.
 	

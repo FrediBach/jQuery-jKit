@@ -14,9 +14,13 @@ plugin.commands.tooltip = (function(){
 	
 	plugin.addCommandDefaults('tooltip', {
 		'text':				'',
+		'content': 			'',
 		'color':			'#fff',
 		'background':		'#000',
-		'classname':		''
+		'classname':		'',
+		'follow': 			false,
+		'event': 			'mouse',
+		'yoffset': 			20
 	});
 	
 	// The execute function is launched whenever this command is executed:
@@ -24,6 +28,7 @@ plugin.commands.tooltip = (function(){
 	command.execute = function($that, options){
 		
 		var s = plugin.settings;
+		var visible = false;
 		
 		// Create the tooltip div if it doesn't already exist:
 		
@@ -35,9 +40,26 @@ plugin.commands.tooltip = (function(){
 		
 		$tip = $('div#'+s.prefix+'-tooltip');
 		
-		// Display the tooltip on mouseenter:
+		// Get the text from the DOM node, title or alt attribute if it isn't set in the options:
 		
-		$that.on('mouseenter', function(e){
+		if (options.content != ''){
+			options.text = $(options.content).html();
+		} else {
+			if (options.text == '') options.text = $.trim($that.attr('title'));
+			if (options.text == '') options.text = $.trim($that.attr('alt'));
+		}
+		
+		// Display the tooltip on mouseenter or focus:
+		
+		var onevent = 'mouseenter';
+		var offevent = 'mouseleave click';
+		
+		if (options.event == 'focus'){
+			onevent = 'focus';
+			offevent = 'blur';
+		}
+		
+		$that.on(onevent, function(e){
 			
 			// Has this tooltip custom styling either by class or by supplying color values?
 			
@@ -47,15 +69,25 @@ plugin.commands.tooltip = (function(){
 				$tip.html(options.text).removeClass().css({ 'background': options.background, 'color': options.color });
 			}
 			
-			// Correctly position the tooltip based on the mouse position:
+			if (options.event == 'focus'){
+				
+				// Set the position based on the element that came into focus:
+				
+				$tip.css({ 'top': $that.offset().top+$that.outerHeight()-$(window).scrollTop(), 'left': $that.offset().left });
+				
+			} else {
 			
-			$tip.css('top', (e.pageY+15-$(window).scrollTop())).css('left', e.pageX);
+				// Correctly position the tooltip based on the mouse position:
 			
-			// Fix the tooltip position so that we don't get tooltips we can't read because their outside
-			// the window:
+				$tip.css('top', (e.pageY+options.yoffset-$(window).scrollTop())).css('left', e.pageX);
 			
-			if ( parseInt($tip.css('left')) > $(window).width() / 2 ){
-				$tip.css('left', '0px').css('left', e.pageX - $tip.width());
+				// Fix the tooltip position so that we don't get tooltips we can't read because their outside
+				// the window:
+			
+				if ( parseInt($tip.css('left')) > $(window).width() / 2 ){
+					$tip.css('left', '0px').css('left', e.pageX - $tip.width());
+				}
+				
 			}
 			
 			// Stop any possible previous animations and start fading it in:
@@ -63,22 +95,35 @@ plugin.commands.tooltip = (function(){
 			$tip.stop(true, true).fadeIn(200);
 			
 			plugin.triggerEvent('open', $that, options);
-		
+			
+			visible = true;
 		
 		// Fade out the tooltip on mouseleave:
 		
-		}).on('mouseleave click', function(e){
+		}).on(offevent, function(e){
 			
 			var speed = 200;
 			if ($tip.is(':animated')){
 				speed = 0;
 			}
 			
-			$tip.stop(true, true).fadeOut(speed);
+			$tip.stop(true, true).fadeOut(speed, function(){
+				visible = false;
+			});
 			
 			plugin.triggerEvent('closed', $that, options);
 		
 		});
+		
+		// If the "follow" option is "true", we let the tooltip follow the mouse:
+		
+		if (options.follow){
+			$('body').on('mousemove', function(e){
+				if (visible){
+					$tip.css('top', (e.pageY+options.yoffset-$(window).scrollTop())).css('left', e.pageX);
+				}
+			});
+		}
 		
 	};
 	

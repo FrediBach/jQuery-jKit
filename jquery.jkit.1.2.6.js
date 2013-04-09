@@ -13,8 +13,8 @@
 // And even if jKit doesn't have that one feature you need right now, jKit is fully extendable
 // with plugins and command replacements, all that and your API always stays the same.
 //
-// - Version: `1.2.5`
-// - Release date: `8. 4. 2013`
+// - Version: `1.2.6`
+// - Release date: `9. 4. 2013`
 // - [API Documentation & Demos](http://jquery-jkit.com/)
 // - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.2.0.js) (made 
 //	 with [sourceMakeup](http://jquery-jkit.com/sourcemakeup))
@@ -35,7 +35,7 @@
 //
 //     <script src="js/jquery-1.9.1.min.js"></script>
 //     <script src="js/jquery.easing.1.3.js"></script>
-//     <script src="js/jquery.jkit.1.2.5.min.js"></script>
+//     <script src="js/jquery.jkit.1.2.6.min.js"></script>
 //
 //     <script type="text/javascript">
 //         $(document).ready(function(){
@@ -1381,9 +1381,13 @@
 			
 			plugin.addCommandDefaults('tooltip', {
 				'text':				'',
+				'content': 			'',
 				'color':			'#fff',
 				'background':		'#000',
-				'classname':		''
+				'classname':		'',
+				'follow': 			false,
+				'event': 			'mouse',
+				'yoffset': 			20
 			});
 			
 			// The execute function is launched whenever this command is executed:
@@ -1391,6 +1395,7 @@
 			command.execute = function($that, options){
 				
 				var s = plugin.settings;
+				var visible = false;
 				
 				// Create the tooltip div if it doesn't already exist:
 				
@@ -1402,9 +1407,26 @@
 				
 				$tip = $('div#'+s.prefix+'-tooltip');
 				
-				// Display the tooltip on mouseenter:
+				// Get the text from the DOM node, title or alt attribute if it isn't set in the options:
 				
-				$that.on('mouseenter', function(e){
+				if (options.content != ''){
+					options.text = $(options.content).html();
+				} else {
+					if (options.text == '') options.text = $.trim($that.attr('title'));
+					if (options.text == '') options.text = $.trim($that.attr('alt'));
+				}
+				
+				// Display the tooltip on mouseenter or focus:
+				
+				var onevent = 'mouseenter';
+				var offevent = 'mouseleave click';
+				
+				if (options.event == 'focus'){
+					onevent = 'focus';
+					offevent = 'blur';
+				}
+				
+				$that.on(onevent, function(e){
 					
 					// Has this tooltip custom styling either by class or by supplying color values?
 					
@@ -1414,15 +1436,25 @@
 						$tip.html(options.text).removeClass().css({ 'background': options.background, 'color': options.color });
 					}
 					
-					// Correctly position the tooltip based on the mouse position:
+					if (options.event == 'focus'){
+						
+						// Set the position based on the element that came into focus:
+						
+						$tip.css({ 'top': $that.offset().top+$that.outerHeight()-$(window).scrollTop(), 'left': $that.offset().left });
+						
+					} else {
 					
-					$tip.css('top', (e.pageY+15-$(window).scrollTop())).css('left', e.pageX);
+						// Correctly position the tooltip based on the mouse position:
 					
-					// Fix the tooltip position so that we don't get tooltips we can't read because their outside
-					// the window:
+						$tip.css('top', (e.pageY+options.yoffset-$(window).scrollTop())).css('left', e.pageX);
 					
-					if ( parseInt($tip.css('left')) > $(window).width() / 2 ){
-						$tip.css('left', '0px').css('left', e.pageX - $tip.width());
+						// Fix the tooltip position so that we don't get tooltips we can't read because their outside
+						// the window:
+					
+						if ( parseInt($tip.css('left')) > $(window).width() / 2 ){
+							$tip.css('left', '0px').css('left', e.pageX - $tip.width());
+						}
+						
 					}
 					
 					// Stop any possible previous animations and start fading it in:
@@ -1430,22 +1462,35 @@
 					$tip.stop(true, true).fadeIn(200);
 					
 					plugin.triggerEvent('open', $that, options);
-				
+					
+					visible = true;
 				
 				// Fade out the tooltip on mouseleave:
 				
-				}).on('mouseleave click', function(e){
+				}).on(offevent, function(e){
 					
 					var speed = 200;
 					if ($tip.is(':animated')){
 						speed = 0;
 					}
 					
-					$tip.stop(true, true).fadeOut(speed);
+					$tip.stop(true, true).fadeOut(speed, function(){
+						visible = false;
+					});
 					
 					plugin.triggerEvent('closed', $that, options);
 				
 				});
+				
+				// If the "follow" option is "true", we let the tooltip follow the mouse:
+				
+				if (options.follow){
+					$('body').on('mousemove', function(e){
+						if (visible){
+							$tip.css('top', (e.pageY+options.yoffset-$(window).scrollTop())).css('left', e.pageX);
+						}
+					});
+				}
 				
 			};
 			
@@ -3479,8 +3524,6 @@
 				
 			};
 			
-			// ### applyTemplate
-			//
 			// The **applyTemplate** function is used by the template command. It adds the template with all it's
 			// options to the suoplied element.
 			
@@ -3538,8 +3581,6 @@
 			};
 			
 			
-			// ### renameDynamicAttributes
-			//
 			// The **renameDynamicAttributes** function is used by the **plugin.applyTemplate** function. It's 
 			// used to rename attributes on dynamic elements so that we get unique elements.
 			
