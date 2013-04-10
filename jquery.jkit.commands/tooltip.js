@@ -18,7 +18,7 @@ plugin.commands.tooltip = (function(){
 		'color':			'#fff',
 		'background':		'#000',
 		'classname':		'',
-		'follow': 			false,
+		'follow': 			'no',
 		'event': 			'mouse',
 		'yoffset': 			20
 	});
@@ -117,7 +117,7 @@ plugin.commands.tooltip = (function(){
 		
 		// If the "follow" option is "true", we let the tooltip follow the mouse:
 		
-		if (options.follow){
+		if (options.follow == 'yes'){
 			$('body').on('mousemove', function(e){
 				if (visible){
 					$tip.css('top', (e.pageY+options.yoffset-$(window).scrollTop())).css('left', e.pageX);

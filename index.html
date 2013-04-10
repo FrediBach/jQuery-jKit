@@ -802,6 +802,19 @@
 <a href="#" data-jkit="[tooltip:color=#333;background=#E01B49;text=Test Tooltip Text 2]">Test Link 2</a> &nbsp; &nbsp;
 <a href="#" data-jkit="[tooltip:classname=mytooltip;text=Test Tooltip Text 3]">Test Link with a class for styling</a></div>
 
+
+
+<div class="demo"><a href="#" data-jkit="[tooltip:content=#tooltipcontent]">Content from a hidden div</a> &nbsp; &nbsp;
+<a href="#" data-jkit="[tooltip]" title="Test Tooltip Text 4">Text from title attribute</a> &nbsp; &nbsp; 
+<a href="#" data-jkit="[tooltip]" alt="Test Tooltip Text 5">Text from alt attribute</a> &nbsp; &nbsp; 
+<a href="#" data-jkit="[tooltip:follow=true;text=Test Tooltip Text 6]">Follow the mouse</a>
+<br />
+<input type="text" name="test" data-jkit="[tooltip:event=focus;text=Test Tooltip Text 7]">
+<div id="tooltipcontent" style="display:none">
+	<h4>Header</h4>
+	<p>Paragraph</p>
+</div></div>
+
 			<h2>Paginate</h2>
 			<p>
 				Lets you create paginated content.
@@ -1515,7 +1528,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="jquery-1.9.1.min.js"><\/script>')</script>
 	<script src="jquery.easing.1.3.js"></script>
-	<script src="jquery.jkit.1.2.6.min.js"></script>
+	<script src="jquery.jkit.1.2.7.min.js"></script>
 
 
 	<script type="text/javascript">
