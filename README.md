@@ -14,7 +14,7 @@ Basics
 ###Including the library
 
     <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="jquery.jkit.1.2.7.min.js"></script>
+    <script type="text/javascript" src="jquery.jkit.1.2.8.min.js"></script>
     
     <script type="text/javascript">
     $(document).ready(function(){

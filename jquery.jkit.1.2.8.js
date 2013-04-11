@@ -13,8 +13,8 @@
 // And even if jKit doesn't have that one feature you need right now, jKit is fully extendable
 // with plugins and command replacements, all that and your API always stays the same.
 //
-// - Version: `1.2.7`
-// - Release date: `10. 4. 2013`
+// - Version: `1.2.8`
+// - Release date: `11. 4. 2013`
 // - [API Documentation & Demos](http://jquery-jkit.com/)
 // - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.2.0.js) (made 
 //	 with [sourceMakeup](http://jquery-jkit.com/sourcemakeup))
@@ -35,7 +35,7 @@
 //
 //     <script src="js/jquery-1.9.1.min.js"></script>
 //     <script src="js/jquery.easing.1.3.js"></script>
-//     <script src="js/jquery.jkit.1.2.7.min.js"></script>
+//     <script src="js/jquery.jkit.1.2.8.min.js"></script>
 //
 //     <script type="text/javascript">
 //         $(document).ready(function(){
@@ -1402,7 +1402,9 @@
 				if ($('div#'+s.prefix+'-tooltip').length == 0){
 					$('<div/>', {
 						id: s.prefix+'-tooltip'
-					}).hide().appendTo('body');
+					})
+					.css('position', 'absolute')
+					.hide().appendTo('body');
 				}
 				
 				$tip = $('div#'+s.prefix+'-tooltip');
@@ -1440,13 +1442,13 @@
 						
 						// Set the position based on the element that came into focus:
 						
-						$tip.css({ 'top': $that.offset().top+$that.outerHeight()-$(window).scrollTop(), 'left': $that.offset().left });
+						$tip.css({ 'top': $that.offset().top+$that.outerHeight(), 'left': $that.offset().left });
 						
 					} else {
 					
 						// Correctly position the tooltip based on the mouse position:
 					
-						$tip.css('top', (e.pageY+options.yoffset-$(window).scrollTop())).css('left', e.pageX);
+						$tip.css('top', (e.pageY+options.yoffset)).css('left', e.pageX);
 					
 						// Fix the tooltip position so that we don't get tooltips we can't read because their outside
 						// the window:

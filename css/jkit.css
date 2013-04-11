@@ -395,7 +395,7 @@ div#jkit-tooltip {
 	padding: 4px;
 	padding-left: 8px;
 	padding-right: 8px;
-	position: fixed;
+	position: absolute;
 	z-index: 10000;
 }
 
@@ -496,7 +496,7 @@ div#jkit-tooltip {
 	padding: 4px;
 	padding-left: 8px;
 	padding-right: 8px;
-	position: fixed;
+	position: absolute;
 }
 .mytooltip {
 	background: #333;

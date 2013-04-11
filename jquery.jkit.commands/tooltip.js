@@ -35,7 +35,9 @@ plugin.commands.tooltip = (function(){
 		if ($('div#'+s.prefix+'-tooltip').length == 0){
 			$('<div/>', {
 				id: s.prefix+'-tooltip'
-			}).hide().appendTo('body');
+			})
+			.css('position', 'absolute')
+			.hide().appendTo('body');
 		}
 		
 		$tip = $('div#'+s.prefix+'-tooltip');
@@ -73,13 +75,13 @@ plugin.commands.tooltip = (function(){
 				
 				// Set the position based on the element that came into focus:
 				
-				$tip.css({ 'top': $that.offset().top+$that.outerHeight()-$(window).scrollTop(), 'left': $that.offset().left });
+				$tip.css({ 'top': $that.offset().top+$that.outerHeight(), 'left': $that.offset().left });
 				
 			} else {
 			
 				// Correctly position the tooltip based on the mouse position:
 			
-				$tip.css('top', (e.pageY+options.yoffset-$(window).scrollTop())).css('left', e.pageX);
+				$tip.css('top', (e.pageY+options.yoffset)).css('left', e.pageX);
 			
 				// Fix the tooltip position so that we don't get tooltips we can't read because their outside
 				// the window:
