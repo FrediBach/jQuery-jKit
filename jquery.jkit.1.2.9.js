@@ -13,8 +13,8 @@
 // And even if jKit doesn't have that one feature you need right now, jKit is fully extendable
 // with plugins and command replacements, all that and your API always stays the same.
 //
-// - Version: `1.2.8`
-// - Release date: `11. 4. 2013`
+// - Version: `1.2.9`
+// - Release date: `12. 4. 2013`
 // - [API Documentation & Demos](http://jquery-jkit.com/)
 // - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.2.0.js) (made 
 //	 with [sourceMakeup](http://jquery-jkit.com/sourcemakeup))
@@ -35,7 +35,7 @@
 //
 //     <script src="js/jquery-1.9.1.min.js"></script>
 //     <script src="js/jquery.easing.1.3.js"></script>
-//     <script src="js/jquery.jkit.1.2.8.min.js"></script>
+//     <script src="js/jquery.jkit.1.2.9.min.js"></script>
 //
 //     <script type="text/javascript">
 //         $(document).ready(function(){
@@ -5735,8 +5735,16 @@
 	// date string is valid.
 	
 	$.fn.jKit_dateCheck = function(string){
-		var filter = /^[0-9]{2}\.[0-9]{2}\.[0-9]{2}$/i;
-		return filter.test(string);
+		
+		return $.fn.jKit_regexTests(string, [
+			/^[0-9]{2}\.[0-9]{2}\.[0-9]{2}$/i, // 01.01.12
+			/^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{2}$/i, // 1.1.12
+			/^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{4}$/i, // 1.1.2012
+			/^[0-9]{2}\.[0-9]{2}\.[0-9]{4}$/i, // 01.01.2012
+			/^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/i, // 2012-01-01
+			/^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/i // 01/01/2012
+		]);
+		
 	};
 	
 	
@@ -5746,8 +5754,12 @@
 	// time string is valid.
 	
 	$.fn.jKit_timeCheck = function(string){
-		var filter = /^[0-9]{1,2}\:[0-9]{2}$/i;
-		return filter.test(string);
+		
+		return $.fn.jKit_regexTests(string, [
+			/^[0-9]{1,2}\:[0-9]{2}$/i, // 1:59
+			/^[0-9]{1,2}\:[0-9]{2}\:[0-9]{2}$/i // 1:59:59
+		]);
+		
 	};
 	
 	
@@ -5757,8 +5769,13 @@
 	// phone string is valid.
 	
 	$.fn.jKit_phoneCheck = function(string){
-		var filter = /^(\+|0)[\d ]+(-\d*)?\d$/;
-		return filter.test(string);
+		
+		return $.fn.jKit_regexTests(string, [
+			/^(\+|0)([\d ])+(0|\(0\))+[\d ]+(-\d*)?\d$/, // +41 (0)76 123 45 67
+			/^(\+|0)[\d ]+(-\d*)?\d$/, // +41 142-124-23
+			/^((((\(\d{3}\))|(\d{3}-))\d{3}-\d{4})|(\+?\d{2}((-| )\d{1,8}){1,5}))(( x| ext)\d{1,5}){0,1}$/ // NAND and int formats
+		]);
+		
 	};
 	
 	
@@ -5790,6 +5807,27 @@
 		if (passwd.match(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/)) intScore = intScore + 5;
 		
 		return intScore;
+	};
+	
+	
+	// ### jKit_regexTests
+	//
+	// The **jKit_regexTests** plugin function is mainly used by the validation commands to test for different patterns.
+	// The first argument is the string to test, the second contains an array of all patterns to test and the third is a boolean that can be set to true if
+	// all patterns need to be found.
+	
+	$.fn.jKit_regexTests = function(string, tests, checkall){
+		
+		if (checkall === undefined) checkall = false;
+		
+		var matches = 0;
+		
+		for (var x in tests){
+			if ( tests[x].test(string) ) matches++;
+		}
+		
+		return (checkall && matches == tests.length) || (!checkall && matches > 0);
+	
 	};
 	
 	

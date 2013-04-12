@@ -1,0 +1,29 @@
+{
+    "name": "jkit",
+    "title": "jQuery jKit",
+    "description": "A very easy to use, cross platform, jQuery based UI toolkit, that's still small in size, has the features you need, and doesn't get in your way of doing things!",
+    "keywords": [
+        "toolkit",
+        "ui",
+		"widgets"
+    ],
+    "version": "1.2.9",
+    "author": {
+        "name": "Fredi Bach",
+        "url": "http://fredibach.ch"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/FrediBach/jQuery-jKit/blob/master/license.txt"
+        }
+    ],
+    "bugs": "https://github.com/FrediBach/jQuery-jKit/issues",
+    "homepage": "http://jquery-jkit.com/",
+	"demo": "http://jquery-jkit.com/",
+    "docs": "http://jquery-jkit.com/",
+    "download": "https://github.com/FrediBach/jQuery-jKit/archive/master.zip",
+    "dependencies": {
+        "jquery": ">=1.7"
+    }
+}
