@@ -13,8 +13,8 @@
 // And even if jKit doesn't have that one feature you need right now, jKit is fully extendable
 // with plugins and command replacements, all that and your API always stays the same.
 //
-// - Version: `1.2.9`
-// - Release date: `12. 4. 2013`
+// - Version: `1.2.10`
+// - Release date: `3. 5. 2013`
 // - [API Documentation & Demos](http://jquery-jkit.com/)
 // - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.2.0.js) (made 
 //	 with [sourceMakeup](http://jquery-jkit.com/sourcemakeup))
@@ -35,7 +35,7 @@
 //
 //     <script src="js/jquery-1.9.1.min.js"></script>
 //     <script src="js/jquery.easing.1.3.js"></script>
-//     <script src="js/jquery.jkit.1.2.9.min.js"></script>
+//     <script src="js/jquery.jkit.1.2.10.min.js"></script>
 //
 //     <script type="text/javascript">
 //         $(document).ready(function(){
@@ -104,6 +104,11 @@
 		// Set an alias to **this** so that we can use it everywhere inside our plugin:
 		
 		var plugin = this;
+		
+		// Define some info variables that can be read with the special info command:
+		
+		plugin.version = '1.2.10';
+		plugin.inc = [];
 		
 		// Create an object for the plugin settings:
 		
@@ -254,6 +259,13 @@
 									plugin.executeCommand($(that), prevoptions.type, prevoptions);
 								}, options.delay);
 							});
+							
+						} else if (options.type == 'info'){
+							
+							var output = 'jKit version: '+plugin.version+'\n';
+							output += 'Included commands: '+plugin.inc.join(', ')+'\n';
+							console.log(output);
+							console.log($el);
 							
 						} else {
 							
@@ -963,6 +975,16 @@
 		
 		// --- add commands here --- //
 		
+		
+		
+		// Now as all included plugin commands are defined, we add the keys of them to the internal **inc** array so that 
+		// the special **info** command can display them.
+
+		for (x in plugin.commands){
+			if (x != 'init'){
+				plugin.inc.push(x);
+			}
+		}
 		
 		
 		// Start the plugin by running the initialization function:

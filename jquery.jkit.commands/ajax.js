@@ -33,7 +33,7 @@ plugin.commands.ajax = (function(){
 			var href = $that.attr('href');
 		}
 		
-		if (options.when == 'load' || options.when == 'viewport'){
+		if (options.when == 'load' || options.when == 'viewport' || options.when == 'shown'){
 			
 			// If the option **when** is **load*, than we're just loading the content:
 			
@@ -42,12 +42,12 @@ plugin.commands.ajax = (function(){
 					plugin.triggerEvent('complete', $that, options);
 				});
 				
-			// If it's **viewport**, we're going to wait till the content enters the viewport before 
+			// If it's **viewport** or **shown**, we're going to wait till the content enters the viewport or is being shown (think resonsive) before 
 			// we load the content or the image (lazy load), whatever our options say:
 				
 			} else {
 				var myInterval = setInterval(function(){
-					if ($that.jKit_inViewport() || !$that.jKit_inViewport() && s.ignoreViewport){
+					if ( (options.when == 'viewport' && ($that.jKit_inViewport() || !$that.jKit_inViewport() && s.ignoreViewport)) || (options.when == 'shown' && $that.css('display') != 'none') ){
 						if (options.src != undefined){
 							$that.attr('src', options.src);
 							plugin.triggerEvent('complete', $that, options);
