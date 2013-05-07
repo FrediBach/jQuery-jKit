@@ -13,10 +13,10 @@
 // And even if jKit doesn't have that one feature you need right now, jKit is fully extendable
 // with plugins and command replacements, all that and your API always stays the same.
 //
-// - Version: `1.2.10`
-// - Release date: `3. 5. 2013`
+// - Version: `1.2.11`
+// - Release date: `7. 5. 2013`
 // - [API Documentation & Demos](http://jquery-jkit.com/)
-// - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.2.0.js) (made 
+// - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.2.11.js) (made 
 //	 with [sourceMakeup](http://jquery-jkit.com/sourcemakeup))
 // - [Download](https://github.com/FrediBach/jQuery-jKit/archive/master.zip)
 //
@@ -35,7 +35,7 @@
 //
 //     <script src="js/jquery-1.9.1.min.js"></script>
 //     <script src="js/jquery.easing.1.3.js"></script>
-//     <script src="js/jquery.jkit.1.2.10.min.js"></script>
+//     <script src="js/jquery.jkit.1.2.11.min.js"></script>
 //
 //     <script type="text/javascript">
 //         $(document).ready(function(){
@@ -107,7 +107,7 @@
 		
 		// Define some info variables that can be read with the special info command:
 		
-		plugin.version = '1.2.10';
+		plugin.version = '1.2.11';
 		plugin.inc = [];
 		
 		// Create an object for the plugin settings:
@@ -2205,6 +2205,91 @@
 		}());
 
 
+		// ##### Respond Command
+		//
+		// The [respond command](http://jquery-jkit.com/commands/respond.html) can helps you create better responsive websites,
+		// especially if it's built modularly. It makes it possible to use something similar to "Element Queries".
+		
+		plugin.commands.respond = (function(){
+			
+			// Create an object that contains all of our data and functionality.
+			
+			var command = {};
+			
+			// This are the command defaults:
+			
+			plugin.addCommandDefaults('respond', {});
+			
+			// The execute function is launched whenever this command is executed:
+			
+			command.execute = function($that, options){
+				
+				// Onlyx run the command if the *width* option is set:
+				
+				if (options.width != undefined){
+					
+					// Split the string into an array that contain all widths, sorted from the smallest to the biggest:
+					
+					var widths = options.width.split(',');
+					widths.sort( function(a,b){
+						return parseInt(a)-parseInt(b);
+					});
+					
+					// Now execute and bind the **setClasses** function:
+					
+					setClasses($that, widths);
+					
+					$(window).resize(function(){
+						setClasses($that, widths);
+					});
+				}
+				
+			};
+			
+			// The **setClasses** function sets the ^correct class based on the elements width.
+			
+			var setClasses = function($that, widths){
+				
+				// Set some initial variables:
+				
+				var w = $that.width();
+				var responseClass = '';
+				
+				// Find out which class (if any) we have to set:
+				
+				for(var x in widths){
+					if (parseInt(widths[x]) < w){
+						responseClass = plugin.settings.prefix+'-respond-'+widths[x];
+					}
+				}
+				
+				// Get all currently set classes and remove them from the element:
+				
+				if ($that.attr('class') == undefined){
+					var classList = [];
+				} else {
+					var classList = $that.attr('class').split(/\s+/);
+				}
+				
+				$that.removeClass();
+				
+				// Add all needed classes back to the element together with the respond class:
+				
+				for(var x in classList){
+					if (classList[x].indexOf(plugin.settings.prefix+'-respond') == -1){
+						$that.addClass(classList[x]);
+					}
+				}
+				
+				$that.addClass(responseClass);
+				
+			};
+			
+			return command;
+		
+		}());
+
+
 		// ##### Parallax Command
 		//
 		// The [parallax command](http://jquery-jkit.com/commands/parallax.html) is used to create a parallax scrolling
@@ -4252,6 +4337,7 @@
 									plugin.triggerEvent('complete', $that, options);
 								} else {
 									$that.load(href, function(){
+										plugin.init($that);
 										plugin.triggerEvent('complete', $that, options);
 									});
 								}

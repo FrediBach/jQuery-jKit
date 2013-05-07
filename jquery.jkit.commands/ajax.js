@@ -53,6 +53,7 @@ plugin.commands.ajax = (function(){
 							plugin.triggerEvent('complete', $that, options);
 						} else {
 							$that.load(href, function(){
+								plugin.init($that);
 								plugin.triggerEvent('complete', $that, options);
 							});
 						}

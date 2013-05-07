@@ -13,10 +13,10 @@
 // And even if jKit doesn't have that one feature you need right now, jKit is fully extendable
 // with plugins and command replacements, all that and your API always stays the same.
 //
-// - Version: `1.2.10`
-// - Release date: `3. 5. 2013`
+// - Version: `1.2.11`
+// - Release date: `7. 5. 2013`
 // - [API Documentation & Demos](http://jquery-jkit.com/)
-// - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.2.0.js) (made 
+// - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.2.11.js) (made 
 //	 with [sourceMakeup](http://jquery-jkit.com/sourcemakeup))
 // - [Download](https://github.com/FrediBach/jQuery-jKit/archive/master.zip)
 //
@@ -35,7 +35,7 @@
 //
 //     <script src="js/jquery-1.9.1.min.js"></script>
 //     <script src="js/jquery.easing.1.3.js"></script>
-//     <script src="js/jquery.jkit.1.2.10.min.js"></script>
+//     <script src="js/jquery.jkit.1.2.11.min.js"></script>
 //
 //     <script type="text/javascript">
 //         $(document).ready(function(){
@@ -107,7 +107,7 @@
 		
 		// Define some info variables that can be read with the special info command:
 		
-		plugin.version = '1.2.10';
+		plugin.version = '1.2.11';
 		plugin.inc = [];
 		
 		// Create an object for the plugin settings:
