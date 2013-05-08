@@ -13,10 +13,10 @@
 // And even if jKit doesn't have that one feature you need right now, jKit is fully extendable
 // with plugins and command replacements, all that and your API always stays the same.
 //
-// - Version: `1.2.11`
-// - Release date: `7. 5. 2013`
+// - Version: `1.2.14`
+// - Release date: `8. 5. 2013`
 // - [API Documentation & Demos](http://jquery-jkit.com/)
-// - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.2.11.js) (made 
+// - [Source Documentation](http://jquery-jkit.com/sourcemakeup/?file=js/jquery.jkit.1.2.14.js) (made 
 //	 with [sourceMakeup](http://jquery-jkit.com/sourcemakeup))
 // - [Download](https://github.com/FrediBach/jQuery-jKit/archive/master.zip)
 //
@@ -35,7 +35,7 @@
 //
 //     <script src="js/jquery-1.9.1.min.js"></script>
 //     <script src="js/jquery.easing.1.3.js"></script>
-//     <script src="js/jquery.jkit.1.2.11.min.js"></script>
+//     <script src="js/jquery.jkit.1.2.14.min.js"></script>
 //
 //     <script type="text/javascript">
 //         $(document).ready(function(){
@@ -107,7 +107,7 @@
 		
 		// Define some info variables that can be read with the special info command:
 		
-		plugin.version = '1.2.11';
+		plugin.version = '1.2.14';
 		plugin.inc = [];
 		
 		// Create an object for the plugin settings:
@@ -197,9 +197,9 @@
 					// Get the rel or data-jkit attribute and extract all individual commands (they have to be inside square brackets):
 					
 					var rel = $(this).attr('rel');
-					var data = $(this).attr(s.dataAttribute);
+					var data = plugin.getDataCommands($(this));
 					
-					if (data != undefined){
+					if (data != ''){
 						rel = $.trim(data).substring(1);
 					} else {
 						rel = $.trim(rel).substring(5);
@@ -409,6 +409,59 @@
 			}
 		
 		};
+		
+		
+		// ### getDataCommands
+		//
+		// The **getDataCommands** function returns all jKit data element values that have to be executed. They can be spread over multiple
+		// attributes with different values for different element sizes (responsive):
+		//
+		//     <div data-jkit="[tabs]" data-jkit-lt-500-width="[show]" data-jkit-gt-499-width="[hide]">
+		//         ...
+		//     </div>
+		
+		plugin.getDataCommands = function($el){
+			
+			var s = plugin.settings;
+			var el = $el.get(0);
+			var commands = '';
+			
+			for (var i=0, attrs=el.attributes, l=attrs.length; i<l; i++){
+				
+			    var attr = attrs.item(i).nodeName;
+				var attrsplit = attr.split('-');
+				
+				if ( attrsplit[0] + '-' + attrsplit[1] == s.dataAttribute ){
+					
+					if (attrsplit.length > 2){
+						
+						if (attrsplit[4] !== undefined && attrsplit[4] == 'height'){
+							var size = $el.height();
+						} else {
+							var size = $el.width();
+						}
+						
+						if ( 	attrsplit[2] !== undefined && attrsplit[3] !== undefined && (
+								(attrsplit[2] == 'gt' && size > parseInt(attrsplit[3]))
+								|| (attrsplit[2] == 'lt' && size < parseInt(attrsplit[3])) ) 
+						){
+							commands += $el.attr(attr);
+						}
+						
+					} else {
+						
+						commands += $el.attr(attr);
+						
+					}
+					
+				}
+				
+			}
+			
+			return commands;
+			
+		}
+		
 		
 		// ### applyMacro
 		//
