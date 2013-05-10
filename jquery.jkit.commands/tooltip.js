@@ -122,7 +122,7 @@ plugin.commands.tooltip = (function(){
 		if (options.follow == 'yes'){
 			$('body').on('mousemove', function(e){
 				if (visible){
-					$tip.css('top', (e.pageY+options.yoffset-$(window).scrollTop())).css('left', e.pageX);
+					$tip.css('top', (e.pageY+options.yoffset)).css('left', e.pageX);
 				}
 			});
 		}
