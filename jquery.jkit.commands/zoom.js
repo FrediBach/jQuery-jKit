@@ -33,7 +33,7 @@ plugin.commands.zoom = (function(){
 			var height = $that.height();
 			var width = $that.width();
 			
-			$zoom = $('<div/>', {
+			var $zoom = $('<div/>', {
 				'class': s.prefix+'-'+type+'-overlay'
 			}).css( {
 				'position': 'absolute',
