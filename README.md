@@ -11,7 +11,7 @@ Get the full documentation over here: [jquery-jkit.com](http://jquery-jkit.com/)
 Basics
 ------
 
-###Including the library
+### Including the library
 
     <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="jquery.jkit.1.2.16.min.js"></script>
@@ -22,7 +22,7 @@ Basics
     });
     </script>
     
-###Basic Usage (HTML)
+### Basic Usage (HTML)
 
 jKit uses the the "data-jkit" attribute to inject it's functionality into your html. If you don't want, you don't have to use JavaScript, at all!
 
@@ -88,7 +88,7 @@ In our first versions of jKit, we abused the rel attribute to execute the comman
 
     <p rel="jKit[lorem:length=400]"></p>
     
-###Basic Usage (JavaScript)
+### Basic Usage (JavaScript)
 
 You can execute all jKit commands with JavaScript, too. This is not the prefered way, but sometimes you have to do it and this is how:
 
@@ -100,7 +100,7 @@ ADVANCED
 
 There's a lot of cool stuff under the hood of jKit for advanced users. Here's how to get most out of jKit.
 
-###Macros
+### Macros
 
 Macros can make your life a lot easier if you need to use the same command and options more than once. There are two ways to define a macro, the first one is on plugin init:
 
@@ -137,11 +137,11 @@ When using a macro, it is possible to overwrite any of the options defined in th
     
 One last warning! If you name a macro the same as a built in command, you will overwrite that command, so please be carefull and give your macros unique names!
 
-###Easing Plugin
+### Easing Plugin
 
 All commands that use animations have an option called "easing". To get all the great easing options, you have to include this amazing easing plugin on your page (or some other easing plugin that may be around somewhere).
 
-###Dynamic Option Values
+### Dynamic Option Values
 
 jKit makes it possible to use dynamic option values by adding the "*" character to the end of the value. You can either use global variables or global functions. Here's an example where we limit the length of a string to the number stored in a global variable.
 
@@ -160,7 +160,7 @@ Here's how you would do the same thing using a global function:
 
 The second way is of course only usefull in case you don't want to return the same value each time. And because "this" inside the function is the current element, you can actually do some very cool stuff with it.
 
-###The Target Option
+### The Target Option
 
 The target option is a special option that's available on all commands. It allows you to target childrens of the current element, so it's very usefull for stuff where you need to apply the same command to multiple elements. Here's an example where we limit the character count for every li element:
 
@@ -178,13 +178,13 @@ Here are some example values for target:
 - each: Selects all containing elements (be carefull with this one!)
 - each.h3: Selects all containing elements of type "h3"
 
-###Escaping
+### Escaping
 
 Sometimes you may need to use one of the protected characters inside an option value. In such a case, all you need is to escape the character with "\". Here's an example where we escape the "=" character inside the condition option value:
 
     <p rel="jKit[binding:selector=this;source=clearance;mode=css.opacity;condition=value\=0;if=1;else=0.2]"></p>
 
-###Defaults
+### Defaults
 
 Each command comes with default settings. So for example this two lines do exactly the same:
 
@@ -218,7 +218,7 @@ You can define your own defaults on plugin init like this:
     
 You can find all the original defaults by looking at the jKit source code, they are right at the top.
 
-###Replacements
+### Replacements
 
 jKit is a pretty small library and we don't want to make it bigger than about half the size of jQuery. This makes it impossible to create some big implementations for a command with tons of options and beautiful visuals. But don't worry, there's a way to replace the implementation of a command with an extended version. We will publish every command replacement right on the command page, so you always know what's available.
 
@@ -251,7 +251,7 @@ As you can see, you don't have to dublicate the whole commands code if you just 
 
     this.executeCommand(that, type, options);
 
-###Plugins
+### Plugins
 
 Another great way to use more cool stuff that isn't implemented inside jKit is with the plugin command. You can add plugins on init like this:
 
